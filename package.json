@@ -1,0 +1,14 @@
+{
+  "name": "opren_electron",
+  "version": "1.0.0",
+  "description": "Projet Régie OPREN",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Arthur",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.7.8"
+  }
+}
