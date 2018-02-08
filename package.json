@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron ."
   },
-  "author": "Arthur",
+  "author": "Opren Team",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.7.8"
