@@ -1,18 +1,43 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Opren!</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <main role="main">
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Now in Javascript!</h1>
+        </div>
+      </div>
 
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <span id="list"> </span>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </main>
+
+    <footer class="container">
+      <p>&copy; JAVASCRIPT OUAIS</p>
+    </footer>
+    </script>
+    <script>window.$ = window.jQuery = require('./js/jquery-1.11.1.js');</script>
     <script src="./js/event_builder.js"></script>
     <script src="./js/midi_io.js"></script>
     <script src="./js/tower_control.js"></script>
+    <script src="./js/testListe.js"></script>
   </body>
 </html>

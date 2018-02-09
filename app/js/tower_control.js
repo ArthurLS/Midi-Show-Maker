@@ -10,6 +10,7 @@ for (let i = 0; i < event.cue_list.length; i++) {
     setTimeout(function() {
     	var msg_midi = event.cue_list[i];
         console.log("Note n°"+i+" = "+msg_midi.options.note);
+        illuminate(i);
     	output.send(msg_midi.type, {
 			note: msg_midi.options.note,
 			velocity: msg_midi.options.note,
