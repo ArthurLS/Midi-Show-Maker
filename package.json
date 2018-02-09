@@ -15,6 +15,7 @@
   "dependencies": {
     "easymidi": "0.0.4",
     "midi": "^0.9.5",
+    "octicons": "^7.1.0",
     "serialport": "^6.0.5"
   }
 }
