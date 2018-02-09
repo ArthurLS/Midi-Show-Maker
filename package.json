@@ -9,6 +9,12 @@
   "author": "Opren Team",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "electron-rebuild": "^1.7.3"
+  },
+  "dependencies": {
+    "easymidi": "0.0.4",
+    "midi": "^0.9.5",
+    "serialport": "^6.0.5"
   }
 }
