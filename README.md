@@ -1,4 +1,4 @@
-## To Use
+## To Use :
 
 ```bash
 # Clone this repository
