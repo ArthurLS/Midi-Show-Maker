@@ -20,12 +20,14 @@ npm start
 - Ajouter evenement
 - Définir les périphériques I/O
 - Données:
+```
 {
     Nom: String
     ListeEvents: Liste<Evenement>
     Peripherique IN
     Peripherique OUT
 }
+```
 
 ## Evenement (Cue 0.. * ):
 - CRUD
