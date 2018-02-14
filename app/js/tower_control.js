@@ -17,7 +17,7 @@ for (let i = 0; i < event.cue_list.length; i++) {
 			channel: msg_midi.channel
 		});
     }, event.cue_list[i].delay);
-};
+}
 console.log(event.cue_list);
 
 
