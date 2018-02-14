@@ -26,6 +26,17 @@ const template = [
         ]
     },
     {
+        label: 'Configurations',
+        submenu: [
+            {
+                label:'Change input'
+            },
+            {
+                label:'Change output'
+            },
+        ]
+    },
+    {
         label: 'Edit',
         submenu: [
             {
