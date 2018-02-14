@@ -14,6 +14,7 @@ if (inputs.length != 0) {
 else console.log("You do not have a detected MIDI input available.");
 
 
+
 var output;
 if (outputs.length != 0) {
 	console.log("Using output: "+outputs[0]);
