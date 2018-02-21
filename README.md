@@ -27,10 +27,14 @@ npm install jquery --save
 - Données:
 ```
 {
-    Nom: String
-    ListeEvents: Liste<Evenement>
-    Peripherique IN
-    Peripherique OUT
+  "name":"The best project ",
+  "ListEvents":{
+    "eventTEST":"EventTEST"
+  },
+  "configuration": {
+    "input": "Midi Through 14:0",
+    "output": "RtMidi Input Client 130:0"
+  }
 }
 ```
 
