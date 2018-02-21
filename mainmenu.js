@@ -10,8 +10,7 @@ const template = [
         label: 'File',
         submenu: [
             {
-                label:'New Project',
-                click () {createInput()}
+                label:'New Project'
             },
             {
                 label: 'Load Project'
@@ -32,7 +31,8 @@ const template = [
         label: 'Configurations',
         submenu: [
             {
-                label:'Change input'
+                label:'Change input',
+                click () {createInput()}
             },
             {
                 label:'Change output'
@@ -220,7 +220,7 @@ function createInput(){
     }))
 
     // Ouvre le DevTools.
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 
 
 }

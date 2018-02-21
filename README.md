@@ -11,6 +11,11 @@ npm install
 # Run the app
 npm start
 ```
+## Dependances
+```
+npm install jquery --save
+```
+
 
 # Fonctionnalitées:
 
