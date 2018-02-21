@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+<h1>Edit input and output configuration!</h1>
+
+<h1>Set input</h1>
+<select name="inputs" class="form-control" id="inputs">
+</select>
+
+<h1>Set output</h1>
+<select name="outputs" class="form-control" id="outputs">
+</select>
+
+<button type="button" class="btn btn-success" onclick="save()">Save</button>
+<button type="button" class="btn btn-danger" onclick="quit()">Quit</button>
+</body>
+
+<script>window.$ = window.jQuery = require('jquery');</script>
+
+
+<!-- ul>(li+a+p)*10 -->
+
+<script>
+    var easymidi = require('easymidi');
+
+    var inputs = easymidi.getInputs();
+    var outputs = easymidi.getOutputs();
+    for(i =0;i<inputs.length;i++){
+        $( "select#inputs" ).append( "<option value="+inputs[i]+">"+inputs[i]+"</option>");
+    }
+    for(i =0;i<outputs.length;i++){
+        $( "select#outputs" ).append( "<option value="+outputs[i]+">"+outputs[i]+"</option>");
+    }
+    function save(){
+        console.log("saved");
+        var e = document.getElementById("select#inputs");
+        var inputSelected = e.options[e.selectedIndex].value;
+        localStorage.setItem("input", inputSelected);
+        var f = document.getElementById("select#outputs");
+        var outputSelected = f.options[f.selectedIndex].value;
+        localStorage.setItem("output", outputSelected);
+
+    }
+    function quit(){
+        console.log("quit");
+    }
+
+</script>
+</html>
