@@ -5,3 +5,8 @@
 li {
     cursor: pointer;
 }
+
+canvas {
+  width: 100%;
+  height: 50%;
+}
