@@ -22,21 +22,13 @@ const template = [
                 type:'separator'
             },
             {
-                label: 'Exit'
-            },
-
-        ]
-    },
-    {
-        label: 'Configurations',
-        submenu: [
-            {
-                label:'Change input',
+                label : 'Configurations',
                 click () {createInput()}
             },
             {
-                label:'Change output'
+                label: 'Exit'
             },
+
         ]
     },
     {
