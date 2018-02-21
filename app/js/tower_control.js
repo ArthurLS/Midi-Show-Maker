@@ -34,7 +34,6 @@ function read_mario() {
     }
 }
 
-add_cue(mario.cue_list, )
 //console.log(mario.cue_list);
 
 /*for (var i = 10; i < mario.cue_list.length; i++) {
