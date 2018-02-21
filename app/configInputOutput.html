@@ -41,10 +41,19 @@
 
 <script>
     var easymidi = require('easymidi');
+    const fs = require('fs');
 
     //Get inputs
     var inputs = easymidi.getInputs();
     var outputs = easymidi.getOutputs();
+
+
+    console.log(outputs[0]);
+    console.log(inputs[1]);
+
+    var data_file = 'app/json/project.json';
+    var project = JSON.parse(fs.readFileSync(data_file));
+
 
     //Display inputs on HTML
     for(i =0;i<inputs.length;i++){
@@ -57,9 +66,20 @@
 
     // Save configuration
     function save(){
+        //Get selected values
+        var inP =$("select#inputs").find(":selected").text()
+        var inO =$("select#outputs").find(":selected").text()
+
         //Add configurations on the WebStorage
-        localStorage.setItem("input", $("select#inputs").find(":selected").text());
-        localStorage.setItem("output", $("select#outputs").find(":selected").text());
+        localStorage.setItem("input",inP );
+        localStorage.setItem("output", inO);
+
+        //Add configutraions on the project.json
+        project.configuration.input=inP;
+        project.configuration.output=inO;
+        fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+
+
     }
     // Quit configuration
     function quit(){
