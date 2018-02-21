@@ -1,14 +1,16 @@
 const {Menu} = require('electron')
 const electron = require('electron')
 const app = electron.app
+const BrowserWindow = electron.BrowserWindow
+const path = require('path')
+const url = require('url')
 
 const template = [
     {
         label: 'File',
         submenu: [
             {
-                label:'New Project',
-                click () {console.log("File clicked !!!!!!!!! NICEEEEEE")}
+                label:'New Project'
             },
             {
                 label: 'Load Project'
@@ -29,7 +31,8 @@ const template = [
         label: 'Configurations',
         submenu: [
             {
-                label:'Change input'
+                label:'Change input',
+                click () {createInput()}
             },
             {
                 label:'Change output'
@@ -203,6 +206,23 @@ if (process.platform === 'darwin') {
             role: 'front'
         }
     ]
+}
+
+function createInput(){
+    console.log("File clicked !!!!!!!!! NICEEEEEE")
+    win = new BrowserWindow({width: 800, height: 600})
+
+    // et charge le index.html de l'application.
+    win.loadURL(url.format({
+        pathname: path.join(__dirname, 'app/configInput.html'),
+        protocol: 'file:',
+        slashes: true
+    }))
+
+    // Ouvre le DevTools.
+    //win.webContents.openDevTools()
+
+
 }
 
 const menu = Menu.buildFromTemplate(template)
