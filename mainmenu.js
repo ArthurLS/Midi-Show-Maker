@@ -214,7 +214,7 @@ function createInput(){
 
     // et charge le index.html de l'application.
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'app/configInput.html'),
+        pathname: path.join(__dirname, 'app/configInputOutput.html'),
         protocol: 'file:',
         slashes: true
     }))
