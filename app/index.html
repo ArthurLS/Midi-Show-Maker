@@ -1,41 +1,50 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Opren!</title>
+  <title>Opren!</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-    <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
-  </head>
-  <body>
-    <main role="main">
-      <div include="sections/jumbotron.html"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <span id="list"> </span>
-          </div>
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
+</head>
+<body onload="onload_init();">
+  <main role="main">
+    <!-- <div include="sections/jumbotron.html"></div> -->
+    <div class="container" >
+      <div class="row" id="top_row">
+        <div class="col-md-6" include="sections/top_left.html" style="overflow: scroll;">
         </div>
-        <hr>
+        <div class="col-md-6" include="sections/top_right.html"></div>
       </div>
-    </main>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12" include="sections/timeline.html"></div>
+      </div>
+    </div>
+  </main>
 
-    <footer class="container">
-      <p>&copy; JAVASCRIPT OUAIS</p>
-    </footer>
-    <script>window.$ = window.jQuery = require('./js/jquery-1.11.1.js');</script>
-    <script src="./js/event_builder.js"></script>
-    <script src="./js/midi_io.js"></script>
-    <script src="./js/tower_control.js"></script>
-    <script src="./js/testListe.js"></script>
-    <script src="./js/utils.js"></script>
-    <script>includeFile();</script>
-  </body>
+  <footer class="container">
+    <p>&copy; JAVASCRIPT OUAIS</p>
+  </footer>
+
+  <script>window.$ = window.jQuery = require('./js/jquery-1.11.1.js');</script>
+  
+  <script src="./js/utils.js"></script>
+  <script>includeFile();</script>
+  <script src="./js/event_builder.js"></script>
+  <script src="./js/midi_io.js"></script>
+  <script src="./js/tower_control.js"></script>
+  <script src="./js/popup_manager.js"></script> 
+  <script src="./js/testListe.js"></script>
+  
+</body>
 </html>

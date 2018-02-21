@@ -24,19 +24,14 @@ function create_cue(parent_cue_list, index, type, channel, delay, options) {
 
 
 function update_cue_delay(parent_cue_list, index_cue, new_delay) {
+	console.log("changed");
 	var old_delay = parent_cue_list[index_cue].delay;
 	parent_cue_list[index_cue].delay = new_delay;
 
-	for (var i = 0; i < parent_cue_list.length; i++) {
-		if(parent_cue_list[i].delay <= new_delay && parent_cue_list[i+1].delay >= new_delay){
-			if (new_delay > old_delay) {
-				move_cue(parent_cue_list, index_cue, i);
-			}
-			else move_cue(parent_cue_list, index_cue, i+1);
-			
-			break;
-		}
-	}
+	parent_cue_list.sort(function(a, b){return a.delay - b.delay});
+
+	console.log(parent_cue_list);
+	
 }
 
 function move_cue(parent_cue_list, old_index, new_index) {

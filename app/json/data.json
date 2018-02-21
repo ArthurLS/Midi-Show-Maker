@@ -14,15 +14,6 @@
     {
       "type": "noteon",
       "channel": 3,
-      "delay": 75,
-      "options": {
-        "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
       "delay": 150,
       "options": {
         "velocity": 127,
@@ -32,64 +23,10 @@
     {
       "type": "noteon",
       "channel": 3,
-      "delay": 225,
-      "options": {
-        "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 300,
-      "options": {
-        "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 375,
-      "options": {
-        "velocity": 127,
-        "note": 55
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
       "delay": 450,
       "options": {
         "velocity": 127,
-        "note": 43
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 525,
-      "options": {
-        "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 600,
-      "options": {
-        "velocity": 127,
-        "note": 43
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 675,
-      "options": {
-        "velocity": 127,
-        "note": 40
+        "note": 52
       }
     },
     {
@@ -98,16 +35,7 @@
       "delay": 750,
       "options": {
         "velocity": 127,
-        "note": 45
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 825,
-      "options": {
-        "velocity": 127,
-        "note": 47
+        "note": 48
       }
     },
     {
@@ -116,34 +44,7 @@
       "delay": 900,
       "options": {
         "velocity": 127,
-        "note": 46
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 975,
-      "options": {
-        "velocity": 127,
-        "note": 45
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1050,
-      "options": {
-        "velocity": 127,
         "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1125,
-      "options": {
-        "velocity": 127,
-        "note": 55
       }
     },
     {
@@ -152,70 +53,7 @@
       "delay": 1200,
       "options": {
         "velocity": 127,
-        "note": 57
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1275,
-      "options": {
-        "velocity": 127,
-        "note": 53
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1350,
-      "options": {
-        "velocity": 127,
         "note": 55
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1425,
-      "options": {
-        "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1500,
-      "options": {
-        "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1575,
-      "options": {
-        "velocity": 127,
-        "note": 50
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1650,
-      "options": {
-        "velocity": 127,
-        "note": 47
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1725,
-      "options": {
-        "velocity": 127,
-        "note": 48
       }
     },
     {
@@ -230,118 +68,10 @@
     {
       "type": "noteon",
       "channel": 3,
-      "delay": 1875,
-      "options": {
-        "velocity": 127,
-        "note": 40
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 1950,
-      "options": {
-        "velocity": 127,
-        "note": 45
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2025,
-      "options": {
-        "velocity": 127,
-        "note": 47
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2100,
-      "options": {
-        "velocity": 127,
-        "note": 46
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2175,
-      "options": {
-        "velocity": 127,
-        "note": 45
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2250,
-      "options": {
-        "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2325,
-      "options": {
-        "velocity": 127,
-        "note": 55
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
       "delay": 2400,
       "options": {
         "velocity": 127,
-        "note": 57
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2475,
-      "options": {
-        "velocity": 127,
-        "note": 53
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2550,
-      "options": {
-        "velocity": 127,
-        "note": 55
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2625,
-      "options": {
-        "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2700,
-      "options": {
-        "velocity": 127,
         "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2775,
-      "options": {
-        "velocity": 127,
-        "note": 50
       }
     },
     {
@@ -350,52 +80,7 @@
       "delay": 2850,
       "options": {
         "velocity": 127,
-        "note": 47
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 2925,
-      "options": {
-        "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3000,
-      "options": {
-        "velocity": 127,
-        "note": 55
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3075,
-      "options": {
-        "velocity": 127,
-        "note": 54
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3150,
-      "options": {
-        "velocity": 127,
-        "note": 53
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3225,
-      "options": {
-        "velocity": 127,
-        "note": 51
+        "note": 43
       }
     },
     {
@@ -404,52 +89,7 @@
       "delay": 3300,
       "options": {
         "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3375,
-      "options": {
-        "velocity": 127,
-        "note": 44
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3450,
-      "options": {
-        "velocity": 127,
-        "note": 45
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3525,
-      "options": {
-        "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3600,
-      "options": {
-        "velocity": 127,
-        "note": 45
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3675,
-      "options": {
-        "velocity": 127,
-        "note": 48
+        "note": 40
       }
     },
     {
@@ -458,34 +98,7 @@
       "delay": 3750,
       "options": {
         "velocity": 127,
-        "note": 50
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3825,
-      "options": {
-        "velocity": 127,
-        "note": 55
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3900,
-      "options": {
-        "velocity": 127,
-        "note": 54
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 3975,
-      "options": {
-        "velocity": 127,
-        "note": 53
+        "note": 45
       }
     },
     {
@@ -494,34 +107,7 @@
       "delay": 4050,
       "options": {
         "velocity": 127,
-        "note": 51
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4125,
-      "options": {
-        "velocity": 127,
-        "note": 52
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4200,
-      "options": {
-        "velocity": 127,
-        "note": 60
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4275,
-      "options": {
-        "velocity": 127,
-        "note": 60
+        "note": 47
       }
     },
     {
@@ -530,16 +116,7 @@
       "delay": 4350,
       "options": {
         "velocity": 127,
-        "note": 60
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4425,
-      "options": {
-        "velocity": 127,
-        "note": 55
+        "note": 46
       }
     },
     {
@@ -548,34 +125,7 @@
       "delay": 4500,
       "options": {
         "velocity": 127,
-        "note": 54
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4575,
-      "options": {
-        "velocity": 127,
-        "note": 53
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4650,
-      "options": {
-        "velocity": 127,
-        "note": 51
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4725,
-      "options": {
-        "velocity": 127,
-        "note": 52
+        "note": 45
       }
     },
     {
@@ -584,16 +134,7 @@
       "delay": 4800,
       "options": {
         "velocity": 127,
-        "note": 44
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 4875,
-      "options": {
-        "velocity": 127,
-        "note": 45
+        "note": 52
       }
     },
     {
@@ -602,16 +143,7 @@
       "delay": 4950,
       "options": {
         "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 5025,
-      "options": {
-        "velocity": 127,
-        "note": 45
+        "note": 55
       }
     },
     {
@@ -620,16 +152,7 @@
       "delay": 5100,
       "options": {
         "velocity": 127,
-        "note": 48
-      }
-    },
-    {
-      "type": "noteon",
-      "channel": 3,
-      "delay": 5175,
-      "options": {
-        "velocity": 127,
-        "note": 50
+        "note": 57
       }
     },
     {
@@ -638,13 +161,40 @@
       "delay": 5250,
       "options": {
         "velocity": 127,
-        "note": 51
+        "note": 53
       }
     },
     {
       "type": "noteon",
       "channel": 3,
-      "delay": 5325,
+      "delay": 5550,
+      "options": {
+        "velocity": 127,
+        "note": 55
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 5700,
+      "options": {
+        "velocity": 127,
+        "note": 52
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 6000,
+      "options": {
+        "velocity": 127,
+        "note": 48
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 6300,
       "options": {
         "velocity": 127,
         "note": 50
@@ -653,7 +203,160 @@
     {
       "type": "noteon",
       "channel": 3,
-      "delay": 5400,
+      "delay": 6450,
+      "options": {
+        "velocity": 127,
+        "note": 47
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 6600,
+      "options": {
+        "velocity": 127,
+        "note": 48
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 7050,
+      "options": {
+        "velocity": 127,
+        "note": 43
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 7500,
+      "options": {
+        "velocity": 127,
+        "note": 40
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 7950,
+      "options": {
+        "velocity": 127,
+        "note": 45
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 8400,
+      "options": {
+        "velocity": 127,
+        "note": 47
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 8700,
+      "options": {
+        "velocity": 127,
+        "note": 46
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 9000,
+      "options": {
+        "velocity": 127,
+        "note": 45
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 9150,
+      "options": {
+        "velocity": 127,
+        "note": 52
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 9450,
+      "options": {
+        "velocity": 127,
+        "note": 55
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 9600,
+      "options": {
+        "velocity": 127,
+        "note": 57
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 9750,
+      "options": {
+        "velocity": 127,
+        "note": 53
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 10000,
+      "options": {
+        "velocity": 127,
+        "note": 55
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 10300,
+      "options": {
+        "velocity": 127,
+        "note": 52
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 10450,
+      "options": {
+        "velocity": 127,
+        "note": 48
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 10750,
+      "options": {
+        "velocity": 127,
+        "note": 50
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 11050,
+      "options": {
+        "velocity": 127,
+        "note": 47
+      }
+    },
+    {
+      "type": "noteon",
+      "channel": 3,
+      "delay": 11200,
       "options": {
         "velocity": 127,
         "note": 48

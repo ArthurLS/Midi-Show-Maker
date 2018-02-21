@@ -11,9 +11,12 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+const main_window_width = 1920;
+const main_window_height = 1080;
+
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1280, height: 720})
+  mainWindow = new BrowserWindow({width: main_window_width, height: main_window_height})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -25,12 +28,13 @@ function createWindow () {
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
+
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null
+    mainWindow = null;
   })
 
     require('./mainmenu') //Load file to change menu-bar
