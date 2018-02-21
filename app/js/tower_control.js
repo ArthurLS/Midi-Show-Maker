@@ -1,4 +1,6 @@
 const fs = require('fs');
+const BrowserWindow = require('electron').remote.BrowserWindow;
+const path = require('path');
 
 var data_file = 'app/json/data.json';
 var mario = JSON.parse(fs.readFileSync(data_file));
@@ -31,6 +33,8 @@ function read_mario() {
         }, mario.cue_list[i].delay);
     }
 }
+
+add_cue(mario.cue_list, )
 //console.log(mario.cue_list);
 
 /*for (var i = 10; i < mario.cue_list.length; i++) {
