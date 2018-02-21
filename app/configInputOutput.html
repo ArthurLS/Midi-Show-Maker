@@ -48,9 +48,6 @@
     var outputs = easymidi.getOutputs();
 
 
-    console.log(outputs[0]);
-    console.log(inputs[1]);
-
     var data_file = 'app/json/project.json';
     var project = JSON.parse(fs.readFileSync(data_file));
 
@@ -70,6 +67,7 @@
         var inP =$("select#inputs").find(":selected").text()
         var inO =$("select#outputs").find(":selected").text()
 
+
         //Add configurations on the WebStorage
         localStorage.setItem("input",inP );
         localStorage.setItem("output", inO);
@@ -78,7 +76,6 @@
         project.configuration.input=inP;
         project.configuration.output=inO;
         fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
-
 
     }
     // Quit configuration
