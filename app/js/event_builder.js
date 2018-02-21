@@ -24,19 +24,45 @@ function create_cue(parent_cue_list, index, type, channel, delay, options) {
 
 
 function update_cue_delay(parent_cue_list, index_cue, new_delay) {
-	console.log("changed");
+	console.log("update_cue_delay");
 	var old_delay = parent_cue_list[index_cue].delay;
 	parent_cue_list[index_cue].delay = new_delay;
 
-	parent_cue_list.sort(function(a, b){return a.delay - b.delay});
+	sort_list_by_delay(parent_cue_list);
+}
 
-	console.log(parent_cue_list);
-	
+function sort_list_by_delay(cue_list) {
+	console.log("sort_list_by_delay");
+	cue_list.sort(function(a, b){return a.delay - b.delay});
+}
+
+function remove_cue_with_index(cue_list, index) {
+	console.log("remove_cue_with_index");
+	cue_list.splice(index, 1);
+}
+
+function remove_cue_with_object(cue_list, cue) {
+	console.log("remove_cue_with_object");
+	sort_list_by_delay(parent_cue_list);
+    for (let i = 0; i < cue_list.length; i++) {
+        if (msg_midi == cue) {
+        	cue_list.splice(i, 1);
+        	break;
+        }
+    }
 }
 
 function move_cue(parent_cue_list, old_index, new_index) {
 	// arr.splice(old_index, 1)[0] -> removes the cue from the list and give us the cue in return
+	console.log("move_cue");
 	parent_cue_list.splice(new_index, 0, parent_cue_list.splice(old_index, 1)[0]);
+}
+
+function add_cue(parent_cue_list, cue) {
+	console.log("add_cue");
+	parent_cue_list.push(cue);
+
+	sort_list_by_delay(parent_cue_list);
 }
 
 

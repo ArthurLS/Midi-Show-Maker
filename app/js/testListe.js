@@ -1,16 +1,3 @@
-const BrowserWindow = require('electron').remote.BrowserWindow;
-const path = require('path');
-
-
-function open_cue_options(id) {
-	console.log("ola que tal");
-	const modalPath = path.join('file://', __dirname, './sections/cue_options.html');
-	let win = new BrowserWindow({ frame: false });
-	win.on('close', function () { win = null });
-	win.loadURL(modalPath);
-	win.show();
-};
-
 
 // Function used when sending a note: reflects the current note on a list
 function illuminate(index) {
@@ -38,7 +25,6 @@ function onchange_input_delay(index, value) {
 	fs.writeFileSync("app/json/data.json", JSON.stringify(mario, null, 2));
 }
 
-
 function toggle(a)
 {
     let e = document.getElementById(a);
@@ -52,8 +38,8 @@ function play(i) {
 	var msg_midi = mario.cue_list[i];
 	//console.log("Note n°"+i+" = "+msg_midi.options.note);
 	output.send(msg_midi.type, {
-	note: msg_midi.options.note,
-	velocity: msg_midi.options.note,
-	channel: msg_midi.channel
-});
+		note: msg_midi.options.note,
+		velocity: msg_midi.options.note,
+		channel: msg_midi.channel
+	});
 }
