@@ -42,26 +42,31 @@
 <script>
     var easymidi = require('easymidi');
 
+    //Get inputs
     var inputs = easymidi.getInputs();
     var outputs = easymidi.getOutputs();
+
+    //Display inputs on HTML
     for(i =0;i<inputs.length;i++){
         $( "select#inputs" ).append( "<option value="+inputs[i]+">"+inputs[i]+"</option>");
     }
+    //Display outputs on HTML
     for(i =0;i<outputs.length;i++){
         $( "select#outputs" ).append( "<option value="+outputs[i]+">"+outputs[i]+"</option>");
     }
-    function save(){
-        console.log("saved");
-        var e = document.getElementById("select#inputs");
-        var inputSelected = e.options[e.selectedIndex].value;
-        localStorage.setItem("input", inputSelected);
-        var f = document.getElementById("select#outputs");
-        var outputSelected = f.options[f.selectedIndex].value;
-        localStorage.setItem("output", outputSelected);
 
+    // Save configuration
+    function save(){
+        //Add configurations on the WebStorage
+        localStorage.setItem("input", $("select#inputs").find(":selected").text());
+        localStorage.setItem("output", $("select#outputs").find(":selected").text());
     }
+    // Quit configuration
     function quit(){
         console.log("quit");
+        const remote = require('electron').remote;
+        var window = remote.getCurrentWindow();
+        window.close();
     }
 
 </script>

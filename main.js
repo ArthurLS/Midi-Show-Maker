@@ -14,6 +14,10 @@ let mainWindow
 const main_window_width = 1920;
 const main_window_height = 1080;
 
+
+
+
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: main_window_width, height: main_window_height})

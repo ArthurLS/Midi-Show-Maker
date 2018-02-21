@@ -209,14 +209,11 @@ if (process.platform === 'darwin') {
 }
 
 function createInput(){
-    console.log("File clicked !!!!!!!!! NICEEEEEE")
-    win = new BrowserWindow({width: 800, height: 600})
-
-    // et charge le index.html de l'application.
-    win.loadURL(url.format({
+    win = new BrowserWindow({frame:false,width: 800, height: 600, }) //Create "pop-up"
+    win.loadURL(url.format({//Load HTML
         pathname: path.join(__dirname, 'app/configInputOutput.html'),
         protocol: 'file:',
-        slashes: true
+        slashes: true,
     }))
 
     // Ouvre le DevTools.
