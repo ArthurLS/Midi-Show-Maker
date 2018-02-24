@@ -1,37 +1,36 @@
 <html>
 <head></head>
-<body onload="init_options_win()" style="border: solid 1px; background-color: grey;">
+<body onload="init_window()" style="border: solid 1px; background-color: lightgrey;">
 
 	<div class="container">
 		<div id="app">
-			Hello Second Window
-			<br />
-			<span id="label">here </span>
+			Hello, I'm cue n°<span id="result"></span>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<p>Delay</p>
-				<input type="number" id="myNumber" value="2">
-				<button onclick="">Try it</button>
+				<h3>Delay</h3>
+				<input type="number" id="delay" value="">
+				<button onclick="save_delay()">Save it!</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<h2 id="result">Input n°2</h2>
+				<h3>Input n°2</h3>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<p>Input n°3</p>
+				<h3>Input n°3</h3>
 			</div>
 		</div>
 		<div class="row">
-	    	<input type="button" onclick="close_win_TR()" value="Close" />
+	    	<input type="button" onclick="close_window()" value="Close"/>
 	    </div>
 	</div>
-
+	<script>window.$ = window.jQuery = require('../js/jquery-1.11.1.js');</script>
 	<script src="../js/popup_cue_options.js"></script> 
+	<script src="../js/event_builder.js"></script> 
 </body>
 </html>

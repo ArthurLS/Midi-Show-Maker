@@ -9,6 +9,9 @@ var mario = JSON.parse(fs.readFileSync(data_file));
 function onload_init(){
     var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     document.getElementById('top_row').style.height = inner_height/2+"px";
+    setTimeout(function() {
+        display_cue_list();
+    }, 250);
 }
 
 $(window).on('resize', function(e) {
@@ -23,8 +26,6 @@ function read_mario() {
     for (let i = 0; i < mario.cue_list.length; i++) {
         setTimeout(function() {
             var msg_midi = mario.cue_list[i];
-            //console.log("Note n°"+i+" = "+msg_midi.options.note);
-            //illuminate(i);
             output.send(msg_midi.type, {
                 note: msg_midi.options.note,
                 velocity: msg_midi.options.note,

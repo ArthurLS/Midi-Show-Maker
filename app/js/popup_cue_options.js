@@ -1,23 +1,35 @@
-
+const fs = require('fs');
 const remote = require('electron').remote;
 
+var data_file = 'app/json/data.json';
+var mario = JSON.parse(fs.readFileSync(data_file));
 
-function initii() {
-	console.log("here");
-	console.log(document.getElementById("field").value);
-	localStorage.setItem("value_to_send", document.getElementById("field").value);
+let cue_id = null;
+
+function init_window(){
+	console.log(mario);
+	cue_id = localStorage.getItem("cue_selected")
+	$("#delay").val(mario.cue_list[Number(cue_id)].delay);
+	console.log("Cue à l'index: "+cue_id);
+	document.getElementById("result").innerHTML = cue_id;
 }
 
-
-function init_options_win(){
-	document.getElementById("result").innerHTML = localStorage.getItem("value_to_send");
-}
-
-
-function close_win_TR() {
+function close_window() {
 	// close window
-   var window = remote.getCurrentWindow();
-   window.close();
-
+	var win = remote.getCurrentWindow();
+    win.close();
 }
 
+function save_delay() {
+	console.log("Delay saved: "+Number($("#delay").val())+ " of cue n°"+cue_id);
+	update_cue_delay(mario.cue_list, cue_id, Number($("#delay").val()));
+	fs.writeFileSync("app/json/data.json", JSON.stringify(mario, null, 2));
+}
+
+
+$(window).blur(function(){
+  console.log("blur activated");
+  	// close window
+	var win = remote.getCurrentWindow();
+    win.close();
+});
