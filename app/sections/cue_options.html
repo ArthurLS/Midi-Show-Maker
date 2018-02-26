@@ -1,33 +1,49 @@
 <html>
-<head></head>
+<head>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body onload="init_window()" style="border: solid 1px; background-color: lightgrey;">
 
-	<div class="container">
-		<div id="app">
-			Hello, I'm cue n°<span id="result"></span>
-		</div>
-	</div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
+			<h1>
+				Cue n°<span id="cue_id"></span>
+			</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<h3>Type</h3>
+				<select id="type_list">
+				</select>
+			</div>
+			<div class="col-md-4">
+				<h3>Channel [0 - 15]</h3>
+				<input type="number" id="channel" value="">
+			</div>
+			<div class="col-md-4">
 				<h3>Delay</h3>
 				<input type="number" id="delay" value="">
-				<button onclick="save_delay()">Save it!</button>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<h3>Input n°2</h3>
-			</div>
+		<br>
+		<div class="row" id="options_list">
+			
 		</div>
+	</div>
+	<br>
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<h3>Input n°3</h3>
+			<div class="col-md-1">
+				<button type="button" class="btn btn-success" onclick="save_all()">Save All</button>
 			</div>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-warning" onclick="save_all(); close_window()">Save and Close</button>
+			</div>
+			<div class="col-md-2">
+	    		<input type="button" class="btn btn-danger" onclick="close_window()" value="Close (Doesn't Save!)"/>
+	    	</div>
 		</div>
-		<div class="row">
-	    	<input type="button" onclick="close_window()" value="Close"/>
-	    </div>
 	</div>
 	<script>window.$ = window.jQuery = require('../js/jquery-1.11.1.js');</script>
 	<script src="../js/popup_cue_options.js"></script> 

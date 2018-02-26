@@ -5,21 +5,15 @@ function display_cue_list() {
 	for (let i = 0; i < mario.cue_list.length; i++) {
 		let cue = mario.cue_list[i];
 		liste += "<span class=\"col-md-12\" onclick=\"open_cue_options("+i+")\">"
-		liste += "<li class=\"list-group-item\" id=\"nb" +i+"\">"+(i+1)+" Note: "+cue.options.note
-		liste += " - Délai: " + cue.delay
+		liste += "<li class=\"list-group-item\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
+		liste += " - Delay: " + cue.delay
 		liste += "</li></span>"
 	}
 	liste += "</ul>"
 	$("#list").html(liste);
 }
 
-function onchange_input_delay(index, value) {
-	update_cue_delay(mario.cue_list, index, Number(value));
-	fs.writeFileSync("app/json/data.json", JSON.stringify(mario, null, 2));
-}
-
-function toggle(a)
-{
+function toggle(a){
     let e = document.getElementById(a);
     if(e.style.display == "block")
         e.style.display = "none";

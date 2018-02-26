@@ -27,8 +27,8 @@ function read_mario() {
         setTimeout(function() {
             var msg_midi = mario.cue_list[i];
             output.send(msg_midi.type, {
-                note: msg_midi.options.note,
-                velocity: msg_midi.options.note,
+                note: msg_midi.options.param1,
+                velocity: msg_midi.options.param2,
                 channel: msg_midi.channel
             });
         }, mario.cue_list[i].delay);
