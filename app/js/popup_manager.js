@@ -1,8 +1,3 @@
-function degueux(textToSend) {
-	console.log("bla");
-	localStorage.setItem("value_to_send", textToSend);
-}
-
 function open_cue_options(id) {
 	localStorage.setItem("cue_selected", id)
 

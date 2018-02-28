@@ -1,8 +1,11 @@
 const fs = require('fs');
 const remote = require('electron').remote;
 
-var data_file = 'app/json/data.json';
-var mario = JSON.parse(fs.readFileSync(data_file));
+var data_file = 'app/json/project.json';
+var project = JSON.parse(fs.readFileSync(data_file));
+
+var event_selected = "mario";
+var event_obj = project.list_events[event_selected];
 
 // list of types from npm 'easymidi' https://www.npmjs.com/package/easymidi
 let midi_types = ["noteon", "noteoff", "cc", "programme", "clock", "start", "continue", "stop", "reset"];
@@ -15,11 +18,11 @@ function init_window(){
 	document.getElementById("cue_id").innerHTML = cue_id;
 
 	// fill the page
-	$("#channel").val(mario.cue_list[Number(cue_id)].channel);
-	$("#delay").val(mario.cue_list[Number(cue_id)].delay);
+	$("#channel").val(event_obj.cue_list[Number(cue_id)].channel);
+	$("#delay").val(event_obj.cue_list[Number(cue_id)].delay);
 
-	display_types(mario.cue_list[cue_id].type);
-	display_options(mario.cue_list[cue_id].type);
+	display_types(event_obj.cue_list[cue_id].type);
+	display_options(event_obj.cue_list[cue_id].type);
 }
 
 function close_window() {
@@ -35,21 +38,22 @@ function save_all() {
 
 	save_options();
 
-	fs.writeFileSync("app/json/data.json", JSON.stringify(mario, null, 2));}
+	fs.writeFileSync("app/json/project.json", JSON.stringify(project, null, 2));
+}
 
 function save_type() {
 	var type = $('#type_list').find(":selected").val();
-	update_cue_type(mario.cue_list, cue_id, type);
+	update_cue_type(event_obj.cue_list, cue_id, type);
 }
 
 function save_channel() {
 	console.log("Channel saved: "+Number($("#channel").val())+ " of cue n°"+cue_id);
-	update_cue_channel(mario.cue_list, cue_id, Number($("#channel").val()));
+	update_cue_channel(event_obj.cue_list, cue_id, Number($("#channel").val()));
 }
 
 function save_delay() {
 	console.log("Delay saved: "+Number($("#delay").val())+ " of cue n°"+cue_id);
-	var new_id = update_cue_delay(mario.cue_list, cue_id, Number($("#delay").val()));
+	var new_id = update_cue_delay(event_obj.cue_list, cue_id, Number($("#delay").val()));
 	if (cue_id != new_id) {
 		console.log("NEW POSITION = "+new_id);
 		cue_id = new_id;
@@ -62,7 +66,7 @@ function save_options() {
 	var type = $('#type_list').find(":selected").val();
 	var param1 = Number($("#param1").val());
 	var param2 = Number($("#param2").val());
-	update_cue_options(mario.cue_list, cue_id, type, param1, param2);
+	update_cue_options(event_obj.cue_list, cue_id, type, param1, param2);
 }
 
 function display_types(type) {
@@ -77,7 +81,7 @@ function display_types(type) {
 }
 
 function display_options(type) {
-	let cue_options = mario.cue_list[Number(cue_id)].options;
+	let cue_options = event_obj.cue_list[Number(cue_id)].options;
 
 	let str = "<div class=\"col-md-12\"> <h2>Options</h2> </div>";
 	
