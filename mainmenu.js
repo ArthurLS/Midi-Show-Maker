@@ -1,22 +1,28 @@
 const {Menu} = require('electron')
+const {dialog} = require('electron')
 const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
+var fs = require('fs');
+
+
+var data_file = 'app/json/project.json';
+
 
 const template = [
     {
         label: 'File',
         submenu: [
-            {
+           /* {
                 label:'New Project'
+            },*/
+            {
+                label: 'Load Project', click(){loadFile()}
             },
             {
-                label: 'Load Project'
-            },
-            {
-                label : 'Save Project'
+                label : 'Save Project', click(){saveFile()}
             },
             {
                 type:'separator'
@@ -212,6 +218,33 @@ function createInput(){
     //win.webContents.openDevTools()
 
 
+}
+
+//Load a projet file into project.json
+function loadFile(){
+    dialog.showOpenDialog({ filters: [{ name: 'json project', extensions: ['json'] }]}, function (fileNames) {
+        if (fileNames === undefined) return;
+        var fileName = fileNames[0];
+        fs.readFile(fileName, 'utf-8', function (err, data) {
+
+            fs.writeFile(data_file,fs.readFileSync(fileName), function (err) {
+                dialog.showMessageBox({ message: "The project have been loaded!",
+                    buttons: ["OK"] });
+            });
+
+        });
+
+    });
+}
+
+//Save the project on a file
+function saveFile(){
+    dialog.showSaveDialog({title:"Save as"},function (fileName){
+        fs.writeFile(fileName,fs.readFileSync(data_file), function (err) {
+            dialog.showMessageBox({ message: "The project have been saved !",
+                buttons: ["OK"] });
+        });
+    })
 }
 
 const menu = Menu.buildFromTemplate(template)

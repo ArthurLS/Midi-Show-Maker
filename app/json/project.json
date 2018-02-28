@@ -5,6 +5,6 @@
   },
   "configuration": {
     "input": "RtMidi Output Client 131:0",
-    "output": "Midi Through 14:0"
+    "output": "RtMidi Input Client 130:0"
   }
 }

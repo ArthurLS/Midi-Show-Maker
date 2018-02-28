@@ -81,6 +81,10 @@
         project.configuration.input=inP;
         project.configuration.output=inO;
         fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+
+        const remote = require('electron').remote;
+        var window = remote.getCurrentWindow();
+        window.close();
     }
     // Quit configuration
     function quit(){
