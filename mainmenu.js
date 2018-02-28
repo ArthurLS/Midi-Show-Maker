@@ -201,7 +201,7 @@ if (process.platform === 'darwin') {
 }
 
 function createInput(){
-    win = new BrowserWindow({frame:false,width: 800, height: 600, }) //Create "pop-up"
+    win = new BrowserWindow({frame:false,width: 800, height: 600, resizable: false, }) //Create "pop-up"
     win.loadURL(url.format({//Load HTML
         pathname: path.join(__dirname, 'app/configInputOutput.html'),
         protocol: 'file:',

@@ -1,0 +1,23 @@
+
+div.card {
+    height: 600px;
+    width: 800px;
+    background-origin: border-box;
+    background-size: cover;
+    border: 1px transparent solid;
+    box-shadow: inset 0px 0px 2px 2px black;
+}
+
+.wrapper{
+    width: 100%;
+    height: 100%;
+    border: 4px solid #CCC;
+}
+.content{
+    height: 592px;
+}
+
+.position{
+    margin-left: 50px;
+    margin-right: 200px;
+}
