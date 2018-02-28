@@ -6,6 +6,7 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 var fs = require('fs');
+const remote = require('electron').remote;
 
 
 var data_file = 'app/json/project.json';
@@ -32,7 +33,7 @@ const template = [
                 click () {createInput()}
             },
             {
-                label: 'Exit'
+                role: 'quit'
             },
 
         ]
@@ -246,6 +247,8 @@ function saveFile(){
         });
     })
 }
+
+
 
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
