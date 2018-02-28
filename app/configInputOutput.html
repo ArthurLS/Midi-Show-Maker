@@ -59,7 +59,7 @@
     //Display outputs on HTML
     for(i =0;i<outputs.length;i++){
         if(outputs[i] ==  project.configuration.output){
-            $("select#outputs").append( "<option value="+outputs[i]+" selected>"+outputs[i]+"</option>");
+            $("select#outputs").append( "<option value="+outputs[i]+" selected>"+outputs[i]+"</option>") ;
 
         }else{
             $( "select#outputs" ).append( "<option value="+outputs[i]+">"+outputs[i]+"</option>");
