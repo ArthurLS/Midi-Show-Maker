@@ -21,7 +21,7 @@
       }
     },
     {
-      "type": "noteon",
+      "type": "cc",
       "channel": 3,
       "delay": 450,
       "options": {
