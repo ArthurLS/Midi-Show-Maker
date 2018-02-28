@@ -23,7 +23,7 @@ const template = [
             },
             {
                 label : 'Save Project', click(){saveFile()}
-            },
+            } ,
             {
                 type:'separator'
             },
