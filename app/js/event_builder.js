@@ -16,6 +16,16 @@ function create_event(id, name, options) {
 	return event;
 }
 
+function add_event(event) {
+
+	var data_file = 'app/json/project.json';
+	var project = JSON.parse(fs.readFileSync(data_file));
+
+	project.list_events[event.name]  = event;
+
+	fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+}
+
 
 /*
 * Creates and adds the cue at a specific index 
