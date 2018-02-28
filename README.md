@@ -20,7 +20,7 @@ npm install jquery --save
 # Fonctionnalitées:
 
 ## Projet:
-- Creer
+- Chargement
 - Sauvegarder
 - Ajouter evenement
 - Définir les périphériques I/O
