@@ -1,10 +1,10 @@
 {
-  "name":"Not defined",
-  "ListEvents":{
-    "eventTEST":"EventTEST"
+  "name": "Not defined",
+  "ListEvents": {
+    "eventTEST": "EventTEST"
   },
   "configuration": {
-    "input": "Midi Through 14:0",
-    "output": "RtMidi Input Client 130:0"
+    "input": "",
+    "output": "Microsoft GS Wavetable Synth 0"
   }
 }
