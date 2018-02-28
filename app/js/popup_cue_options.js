@@ -14,7 +14,11 @@ let cue_id = null;
 
 function init_window(){
 	// get the cue
-	cue_id = localStorage.getItem("cue_selected")
+
+	let url = new URL(window.location.href);
+	let c = url.searchParams.get("id");
+
+	cue_id = c;
 	document.getElementById("cue_id").innerHTML = cue_id;
 
 	// fill the page
@@ -72,7 +76,7 @@ function save_options() {
 function display_types(type) {
 	let str = "";
 	for (let i = 0; i < midi_types.length; i++) {
-		if (midi_types[i] != type) 
+		if (midi_types[i] != type)
 			str += "<option value=\""+midi_types[i]+"\">"+midi_types[i]+"</option>";
 		else
 			str += "<option value=\""+type+"\" selected>"+type+"</option>";
@@ -84,7 +88,7 @@ function display_options(type) {
 	let cue_options = event_obj.cue_list[Number(cue_id)].options;
 
 	let str = "<div class=\"col-md-12\"> <h2>Options</h2> </div>";
-	
+
 	if (type == "noteon" || type == "noteoff") {
 		str += "<div class=\"col-md-4\"><h3>Note [0-127]</h3>"
 			+"<input type=\"number\" id=\"param1\" value=\""+cue_options.param1+"\"></div>";

@@ -7,6 +7,8 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+const ipc = electron.ipcMain;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -15,12 +17,9 @@ const main_window_width = 1920;
 const main_window_height = 1080;
 
 
-
-
-
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: main_window_width, height: main_window_height})
+  mainWindow = new BrowserWindow({width: main_window_width, height: main_window_height, show: false})
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -41,7 +40,11 @@ function createWindow () {
     mainWindow = null;
   })
 
-    require('./mainmenu') //Load file to change menu-bar
+  mainWindow.on('ready-to-show', () => {
+    mainWindow.webContents.send("initialize_inputs", 123);
+    mainWindow.show();
+  })
+
 }
 
 // This method will be called when Electron has finished
@@ -66,5 +69,11 @@ app.on('activate', function () {
   }
 })
 
+ipc.on('test', (event, args) => {
+	console.log(args);
+})
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+require('./mainmenu') //Load file to change menu-bar

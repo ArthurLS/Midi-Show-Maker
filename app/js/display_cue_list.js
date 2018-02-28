@@ -7,7 +7,7 @@ function display_cue_list() {
 	let liste = "<ul class=\"list-group\" class='liste' id=\"list\">";
 	for (let i = 0; i < event_obj.cue_list.length; i++) {
 		let cue = event_obj.cue_list[i];
-		liste += "<span class=\"col-md-12\" onclick=\"open_cue_options("+i+")\">"
+		liste += "<span class=\"col-md-12\" onclick=\"open_cue_options("+i+", \'"+event_obj.name+"\')\">"
 		liste += "<li class=\"list-group-item\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
 		liste += " - Delay: " + cue.delay
 		liste += "</li></span>"
