@@ -1,5 +1,6 @@
 {
 	"name": "The Best Project",
+	"list_events": {
 		"mario": {
 			"id": 1,
 			"name": "mario",
