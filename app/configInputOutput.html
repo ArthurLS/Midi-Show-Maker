@@ -6,31 +6,35 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/configInputOutput.css" rel="stylesheet">
     <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
 
 </head>
 
 
 <body>
-<h1>Edit input and output configuration!</h1>
+<div class="wrapper">
+    <div class="content">
 
-<div class="col-md-8 col-md-offset-2">
-    <h1>Set input</h1>
-    <select name="inputs" class="form-control" id="inputs">
-    </select>
-</div>
+        <h1>Edit input and output configuration!</h1>
+        <div class="position">
+            <h1>Set input</h1>
+            <select name="inputs" class="form-control" id="inputs">
+            </select>
+        </div>
 
-<div class="col-md-8 col-md-offset-2">
-    <h1>Set output</h1>
-    <select name="outputs" class="form-control" id="outputs">
-    </select>
-</div>
+        <div class="position">
+            <h1>Set output</h1>
+            <select name="outputs" class="form-control" id="outputs">
+            </select>
+        </div>
 
-<div class="col-md-8 col-md-offset-2">
-    <br>
-    <button type="button" class="btn btn-success" onclick="save()">Save</button>
-    <button type="button" class="btn btn-danger" onclick="quit()">Quit</button>
+        <div class="position">
+            <br>
+            <button type="button" class="btn btn-success" onclick="save()">Save</button>
+            <button type="button" class="btn btn-danger" onclick="quit()">Quit</button>
+        </div>
+    </div>
 </div>
 </body>
 
