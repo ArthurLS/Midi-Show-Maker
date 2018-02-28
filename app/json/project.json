@@ -4,7 +4,7 @@
     "eventTEST": "EventTEST"
   },
   "configuration": {
-    "input": "",
-    "output": "Microsoft GS Wavetable Synth 0"
+    "input": "RtMidi Output Client 131:0",
+    "output": "Midi Through 14:0"
   }
 }
