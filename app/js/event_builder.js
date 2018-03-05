@@ -28,27 +28,28 @@ function add_event(event) {
 
 
 /*
-* Creates and adds the cue at a specific index 
+* Creates and returns a cue
 params:
-	parent_cue_list -> list where the cue is added
-	int index -> index in the list
 	string type -> type of the message
 	int channel -> 0 - 16 channel (where to broadcast)
-	object delay -> TBD
-		{
-			"from": cue (0 or index in the event)
-			"time": delay time to from
-		}
+	object delay -> delay from start (ms)
 	object options -> depends on the type
 */
-function create_cue(parent_cue_list, index, type, channel, delay, options) {
+function create_cue(type, channel, delay, options) {
 	var cue = {
 		"type": type,
 		"channel": channel,
 		"delay": delay,
 		"options": options
 	}
-	parent_cue_list.splice(index, 0, cue);
+	return cue;
+}
+function add_cue(parent_cue_list, cue) {
+	parent_cue_list.push(cue);
+
+	sort_list_by_delay(parent_cue_list);
+
+	return find_cue(parent_cue_list, cue);
 }
 
 /*
@@ -108,13 +109,9 @@ function update_cue_options(parent_cue_list, cue_index, type, param1, param2) {
 /*
 	ADD - DELETE - MOVE CUE
 */
-function add_cue(parent_cue_list, cue) {
-	console.log("add_cue");
-	parent_cue_list.push(cue);
 
-	sort_list_by_delay(parent_cue_list);
-}
 function delete_cue_with_index(cue_list, index) {
+	console.log("hey " + index);
 	cue_list.splice(index, 1);
 }
 function delete_cue_with_object(cue_list, cue) {

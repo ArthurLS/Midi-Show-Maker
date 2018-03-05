@@ -10,8 +10,8 @@
           "channel": 3,
           "delay": 0,
           "options": {
-            "param2": 127,
-            "param1": 52
+            "param1": 52,
+            "param2": 127
           }
         },
         {
@@ -24,7 +24,7 @@
           }
         },
         {
-          "type": "cc",
+          "type": "noteon",
           "channel": 3,
           "delay": 450,
           "options": {
@@ -363,6 +363,31 @@
           "options": {
             "param2": 127,
             "param1": 48
+          }
+        }
+      ],
+      "options": {}
+    },
+    "test_event": {
+      "id": 5,
+      "name": "test_event",
+      "cue_list": [
+        {
+          "type": "noteon",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 60,
+            "param2": 127
+          }
+        },
+        {
+          "type": "noteon",
+          "channel": 0,
+          "delay": 120,
+          "options": {
+            "param1": 30,
+            "param2": 127
           }
         }
       ],

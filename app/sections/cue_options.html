@@ -8,22 +8,22 @@
 	<div class="container-fluid">
 		<div class="row">
 			<h1>
-				Cue n°<span id="cue_id"></span>
+				Event: <span id="event_name"></span>, Cue n°<span id="cue_id"></span>
 			</h1>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
 				<h3>Type</h3>
-				<select id="type_list">
+				<select id="type_list" class="form-control">
 				</select>
 			</div>
 			<div class="col-md-4">
 				<h3>Channel [0 - 15]</h3>
-				<input type="number" id="channel" value="">
+				<input type="number" id="channel" class="form-control" value="">
 			</div>
 			<div class="col-md-4">
 				<h3>Delay</h3>
-				<input type="number" id="delay" value="">
+				<input type="number" id="delay" class="form-control" value="">
 			</div>
 		</div>
 		<br>
@@ -42,6 +42,9 @@
 			</div>
 			<div class="col-md-2">
 	    		<input type="button" class="btn btn-danger" onclick="close_window()" value="Close (Doesn't Save!)"/>
+	    	</div>
+	    	<div class="col-md-2">
+	    		<input type="button" class="btn" style="background-color: black; color: white;" onclick="delete_cue()" value="Delete the Cue"/>
 	    	</div>
 		</div>
 	</div>
