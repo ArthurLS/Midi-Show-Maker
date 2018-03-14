@@ -244,7 +244,7 @@ function loadFile(){
     });
 }
 
-//Save the project on a file
+//Create a new project file
 function saveFile(){
     dialog.showSaveDialog({title:"Save as",filters: [{ name: 'json project', extensions: ['json'] }]},function (fileName)
     {

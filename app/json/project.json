@@ -389,15 +389,6 @@
             "param1": 1,
             "param2": 1
           }
-        },
-        {
-          "type": "noteon",
-          "channel": 0,
-          "delay": 120,
-          "options": {
-            "param1": 30,
-            "param2": 127
-          }
         }
       ],
       "options": {}
