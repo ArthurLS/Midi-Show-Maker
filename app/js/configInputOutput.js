@@ -47,3 +47,10 @@ function quit(){
     var window = remote.getCurrentWindow();
     window.close();
 }
+
+$(window).blur(function(){
+    console.log("blur activated");
+    // close window
+    var win = remote.getCurrentWindow();
+    win.close();
+});
