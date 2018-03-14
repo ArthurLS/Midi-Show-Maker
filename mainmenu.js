@@ -129,7 +129,7 @@ const template = [
         submenu: [
             {
                 label: 'Learn More',
-                click () { require('electron').shell.openExternal('http://electron.atom.io') }
+                click () { require('electron').shell.openExternal('http://jewlofthelotus.github.io/Surviving-Support/images/yoda-rtfm.png') }
             }
         ]
     }
@@ -216,7 +216,7 @@ if (process.platform === 'darwin') {
 function createInput(){
     win = new BrowserWindow({frame:false,width: 800, height: 600, resizable: false }) //Create "pop-up"
     win.loadURL(url.format({//Load HTML
-        pathname: path.join(__dirname, 'app/configInputOutput.html'),
+        pathname: path.join(__dirname, 'app/sections/configInputOutput.html'),
         protocol: 'file:',
         slashes: true,
     }))
@@ -246,7 +246,9 @@ function loadFile(){
 
 //Save the project on a file
 function saveFile(){
-    dialog.showSaveDialog({title:"Save as"},function (fileName){
+    dialog.showSaveDialog({title:"Save as",filters: [{ name: 'json project', extensions: ['json'] }]},function (fileName)
+    {
+        if(fileName == null){return}
         fs.writeFile(fileName,fs.readFileSync(data_file), function (err) {
             dialog.showMessageBox({ message: "The project have been saved !",
                 buttons: ["OK"] });
