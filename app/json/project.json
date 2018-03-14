@@ -383,6 +383,15 @@
         },
         {
           "type": "noteon",
+          "channel": 1,
+          "delay": 1,
+          "options": {
+            "param1": 1,
+            "param2": 1
+          }
+        },
+        {
+          "type": "noteon",
           "channel": 0,
           "delay": 120,
           "options": {
@@ -395,7 +404,7 @@
     }
   },
   "configuration": {
-    "input": "",
-    "output": "Microsoft GS Wavetable Synth 0"
+    "input": "RtMidi Output Client 131:0",
+    "output": "RtMidi Input Client 130:0"
   }
 }

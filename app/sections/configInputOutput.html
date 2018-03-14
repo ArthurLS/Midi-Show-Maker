@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/configInputOutput.css" rel="stylesheet">
+    <link href="../../node_modules/octicons/build/build.css" rel="stylesheet">
+
+</head>
+
+
+<body>
+<div class="wrapper">
+    <div class="content container">
+
+        <h1>Edit input and output configuration!</h1>
+        <div class="offset-sm-1 col-sm-6">
+            <h2>Set input</h2>
+            <select name="inputs" class="form-control" id="inputs">
+            </select>
+        </div>
+
+        <div class="offset-sm-1 col-sm-6">
+            <h2>Set output</h2>
+            <select name="outputs" class="form-control" id="outputs">
+            </select>
+        </div>
+
+        <div class="offset-sm-1 col-sm-6">
+            <br>
+            <button type="button" class="btn btn-success" onclick="save()">Save and quit</button>
+            <button type="button" class="btn btn-danger" onclick="quit()">Quit</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>window.$ = window.jQuery = require('jquery');</script>
+
+
+<!-- ul>(li+a+p)*10 -->
+<script src="../js/configInputOutput.js"></script>
+
+</html>
