@@ -73,11 +73,11 @@ function display_cue_list() {
     project = JSON.parse(fs.readFileSync(data_file));
     event_obj = project.list_events[event_selected];
 
-    let liste = "<ul class=\"list-group\" class='liste' id=\"list\">";
+    let liste = "<ul class=\"list-group\" class='liste' id=\"liste_cues\">";
     for (let i = 0; i < event_obj.cue_list.length; i++) {
         let cue = event_obj.cue_list[i];
-        liste += "<span class=\"col-md-12\" onclick=\"open_popup("+i+")\">"
-        liste += "<li class=\"list-group-item\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
+        //liste += "<span class=\"col-md-12\" onclick=\"open_popup("+i+")\">"
+        liste += "<li class=\"col-md-12 list-group-item\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
         liste += " - Delay: " + cue.delay
         liste += "</li></span>"
     }
