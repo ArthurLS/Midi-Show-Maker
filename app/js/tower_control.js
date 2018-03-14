@@ -1,6 +1,7 @@
 const fs = require('fs');
 const BrowserWindow = require('electron').remote.BrowserWindow;
 const path = require('path');
+const remote = require('electron').remote;
 
 var data_file = 'app/json/project.json';
 var project = JSON.parse(fs.readFileSync(data_file));
@@ -41,6 +42,10 @@ function read_event() {
                 velocity: msg_midi.options.param2,
                 channel: msg_midi.channel
             });
+            if (remote.getGlobal('ShowActiveCue')) {
+                $("#nb"+i).addClass('active');
+                if (i != 0) $("#nb"+(i-1)).removeClass('active');
+            }
         }, event_obj.cue_list[i].delay));
     }
 }
@@ -133,10 +138,10 @@ function confirmDeleteEvent() {
 
 /* Popup alert when the __ is created */
 function popup () {
-    dialog.showMessageBox({ 
+    dialog.showMessageBox({
         message: "Your __ has been created!",
         buttons: ["OK"],
         title: "Popup",
         type: "info"
-    }); 
+    });
 };
