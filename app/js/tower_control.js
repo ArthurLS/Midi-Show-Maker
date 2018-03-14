@@ -71,7 +71,7 @@ function display_cue_list() {
     let liste = "<ul class=\"list-group\" class='liste' id=\"list\">";
     for (let i = 0; i < event_obj.cue_list.length; i++) {
         let cue = event_obj.cue_list[i];
-        liste += "<span class=\"col-md-12\" onclick=\"open_cue_options("+i+")\">"
+        liste += "<span class=\"col-md-12\" onclick=\"open_popup("+i+")\">"
         liste += "<li class=\"list-group-item\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
         liste += " - Delay: " + cue.delay
         liste += "</li></span>"
@@ -99,3 +99,44 @@ function stopPlay() {
   for (let i = 0; i < timeouts.length; i++)
     clearTimeout(timeouts[i]);
 }
+
+function delete_event() {
+    console.log("deleting");
+    for(event_name in project.list_events){
+        if (event_name == event_selected) {
+            console.log("event name "+event_name+", event_selected "+event_selected);
+            delete project.list_events[event_selected];
+        }
+    }
+    // save project
+    fs.writeFileSync("app/json/project.json", JSON.stringify(project, null, 2));
+    event_selected = project.list_events[Object.keys(project.list_events)[0]].name;
+    console.log(event_selected);
+    event_obj = project.list_events[event_selected];
+    setTimeout(function() {
+        display_cue_list();
+        display_event_list();
+    }, 50);
+}
+
+
+// Popup alert when the user clicks "delete event" button
+// If yes, event deleted
+// If no, Do nothing.
+function confirmDeleteEvent() {
+    if (confirm('Are you sure you want to delete the event?', "Opren Electron")) {
+            delete_event();
+        } else {
+            // Do nothing!
+        }
+};
+
+/* Popup alert when the __ is created */
+function popup () {
+    dialog.showMessageBox({ 
+        message: "Your __ has been created!",
+        buttons: ["OK"],
+        title: "Popup",
+        type: "info"
+    }); 
+};

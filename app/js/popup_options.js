@@ -39,7 +39,19 @@ function init_window(){
 		display_types('xx');
 		display_options('noteon');
 	}
+}
 
+function init_window_event(){
+	// get the cue
+	let url = new URL(window.location.href);
+	console.log(url.searchParams.get("event"));
+
+}
+
+function save_event() {
+	var event_obj = create_event(0, $("#event_name").val(), {});
+	add_event(event_obj);
+	close_window();
 }
 
 function close_window() {
@@ -157,11 +169,10 @@ $("#type_list").change(function(){
 	display_options(selected_type);
 });
 
-/*
+
 $(window).blur(function(){
   console.log("blur activated");
   	// close window
 	var win = remote.getCurrentWindow();
     win.close();
 });
-*/

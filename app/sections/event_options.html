@@ -1,0 +1,28 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body onload="init_window_event()" style="border: solid 1px; background-color: lightgrey;">
+
+	<div class="container-fluid">
+		<div class="row">
+			<h3>New Event</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<h4>Event Name</h4>
+				<input type="text" id="event_name" class="form-control" value="" autofocus>
+				<button type="button" class="btn btn-warning" onclick="save_event()">Save and Close</button>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="container-fluid">
+		
+	</div>
+	<script>window.$ = window.jQuery = require('../js/jquery-1.11.1.js');</script>
+	<script src="../js/popup_options.js"></script> 
+	<script src="../js/event_builder.js"></script> 
+</body>
+</html>
