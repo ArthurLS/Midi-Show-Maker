@@ -8,7 +8,7 @@ const url = require('url')
 var fs = require('fs');
 
 var data_file = 'app/json/project.json';
-
+var filesaved;
 
 const template = [
     {
@@ -18,10 +18,13 @@ const template = [
                 label:'New Project'
             },*/
             {
-                label: 'Load Project', click(){loadFile()}
+                label: 'Load', click(){loadFile()}
             },
             {
-                label : 'Save Project', click(){saveFile()}
+                label : 'Save', click(){saveFile()}
+            } ,
+            {
+                label : 'Save As', click(){saveAsFile()}
             } ,
             {
                 type:'separator'
@@ -245,10 +248,11 @@ function loadFile(){
 }
 
 //Create a new project file
-function saveFile(){
+function saveAsFile(){
     dialog.showSaveDialog({title:"Save as",filters: [{ name: 'json project', extensions: ['json'] }]},function (fileName)
     {
         if(fileName == null){return}
+        filesaved=fileName;
         fs.writeFile(fileName,fs.readFileSync(data_file), function (err) {
             dialog.showMessageBox({ message: "The project have been saved !",
                 buttons: ["OK"] });
@@ -256,6 +260,19 @@ function saveFile(){
     })
 }
 
+//Save file
+function saveFile(){
+    if(filesaved == null){
+        saveAsFile();
+    }
+    else{
+        fs.writeFile(filesaved,fs.readFileSync(data_file), function (err) {
+            dialog.showMessageBox({ message: "The project have been saved !",
+                buttons: ["OK"] });
+        });
+    }
+
+}
 
 
 const menu = Menu.buildFromTemplate(template)
