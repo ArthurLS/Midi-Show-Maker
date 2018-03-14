@@ -30,7 +30,10 @@ $(window).on('resize', function(e) {
     document.getElementById('bot_container').style.maxWidth = (inner_width-50)+"px";
     document.getElementById('top_row').style.height = inner_height/2+"px";
 });
-
+/*
+**  Read every cue from the selected event
+**  Each cue is added to the timeouts array and is played via the setTimout
+*/
 function read_event() {
     // Read every note and sends from the event
     let save = event_obj;
@@ -50,15 +53,9 @@ function read_event() {
     }
 }
 
-function play(i) {
-    var msg_midi = event_obj.cue_list[i];
-    output.send(msg_midi.type, {
-        note: msg_midi.options.note,
-        velocity: msg_midi.options.note,
-        channel: msg_midi.channel
-    });
-}
-
+/*
+**  Show every events from the current project
+*/
 function display_event_list() {
     let liste = "";
     for (event_o in project.list_events) {
@@ -69,15 +66,18 @@ function display_event_list() {
     $("#event_buttons").html(liste);
 }
 
+/*
+** Show every event from the selected event in #list
+*/
 function display_cue_list() {
     project = JSON.parse(fs.readFileSync(data_file));
     event_obj = project.list_events[event_selected];
 
-    let liste = "<ul class=\"list-group\" class='liste' id=\"list\">";
+    let liste = "<ul class=\"list-group\" class='liste' id=\"liste_cues\">";
     for (let i = 0; i < event_obj.cue_list.length; i++) {
         let cue = event_obj.cue_list[i];
-        liste += "<span class=\"col-md-12\" onclick=\"open_popup("+i+")\">"
-        liste += "<li class=\"list-group-item\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
+        //liste += "<span class=\"col-md-12\" onclick=\"open_popup("+i+")\">"
+        liste += "<li class=\"col-md-12 list-group-item\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
         liste += " - Delay: " + cue.delay
         liste += "</li></span>"
     }
@@ -85,6 +85,10 @@ function display_cue_list() {
     $("#list").html(liste);
 }
 
+/*
+**  Switch to another event of the project by his name
+**  event_selected is set to the new event and all its cues are displayed
+*/
 function switch_event(event_name) {
     console.log("Switch to "+event_name);
     event_selected = event_name;
@@ -100,11 +104,17 @@ function toggle(a){
         e.style.display = "block";
 }
 
+/*
+**  Clear all the pending timeouts, effectively stoping the current event playing
+*/
 function stopPlay() {
   for (let i = 0; i < timeouts.length; i++)
     clearTimeout(timeouts[i]);
 }
 
+/*
+**  Delete an event from the project and saves the project
+*/
 function delete_event() {
     console.log("deleting");
     for(event_name in project.list_events){
