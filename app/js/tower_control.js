@@ -81,7 +81,6 @@ function display_cue_list() {
 }
 
 function switch_event(event_name) {
-    //stopPlay();
     console.log("Switch to "+event_name);
     event_selected = event_name;
     event_obj = project.list_events[event_selected];
