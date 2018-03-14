@@ -6,8 +6,6 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 var fs = require('fs');
-const remote = require('electron').remote;
-
 
 var data_file = 'app/json/project.json';
 
@@ -16,7 +14,7 @@ const template = [
     {
         label: 'File',
         submenu: [
-           /* {
+            /*{
                 label:'New Project'
             },*/
             {
@@ -73,6 +71,14 @@ const template = [
     {
         label: 'View',
         submenu: [
+            {
+                label: 'Display Active Cue',
+                type: 'checkbox',
+                checked: false,
+                click (item, focusedWindow) {
+                    global.ShowActiveCue = item.checked;
+                }
+            },
             {
                 label: 'Reload',
                 accelerator: 'CmdOrCtrl+R',

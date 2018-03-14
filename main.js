@@ -16,6 +16,7 @@ let mainWindow
 const main_window_width = 1920;
 const main_window_height = 1080;
 
+global.ShowActiveCue = false;
 
 function createWindow () {
   // Create the browser window.
