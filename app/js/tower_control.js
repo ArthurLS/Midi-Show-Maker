@@ -8,8 +8,10 @@ var project = JSON.parse(fs.readFileSync(data_file));
 var event_selected = "test_event";
 var event_obj = project.list_events[event_selected];
 
+var timeouts = [];
+
 function onload_init(){
-    var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0); 
+    var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var inner_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     document.getElementById('top_container').style.maxWidth = (inner_width-50)+"px";
     document.getElementById('bot_container').style.maxWidth = (inner_width-50)+"px";
@@ -20,8 +22,8 @@ function onload_init(){
     }, 250);
 }
 
-$(window).on('resize', function(e) {    
-    var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0); 
+$(window).on('resize', function(e) {
+    var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
     var inner_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     document.getElementById('top_container').style.maxWidth = (inner_width-50)+"px";
     document.getElementById('bot_container').style.maxWidth = (inner_width-50)+"px";
@@ -30,15 +32,16 @@ $(window).on('resize', function(e) {
 
 function read_event() {
     // Read every note and sends from the event
-    for (let i = 0; i < event_obj.cue_list.length; i++) {
-        setTimeout(function() {
-            var msg_midi = event_obj.cue_list[i];
+    let save = event_obj;
+    for (let i = 0; i < save.cue_list.length; i++) {
+        timeouts.push(setTimeout(function() {
+            var msg_midi = save.cue_list[i];
             output.send(msg_midi.type, {
                 note: msg_midi.options.param1,
                 velocity: msg_midi.options.param2,
                 channel: msg_midi.channel
             });
-        }, event_obj.cue_list[i].delay);
+        }, event_obj.cue_list[i].delay));
     }
 }
 
@@ -57,6 +60,7 @@ function display_event_list() {
         liste += "<button class=\"btn btn-sq-lg btn-primary\" onclick=\"switch_event(\'"+project.list_events[event_o].name+"\')\">"+
                 "Event <br>Button<br>"+project.list_events[event_o].name +"</button>&nbsp;";
     }
+    //liste += "<button class=\"btn btn-sq-lg btn-info\" onclick=\"open_event_options()\"> New <br>Event </button>"
     $("#event_buttons").html(liste);
 }
 
@@ -77,6 +81,7 @@ function display_cue_list() {
 }
 
 function switch_event(event_name) {
+    //stopPlay();
     console.log("Switch to "+event_name);
     event_selected = event_name;
     event_obj = project.list_events[event_selected];
@@ -89,4 +94,9 @@ function toggle(a){
         e.style.display = "none";
     else
         e.style.display = "block";
+}
+
+function stopPlay() {
+  for (let i = 0; i < timeouts.length; i++)
+    clearTimeout(timeouts[i]);
 }
