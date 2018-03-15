@@ -49,9 +49,15 @@ function init_window_event(){
 }
 
 function save_event() {
-	var event_obj = create_event(0, $("#event_name").val(), {});
-	add_event(event_obj);
-	close_window();
+	var event_name = $("#event_name").val()+"";
+	if (event_name == "") {
+		$('#bad-boy').html("Please enter an event name");
+	}
+	else{
+		var event_obj = create_event(0, event_name, {});
+		add_event(event_obj);
+		close_window();
+	}
 }
 
 function close_window() {
@@ -176,3 +182,14 @@ $(window).blur(function(){
 	var win = remote.getCurrentWindow();
     win.close();
 });
+
+
+/* Popup alert (info)*/
+function popup (message) {
+    dialog.showMessageBox({
+        message: message,
+        buttons: ["OK"],
+        title: "Popup",
+        type: "info"
+    });
+};

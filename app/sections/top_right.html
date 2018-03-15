@@ -1,12 +1,11 @@
 <html>
 <head></head>
 <body>
-	<h3>List of events</h3>
+	<br>
 	<div class="container">
 		<div class="row">
-			<button type="button" class="btn btn-success" onclick="open_popup('new_event')">Add Event</button>
-			&nbsp;
-			<button type="button" class="btn btn-danger" onclick="confirmDeleteEvent()">Delete Event</button>
+			<h3 id="event_name_title"></h3> &nbsp;&nbsp;
+			<button type="button" class="btn no_event_disable" style="background-color: black; color: white;" onclick="confirmDeleteEvent()">Delete Event</button>
 		</div>
 		<br>
 		<div class="row" id="event_buttons">

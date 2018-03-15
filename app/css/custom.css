@@ -6,6 +6,24 @@ li {
     cursor: pointer;
 }
 
+.event-selected{
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.event-not-selected:hover{
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.event-not-selected{
+  background-color: #68a0f9;
+  border-color: #68a0f9;
+  color: black;
+}
+
 .btn-sq-lg {
   width: 150px !important;
   height: 150px !important;

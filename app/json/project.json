@@ -384,10 +384,10 @@
         {
           "type": "noteon",
           "channel": 1,
-          "delay": 1,
+          "delay": 500,
           "options": {
-            "param1": 1,
-            "param2": 1
+            "param1": 45,
+            "param2": 127
           }
         }
       ],
