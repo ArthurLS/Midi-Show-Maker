@@ -18,8 +18,7 @@ function create_event(id, name, options) {
 
 function add_event(event) {
 
-	var data_file = 'app/json/project.json';
-	var project = JSON.parse(fs.readFileSync(data_file));
+	project = JSON.parse(fs.readFileSync(data_file));
 
 	project.list_events[event.name]  = event;
 

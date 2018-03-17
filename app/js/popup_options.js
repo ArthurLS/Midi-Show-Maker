@@ -1,7 +1,7 @@
 const fs = require('fs');
 const remote = require('electron').remote;
 
-var data_file = 'app/json/project.json';
+var data_file = './temp.json';
 var project = JSON.parse(fs.readFileSync(data_file));
 
 // list of types from npm 'easymidi' https://www.npmjs.com/package/easymidi
@@ -11,7 +11,11 @@ let cue_id = null;
 let event_selected = "";
 let event_obj = "";
 
-function init_window(){
+/*
+** Initialise the popup window for a cue
+** differs if it's for a new cue or old cue
+*/
+function init_window_cue(){
 	// get the cue
 
 	let url = new URL(window.location.href);
@@ -41,13 +45,28 @@ function init_window(){
 	}
 }
 
+/*
+** Initialise the popup window for an event
+*/
 function init_window_event(){
 	// get the cue
 	let url = new URL(window.location.href);
 	console.log(url.searchParams.get("event"));
-
 }
 
+/*
+** Close the popup window
+*/
+function close_window() {
+	// close window
+	var win = remote.getCurrentWindow();
+    win.close();
+}
+
+/*
+** Saves a new event and close the window
+** Name can not be empty
+*/
 function save_event() {
 	var event_name = $("#event_name").val()+"";
 	if (event_name == "") {
@@ -60,12 +79,10 @@ function save_event() {
 	}
 }
 
-function close_window() {
-	// close window
-	var win = remote.getCurrentWindow();
-    win.close();
-}
-
+/*
+** Saves all the options for a cue (delay, type, channel, options)
+** if the cue is new, it creates and adds it to the event
+*/
 function save_all() {
 	if (cue_id == 'xx') {
 		var type = $('#type_list').find(":selected").val();
@@ -83,18 +100,27 @@ function save_all() {
 	}
 	save_options();
 	
-	fs.writeFileSync("app/json/project.json", JSON.stringify(project, null, 2));
+	fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
 }
 
+/*
+** Aux function to save the cue type
+*/
 function save_type() {
 	var type = $('#type_list').find(":selected").val();
 	update_cue_type(event_obj.cue_list, cue_id, type);
 }
 
+/*
+** Aux function to save the cue channel
+*/
 function save_channel() {
 	update_cue_channel(event_obj.cue_list, cue_id, Number($("#channel").val()));
 }
 
+/*
+** Aux function to save the cue delay
+*/
 function save_delay() {
 	var new_id = update_cue_delay(event_obj.cue_list, cue_id, Number($("#delay").val()));
 	if (cue_id != new_id) {
@@ -104,6 +130,9 @@ function save_delay() {
 	}
 }
 
+/*
+** Aux function to save the cue options
+*/
 function save_options() {
 	var type = $('#type_list').find(":selected").val();
 	var param1 = Number($("#param1").val());
@@ -111,15 +140,21 @@ function save_options() {
 	update_cue_options(event_obj.cue_list, cue_id, type, param1, param2);
 }
 
+/*
+** Deletes a cue and closes a window
+*/
 function delete_cue() {
 	if (cue_id != 'xx') {
 		delete_cue_with_index(event_obj.cue_list, cue_id);
-		fs.writeFileSync("app/json/project.json", JSON.stringify(project, null, 2));	
+		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));	
 	}
 	var win = remote.getCurrentWindow();
     win.close();
 }
 
+/*
+** Display the html for the cue type selector
+*/
 function display_types(type) {
 	let str = "";
 	for (let i = 0; i < midi_types.length; i++) {
@@ -136,6 +171,9 @@ function display_types(type) {
 	$("#type_list").html(str);
 }
 
+/*
+** displays the options according to the cue type
+*/
 function display_options(type) {
 	let cue_options = {param1: 0, param2: 0};
 
@@ -170,17 +208,19 @@ function display_options(type) {
 	$("#options_list").html(str);
 }
 
+/*
+** Listener to change the options according to the cue type
+*/
 $("#type_list").change(function(){
 	var selected_type = $('#type_list').find(":selected").val();
 	display_options(selected_type);
 });
 
-
+/*
+** Closes the window when the user clicks outside the popup window
+*/
 $(window).blur(function(){
-  console.log("blur activated");
-  	// close window
-	var win = remote.getCurrentWindow();
-    win.close();
+    close_window();
 });
 
 

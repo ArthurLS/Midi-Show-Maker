@@ -3,8 +3,12 @@ const BrowserWindow = require('electron').remote.BrowserWindow;
 const path = require('path');
 const remote = require('electron').remote;
 
-var data_file = 'app/json/project.json';
-var project = JSON.parse(fs.readFileSync(data_file));
+var data_file = './temp.json';
+var project = {};
+
+if (fs.existsSync(data_file)) {
+    project = JSON.parse(fs.readFileSync(data_file));
+}
 
 var event_selected = "";
 var event_obj = {};
@@ -23,8 +27,6 @@ function onload_init(){
     document.getElementById('top_row').style.height = inner_height/2+"px";
     refresh_UI();
 }
-
-
 
 /*
 ** Function that reloads everything on the UI
@@ -155,11 +157,10 @@ function delete_event() {
         }
     }
     // save project
-    fs.writeFileSync("app/json/project.json", JSON.stringify(project, null, 2));
+    fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
     switch_event("");
     refresh_UI();
 }
-
 
 // handles the resizing of the UI 3 componants
 $(window).on('resize', function(e) {
@@ -190,8 +191,6 @@ function popup (message) {
         type: "info"
     });
 };
-
-
 
 // Copy-pasted function
 // Speed up calls to hasOwnProperty

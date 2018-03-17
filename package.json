@@ -1,5 +1,6 @@
 {
   "name": "opren_electron",
+  "productName": "Opren Electron",
   "version": "1.0.0",
   "description": "Projet Régie OPREN",
   "main": "main.js",
@@ -10,6 +11,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "~1.7.8",
+    "electron-packager": "^11.1.0",
     "electron-rebuild": "^1.7.3"
   },
   "dependencies": {

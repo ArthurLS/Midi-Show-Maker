@@ -3,7 +3,7 @@ const fs = require('fs');
 //Get inputs
 var inputs = easymidi.getInputs();
 var outputs = easymidi.getOutputs();
-var data_file = 'app/json/project.json';
+var data_file = './temp.json';
 var project = JSON.parse(fs.readFileSync(data_file));
 //Display inputs on HTML
 for(i =0;i<inputs.length;i++){
@@ -31,7 +31,7 @@ function save(){
     //Add configurations on the WebStorage
     localStorage.setItem("input",inP );
     localStorage.setItem("output", inO);
-    //Add configutraions on the project.json
+    //Add configuration into temp.json
     project.configuration.input=inP;
     project.configuration.output=inO;
     fs.writeFileSync(data_file, JSON.stringify(project, null, 2));

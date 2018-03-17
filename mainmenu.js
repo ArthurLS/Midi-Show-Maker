@@ -7,7 +7,13 @@ const path = require('path')
 const url = require('url')
 var fs = require('fs');
 
-var data_file = 'app/json/project.json';
+var data_file = './temp.json';
+
+var basic_file = {"name": "Unnamed Project",  "list_events": {},  "configuration": {"input": "", "output": ""}};
+
+if (!fs.existsSync(data_file)) {
+    fs.writeFileSync(data_file, JSON.stringify(basic_file, null, 2));
+}
 var filesaved;
 
 const template = [
@@ -226,11 +232,9 @@ function createInput(){
 
     // Ouvre le DevTools.
     //win.webContents.openDevTools()
-
-
 }
 
-//Load a projet file into project.json
+//Load a projet file into temp.json
 function loadFile(){
     dialog.showOpenDialog({ filters: [{ name: 'json project', extensions: ['json'] }]}, function (fileNames) {
         if (fileNames === undefined) return;
@@ -243,7 +247,6 @@ function loadFile(){
             });
 
         });
-
     });
 }
 
@@ -271,7 +274,6 @@ function saveFile(){
                 buttons: ["OK"] });
         });
     }
-
 }
 
 
