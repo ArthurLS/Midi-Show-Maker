@@ -2,10 +2,24 @@
 	display: none;
 }
 
+/* CSS pour la liste des cues */
 li {
     cursor: pointer;
 }
+.list-group-item:hover{
+  background: #68a2ff;
+  transition: background 0.5s;
+}
+/* Alternate cue list color */
+.list-0{
+  background-color: #e0e1e2;
+}
+.list-1{
+  background-color: #fff;
+}
 
+
+/* CSS pour les event buttons */
 .event-selected{
   background-color: #007bff;
   border-color: #007bff;

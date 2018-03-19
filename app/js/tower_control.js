@@ -98,7 +98,13 @@ function display_cue_list() {
         let liste = "<ul class=\"list-group\" class='liste' id=\"liste_cues\">";
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
-            liste += "<li class=\"col-md-12 list-group-item\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i+" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1
+            if (i%2 == 0) 
+                liste += "<li class=\"col-md-12 list-group-item list-0\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
+                    +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
+
+            else liste += "<li class=\"col-md-12 list-group-item list-1\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
+                    +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
+            
             liste += " - Delay: " + cue.delay
             liste += "</li></span>"
         }
