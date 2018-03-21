@@ -1,4 +1,5 @@
 var d3 = require("d3");
+d3.tip = require("d3-tip");
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
