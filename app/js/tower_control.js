@@ -25,6 +25,7 @@ function onload_init(){
     document.getElementById('top_container').style.maxWidth = (inner_width-50)+"px";
     document.getElementById('bot_container').style.maxWidth = (inner_width-50)+"px";
     document.getElementById('top_row').style.height = inner_height/2+"px";
+
     refresh_UI();
 }
 
@@ -80,12 +81,12 @@ function display_event_list() {
             }
             else{
                 liste += "<button class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"
-                        +event_name +"</button>&nbsp;";                
+                        +event_name +"</button>&nbsp;";
             }
         }
     }
     // adds the cyan "New Event" button
-    liste += "<button class=\"btn btn-sq-lg btn-info\" onclick=\"open_popup(\'new_event\')\"> New <br>Event </button>"
+    liste += "<button class=\"btn btn-sq-lg event-new\" onclick=\"open_popup(\'new_event\')\"> New <br>Event </button>"
     $("#event_buttons").html(liste);
 }
 
@@ -99,10 +100,10 @@ function display_cue_list() {
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
             if (i%2 == 0) 
-                liste += "<li class=\"col-md-12 list-group-item list-0\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
+                liste += "<li class=\"col-md-12 list-group-item btn-primary\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
                     +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
 
-            else liste += "<li class=\"col-md-12 list-group-item list-1\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
+            else liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
                     +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
             
             liste += " - Delay: " + cue.delay

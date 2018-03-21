@@ -21,21 +21,27 @@ li {
 
 /* CSS pour les event buttons */
 .event-selected{
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: grey; /*#007bff;*/
+  border-color: grey; /*#007bff;*/
   color: white;
 }
 
 .event-not-selected:hover{
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: grey; /*#007bff;*/
+  border-color: grey; /*#007bff;*/
   color: white;
 }
 
 .event-not-selected{
-  background-color: #68a0f9;
-  border-color: #68a0f9;
-  color: black;
+  background-color: darkgrey ;/*#68a0f9;*/
+  border-color: darkgrey ;/*#68a0f9;*/
+  color: white;
+}
+
+.event-new{
+  background-color: #404040;
+  border-color: #404040;
+  color: white;
 }
 
 .btn-sq-lg {
