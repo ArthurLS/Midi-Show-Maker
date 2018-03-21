@@ -51,6 +51,7 @@ function quit(){
 $(window).blur(function(){
     console.log("blur activated");
     // close window
+    const remote = require('electron').remote;
     var win = remote.getCurrentWindow();
     win.close();
 });
