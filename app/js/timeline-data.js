@@ -1,3 +1,5 @@
+var d3 = require('d3');
+d3.tip = require('d3-tip');
 'use strict';
 const element = document.getElementById('chart');
 const data = [{
@@ -60,9 +62,10 @@ const data = [{
         to: new Date([2016, 9, 12])
     }]
 }];
+
 const timeline = new TimelineChart(element, data, {
     enableLiveTimer: true,
     tip: function(d) {
-        return d.at || `${d.from}<br>${d.to}`;
+        return d.at || d.from +"<br>" + d.to;
     }
 }).onVizChange(e => console.log(e));
