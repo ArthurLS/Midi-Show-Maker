@@ -13,6 +13,7 @@
     "electron-rebuild": "^1.7.3"
   },
   "dependencies": {
+    "d3": "^4.13.0",
     "easymidi": "0.0.4",
     "midi": "^0.9.5",
     "octicons": "^7.1.0",
