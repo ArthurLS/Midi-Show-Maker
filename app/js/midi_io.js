@@ -21,6 +21,3 @@ if (outputs.length != 0) {
 	output = new easymidi.Output(outputs[0]);
 }
 else console.log("You do not have a detected MIDI input available.");
-
-
-
