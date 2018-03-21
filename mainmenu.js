@@ -5,7 +5,8 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
-var fs = require('fs');
+var fs = require('fs')
+
 
 var data_file = './temp.json';
 
@@ -236,12 +237,20 @@ function newFile(){
 }
 
 function createInput(){
-    win = new BrowserWindow({frame:false,width: 800, height: 600, resizable: false }) //Create "pop-up"
-    win.loadURL(url.format({//Load HTML
-        pathname: path.join(__dirname, 'app/sections/configInputOutput.html'),
-        protocol: 'file:',
-        slashes: true,
-    }))
+    let win_TR = new BrowserWindow({frame: false, width: 800, height: 600, resizable: false, modal: true, show: false});
+    var modalPath = path.join('file://', __dirname, 'app/sections/configInputOutput.html');
+
+    win_TR.loadURL(modalPath);
+
+    win_TR.on('closed', () => {
+        // Allows to select the new_event selected (if there was one in the popup)
+        // We can also do that with if(id == "new_event")
+        win_TR = null;
+    })
+
+    win_TR.on('ready-to-show', () => {
+            win_TR.show()
+    })
 
     // Ouvre le DevTools.
     //win.webContents.openDevTools()
