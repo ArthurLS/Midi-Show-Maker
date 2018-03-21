@@ -20,9 +20,9 @@ const template = [
     {
         label: 'File',
         submenu: [
-            /*{
-                label:'New Project'
-            },*/
+            {
+                label:'New', click(){newFile()}
+            },
             {
                 label: 'Load', click(){loadFile()}
             },
@@ -222,6 +222,19 @@ if (process.platform === 'darwin') {
     ]
 }
 
+//Create a new file project
+function newFile(){
+    dialog.showSaveDialog({title:"Create new file",filters: [{ name: '.json', extensions: ['json'] }]},function (fileName)
+    {
+        if(fileName == null){return}
+        filesaved=fileName;
+        fs.writeFile(fileName,fs.readFileSync("app/json/default.json"), function (err) {
+            dialog.showMessageBox({ message: "The new project is now created !",
+                buttons: ["OK"] });
+        });
+    })
+}
+
 function createInput(){
     win = new BrowserWindow({frame:false,width: 800, height: 600, resizable: false }) //Create "pop-up"
     win.loadURL(url.format({//Load HTML
@@ -236,7 +249,7 @@ function createInput(){
 
 //Load a projet file into temp.json
 function loadFile(){
-    dialog.showOpenDialog({ filters: [{ name: 'json project', extensions: ['json'] }]}, function (fileNames) {
+    dialog.showOpenDialog({ filters: [{ name: '.json', extensions: ['json'] }]}, function (fileNames) {
         if (fileNames === undefined) return;
         var fileName = fileNames[0];
         fs.readFile(fileName, 'utf-8', function (err, data) {
@@ -250,9 +263,9 @@ function loadFile(){
     });
 }
 
-//Create a new project file
+//Save As
 function saveAsFile(){
-    dialog.showSaveDialog({title:"Save as",filters: [{ name: 'json project', extensions: ['json'] }]},function (fileName)
+    dialog.showSaveDialog({title:"Save as",filters: [{ name: '.json', extensions: ['json'] }]},function (fileName)
     {
         if(fileName == null){return}
         filesaved=fileName;
