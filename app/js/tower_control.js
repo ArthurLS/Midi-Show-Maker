@@ -118,12 +118,10 @@ function display_cue_list() {
 */
 function switch_event(event_name) {
     if (event_name != "") {
-        console.log("Switch to "+event_name);
         event_selected = event_name;
         event_obj = project.list_events[event_selected];
     }
     else{
-        console.log("No event selected");
         event_selected = "";
         event_obj = {};
     }
@@ -150,10 +148,8 @@ function stopPlay() {
 **  Delete an event from the project and saves the project
 */
 function delete_event() {
-    console.log("deleting");
     for(event_name in project.list_events){
         if (event_name == event_selected) {
-            console.log("event name "+event_name+", event_selected "+event_selected);
             delete project.list_events[event_selected];
         }
     }

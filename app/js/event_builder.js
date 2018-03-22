@@ -17,12 +17,23 @@ function create_event(id, name, options) {
 }
 
 function add_event(event) {
+	console.log("Add event");
 
 	project = JSON.parse(fs.readFileSync(data_file));
-
-	project.list_events[event.name]  = event;
-
-	fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+	if (!project.list_events.hasOwnProperty(event.name)) {
+		project.list_events[event.name] = event;
+		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+	}
+	else{
+		var i = 0;
+		for(key in project.list_events){
+			var ret1 = key.replace(' ('+(i)+')','');
+			if(ret1 == event.name) i++;
+		}
+		event.name += " ("+i+")";
+		project.list_events[event.name] = event;
+		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+	}	
 }
 
 

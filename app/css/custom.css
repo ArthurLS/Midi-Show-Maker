@@ -67,7 +67,7 @@ li {
 .btn{
   margin-left: 8px;
   margin-top: 8px;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 .btn-sq-lg {
   width: 150px !important;
@@ -96,3 +96,8 @@ li {
   padding:2px;
 }
  */
+
+ /*var sheet = document.styleSheets[1];
+sheet.insertRule("body { background-color: red; height: 100%; }", 1);
+sheet.insertRule("html { height: 100%; }", 1);
+*/
