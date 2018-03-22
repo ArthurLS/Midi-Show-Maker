@@ -20,12 +20,6 @@ var timeouts = [];
 ** Sets up the page layout
 */
 function onload_init(){
-    var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    var inner_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    document.getElementById('top_container').style.maxWidth = (inner_width-50)+"px";
-    document.getElementById('bot_container').style.maxWidth = (inner_width-50)+"px";
-    document.getElementById('top_row').style.height = inner_height/2+"px";
-
     refresh_UI();
 }
 
@@ -77,11 +71,11 @@ function display_event_list() {
         for (event_name in project.list_events) {
             if (event_selected == event_name) {
                 liste += "<button class=\"btn btn-sq-lg event-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"
-                    +event_name +"</button>&nbsp;";
+                    +event_name +"</button>";
             }
             else{
                 liste += "<button class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"
-                        +event_name +"</button>&nbsp;";
+                        +event_name +"</button>";
             }
         }
     }
@@ -169,14 +163,7 @@ function delete_event() {
     refresh_UI();
 }
 
-// handles the resizing of the UI 3 componants
-$(window).on('resize', function(e) {
-    var inner_height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    var inner_width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    document.getElementById('top_container').style.maxWidth = (inner_width-50)+"px";
-    document.getElementById('bot_container').style.maxWidth = (inner_width-50)+"px";
-    document.getElementById('top_row').style.height = inner_height/2+"px";
-});
+
 
 // Popup alert when the user clicks "delete event" button
 // If yes, event deleted

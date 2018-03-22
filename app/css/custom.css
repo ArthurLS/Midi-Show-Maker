@@ -1,3 +1,26 @@
+/* Structure de la page */
+html, body{
+  height: 100%;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+.flex-1{
+  flex: 1;
+}
+.fill { 
+  min-height: 100%;
+  height: 100%;
+}
+.maxed-out{
+  max-height: 50vh;
+  overflow: auto;
+}
+
+
+
+
 .hidden{
 	display: none;
 }
@@ -25,31 +48,36 @@ li {
   border-color: grey; /*#007bff;*/
   color: white;
 }
-
 .event-not-selected:hover{
   background-color: grey; /*#007bff;*/
   border-color: grey; /*#007bff;*/
   color: white;
 }
-
 .event-not-selected{
   background-color: darkgrey ;/*#68a0f9;*/
   border-color: darkgrey ;/*#68a0f9;*/
   color: white;
 }
-
 .event-new{
   background-color: #404040;
   border-color: #404040;
   color: white;
 }
 
+.btn{
+  margin-left: 8px;
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
 .btn-sq-lg {
   width: 150px !important;
   height: 150px !important;
   font-size: 120%;
 }
-
+#event_name_title{
+  margin-left: 8px;
+}
+/* 
 .btn-sq {
   width: 100px !important;
   height: 100px !important;
@@ -67,3 +95,4 @@ li {
   height: 25px !important;
   padding:2px;
 }
+ */
