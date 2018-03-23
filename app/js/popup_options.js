@@ -11,6 +11,9 @@ let cue_id = null;
 let event_selected = "";
 let event_obj = "";
 
+let url = new URL(window.location.href);
+var command = url.searchParams.get("command");
+
 /*
 ** Initialise the popup window for a cue
 ** differs if it's for a new cue or old cue
@@ -18,8 +21,6 @@ let event_obj = "";
 function init_window_cue(){
 	// get the cue
 
-	let url = new URL(window.location.href);
-	var command = url.searchParams.get("command");
 	event_selected += url.searchParams.get("event_name");
 	event_obj = project.list_events[event_selected];
 	document.getElementById("event_name").innerHTML = event_selected;
@@ -49,9 +50,8 @@ function init_window_cue(){
 ** Initialise the popup window for an event
 */
 function init_window_event(){
-	let url = new URL(window.location.href);
+
 	event_selected += url.searchParams.get("event_name");
-	var command = url.searchParams.get("command");
 
 	if (command == "new_event") {
 		document.getElementById("command").innerHTML ="Create the new Event";
@@ -78,8 +78,7 @@ function close_window() {
 */
 function save_event() {
 	console.log("save event");
-	let url = new URL(window.location.href);
-	var command = url.searchParams.get("command");
+
 	var new_event_name = $("#event_name").val()+"";
 	if (command == "new_event") {
 		if (new_event_name == "") {
@@ -242,10 +241,21 @@ $("#type_list").change(function(){
 /*
 ** Closes the window when the user clicks outside the popup window
 */
-/*$(window).blur(function(){
+$(window).blur(function(){
     close_window();
 });
-*/
+
+// Keybord Shortcuts
+$(document).keydown(function(e) {
+	switch(e.which) {
+		case 13:  save_event();
+		break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
 
 /* Popup alert (info)*/
 function popup (message) {

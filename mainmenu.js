@@ -1,12 +1,12 @@
 const {Menu} = require('electron')
 const {dialog} = require('electron')
 const electron = require('electron')
+
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 var fs = require('fs')
-
 
 var data_file = './temp.json';
 
@@ -25,7 +25,9 @@ const template = [
                 label:'New', click(){newFile()}
             },
             {
-                label: 'Load', click(){loadFile()}
+                label: 'Load', click (item, focusedWindow) {
+                    loadFile(send_message, focusedWindow);
+                }
             },
             {
                 label : 'Save', click(){saveFile()}
@@ -249,23 +251,23 @@ function createInput(){
     })
 
     win_TR.on('ready-to-show', () => {
-            win_TR.show()
+        win_TR.show()
     })
-
-    // Ouvre le DevTools.
-    //win.webContents.openDevTools()
 }
 
+
+function send_message(focusedWindow, message) {
+    focusedWindow.webContents.send('message', message);
+}
 //Load a projet file into temp.json
-function loadFile(){
+function loadFile(callback, focusedWindow){
     dialog.showOpenDialog({ filters: [{ name: '.json', extensions: ['json'] }]}, function (fileNames) {
         if (fileNames === undefined) return;
         var fileName = fileNames[0];
         fs.readFile(fileName, 'utf-8', function (err, data) {
-
             fs.writeFile(data_file,fs.readFileSync(fileName), function (err) {
-                dialog.showMessageBox({ message: "The project have been loaded!",
-                    buttons: ["OK"] });
+                dialog.showMessageBox({ message: "The project have been loaded!", buttons: ["OK"] });
+                callback(focusedWindow, "refresh");
             });
 
         });

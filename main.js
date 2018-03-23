@@ -31,7 +31,7 @@ function createWindow () {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
-
+  
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -42,8 +42,7 @@ function createWindow () {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.webContents.send("initialize_inputs", 123);
-    mainWindow.show();
+    mainWindow.show();   
   })
 
 }
@@ -70,9 +69,6 @@ app.on('activate', function () {
   }
 })
 
-ipc.on('test', (event, args) => {
-	console.log(args);
-})
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

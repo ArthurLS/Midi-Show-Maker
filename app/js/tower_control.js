@@ -1,7 +1,8 @@
 const fs = require('fs');
-const BrowserWindow = require('electron').remote.BrowserWindow;
-const path = require('path');
 const remote = require('electron').remote;
+const BrowserWindow = remote.BrowserWindow;
+const path = require('path');
+const ipc = require('electron').ipcRenderer;
 
 var data_file = './temp.json';
 var project = {};
@@ -9,6 +10,13 @@ var project = {};
 if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
+
+ipc.on('message', (event, message) => {
+    if(message == 'refresh'){
+        console.log("ask refresh");
+        refresh_UI();
+    }
+})
 
 var event_selected = "";
 var event_obj = {};
