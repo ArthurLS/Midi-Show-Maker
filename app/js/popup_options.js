@@ -19,14 +19,15 @@ function init_window_cue(){
 	// get the cue
 
 	let url = new URL(window.location.href);
-	event_selected += url.searchParams.get("event");
+	var command = url.searchParams.get("command");
+	event_selected += url.searchParams.get("event_name");
 	event_obj = project.list_events[event_selected];
 	document.getElementById("event_name").innerHTML = event_selected;
 	cue_id = url.searchParams.get("id");
 
 	console.log("Cue ID: "+cue_id);
 
-	if (cue_id != 'xx') {
+	if (command == 'edit_cue') {
 		cue_id = Number(cue_id);
 		document.getElementById("cue_id").innerHTML = cue_id;
 		// fill the page
@@ -36,7 +37,7 @@ function init_window_cue(){
 		display_types(event_obj.cue_list[cue_id].type);
 		display_options(event_obj.cue_list[cue_id].type);		
 	}
-	else{
+	else if (command == 'new_cue'){
 		document.getElementById("cue_id").innerHTML = "??";	
 		$("#channel").val(0);
 		$("#delay").val(0);	
@@ -49,9 +50,18 @@ function init_window_cue(){
 ** Initialise the popup window for an event
 */
 function init_window_event(){
-	// get the cue
 	let url = new URL(window.location.href);
-	console.log(url.searchParams.get("event"));
+	event_selected += url.searchParams.get("event_name");
+	var command = url.searchParams.get("command");
+
+	if (command == "new_event") {
+		document.getElementById("command").innerHTML ="Create the new Event";
+	}
+	else if(command == "edit_event"){
+		document.getElementById("command").innerHTML = "Edit the event";
+		document.getElementById("event_name_title").innerHTML = "Event: "+event_selected;
+	}
+	
 }
 
 /*
@@ -68,14 +78,28 @@ function close_window() {
 ** Name can not be empty
 */
 function save_event() {
-	var event_name = $("#event_name").val()+"";
-	if (event_name == "") {
-		$('#bad-boy').html("Please enter an event name");
+	console.log("save event");
+	let url = new URL(window.location.href);
+	var command = url.searchParams.get("command");
+	var new_event_name = $("#event_name").val()+"";
+	if (command == "new_event") {
+		if (new_event_name == "") {
+			$('#bad-boy').html("Please enter an event name");
+		}
+		else{
+			var event_obj = create_event(0, new_event_name, {});
+			add_event(event_obj);
+			close_window();
+		}
 	}
-	else{
-		var event_obj = create_event(0, event_name, {});
-		add_event(event_obj);
-		close_window();
+	else if(command == "edit_event"){
+		if (new_event_name == "") {
+			$('#bad-boy').html("Please enter an event name");
+		}
+		else{
+			edit_event_name(event_selected, new_event_name);
+			close_window();
+		}
 	}
 }
 
@@ -219,10 +243,10 @@ $("#type_list").change(function(){
 /*
 ** Closes the window when the user clicks outside the popup window
 */
-$(window).blur(function(){
+/*$(window).blur(function(){
     close_window();
 });
-
+*/
 
 /* Popup alert (info)*/
 function popup (message) {

@@ -16,26 +16,45 @@ function create_event(id, name, options) {
 	return event;
 }
 
-function add_event(event) {
-	console.log("Add event");
-
+function add_event(event_obj) {
 	project = JSON.parse(fs.readFileSync(data_file));
-	if (!project.list_events.hasOwnProperty(event.name)) {
-		project.list_events[event.name] = event;
+	if (!project.list_events.hasOwnProperty(event_obj.name)) {
+		project.list_events[event_obj.name] = event_obj;
 		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
 	}
 	else{
 		var i = 0;
 		for(key in project.list_events){
 			var ret1 = key.replace(' ('+(i)+')','');
-			if(ret1 == event.name) i++;
+			if(ret1 == event_obj.name) i++;
 		}
-		event.name += " ("+i+")";
-		project.list_events[event.name] = event;
+		event_obj.name += " ("+i+")";
+		project.list_events[event_obj.name] = event_obj;
 		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
 	}	
 }
 
+/*
+**  Delete an event from the project and saves the project
+*/
+function delete_event(event_name) {
+    for(key in project.list_events){
+        if (key == event_name) {
+            delete project.list_events[event_name];
+        }
+    }
+    // save project
+    fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+}
+
+function edit_event_name(event_name, new_name) {
+	console.log("edit_event_name");
+	project = JSON.parse(fs.readFileSync(data_file));
+	var new_event = project.list_events[event_name];
+	delete_event(event_name);
+	new_event.name = new_name;
+	add_event(new_event)
+}
 
 /*
 * Creates and returns a cue

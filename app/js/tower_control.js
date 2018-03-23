@@ -30,7 +30,15 @@ function onload_init(){
 function refresh_UI() {
     // reloads the global object from the file
     project = JSON.parse(fs.readFileSync(data_file));
-    event_obj = project.list_events[event_selected];
+    
+    if (project.list_events.hasOwnProperty(event_selected)) {
+        event_obj = project.list_events[event_selected];
+    }
+    else {
+        event_obj = {};
+        event_selected = "";
+    }
+    
     // timeout of 50ms to wait if change is still happening from the calling function
     setTimeout(function() {
         display_cue_list();
@@ -70,17 +78,19 @@ function display_event_list() {
         $("#event_name_title").html(event_selected);
         for (event_name in project.list_events) {
             if (event_selected == event_name) {
-                liste += "<button class=\"btn btn-sq-lg event-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"
-                    +event_name +"</button>";
+                liste += "<div class=\"btn btn-sq-lg event-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+event_name
+                +" <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup('edit_event', '"+event_name+"')\">Edit</button>"+
+                " </div>";
             }
             else{
-                liste += "<button class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"
-                        +event_name +"</button>";
+                liste += "<div class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+event_name +
+                " <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup('edit_event', '"+event_name+"')\">Edit</button>"+ 
+                "</div>";
             }
         }
     }
     // adds the cyan "New Event" button
-    liste += "<button class=\"btn btn-sq-lg event-new\" onclick=\"open_popup(\'new_event\')\"> New <br>Event </button>"
+    liste += "<div class=\"btn btn-sq-lg event-new\" onclick=\"open_popup(\'new_event\')\"> New <br>Event </div>"
     $("#event_buttons").html(liste);
 }
 
@@ -93,12 +103,16 @@ function display_cue_list() {
         let liste = "<ul class=\"list-group\" class='liste' id=\"liste_cues\">";
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
-            if (i%2 == 0) 
-                liste += "<li class=\"col-md-12 list-group-item btn-primary\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
+            if (i%2 == 0){
+                liste += "<li class=\"col-md-12 list-group-item btn-primary\"  onclick=\"open_popup(\"edit_cue\""+i+")\" id=\"nb" +i+"\">"+i
                     +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
+            }
 
-            else liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup("+i+")\" id=\"nb" +i+"\">"+i
-                    +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
+            else{
+                liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup(\"edit_cue\""+i+")\" id=\"nb" +i+"\">"+i
+                +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;                
+            }
+
             
             liste += " - Delay: " + cue.delay
             liste += "</li></span>"
@@ -144,29 +158,14 @@ function stopPlay() {
     clearTimeout(timeouts[i]);
 }
 
-/*
-**  Delete an event from the project and saves the project
-*/
-function delete_event() {
-    for(event_name in project.list_events){
-        if (event_name == event_selected) {
-            delete project.list_events[event_selected];
-        }
-    }
-    // save project
-    fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
-    switch_event("");
-    refresh_UI();
-}
-
-
-
 // Popup alert when the user clicks "delete event" button
 // If yes, event deleted
 // If no, Do nothing.
 function confirmDeleteEvent() {
     if (confirm('Are you sure you want to delete the event: '+event_selected+'?', event_selected)) {
-            delete_event();
+            delete_event(event_selected);
+            switch_event("");
+            refresh_UI();
         } else {
             // Do nothing!
         }

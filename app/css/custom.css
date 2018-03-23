@@ -72,7 +72,8 @@ li {
 .btn-sq-lg {
   width: 150px !important;
   height: 150px !important;
-  font-size: 120%;
+  font-size: 150%;
+  padding-top: 40px;
 }
 #event_name_title{
   margin-left: 8px;
