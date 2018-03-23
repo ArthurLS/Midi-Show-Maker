@@ -104,12 +104,12 @@ function display_cue_list() {
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
             if (i%2 == 0){
-                liste += "<li class=\"col-md-12 list-group-item btn-primary\"  onclick=\"open_popup(\"edit_cue\""+i+")\" id=\"nb" +i+"\">"+i
+                liste += "<li class=\"col-md-12 list-group-item btn-primary\"  onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">"+i
                     +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
             }
 
             else{
-                liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup(\"edit_cue\""+i+")\" id=\"nb" +i+"\">"+i
+                liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">"+i
                 +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;                
             }
 

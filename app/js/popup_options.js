@@ -23,8 +23,7 @@ function init_window_cue(){
 	event_selected += url.searchParams.get("event_name");
 	event_obj = project.list_events[event_selected];
 	document.getElementById("event_name").innerHTML = event_selected;
-	cue_id = url.searchParams.get("id");
-
+	cue_id = url.searchParams.get("cue_id");
 	console.log("Cue ID: "+cue_id);
 
 	if (command == 'edit_cue') {

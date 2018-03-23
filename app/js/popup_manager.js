@@ -1,5 +1,5 @@
 function open_popup(command, id) {
-
+	console.log("open_popup: command -> "+command+" :/ id -> "+id);
 	let win_TR = new BrowserWindow({frame: false, width: 1200, height: 800, modal: true, show: false});
 	var modalPath;
 	if(command == "new_event" || command == "edit_event"){
@@ -7,8 +7,7 @@ function open_popup(command, id) {
 		modalPath = path.join('file://', __dirname, 'sections/event_options.html?command='+command+'&event_name='+id);
 	}
 	else{
-		modalPath = path.join('file://', __dirname, 'sections/cue_options.html?command='+command
-														+'&event_name='+event_selected+'&cue_id='+cue_id);
+		modalPath = path.join('file://', __dirname, 'sections/cue_options.html?command='+command+'&event_name='+event_selected+'&cue_id='+id);
 	}
 	var nb_event = Object.keys(project.list_events).length;
 	win_TR.loadURL(modalPath);
