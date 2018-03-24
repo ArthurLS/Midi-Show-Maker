@@ -6,17 +6,9 @@ const ipc = require('electron').ipcRenderer;
 
 var data_file = './temp.json';
 var project = {};
-
 if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
-
-ipc.on('message', (event, message) => {
-    if(message == 'refresh'){
-        console.log("ask refresh");
-        refresh_UI();
-    }
-})
 
 var event_selected = "";
 var event_obj = {};
@@ -53,16 +45,22 @@ function refresh_UI() {
         display_event_list();
     }, 50);
 }
+ipc.on('message', (event, message) => {
+    if(message == 'refresh'){
+        console.log("ask refresh");
+        refresh_UI();
+    }
+})
 
 /*
-**  Read every cue from the selected event
-**  Each cue is added to the timeouts array and is played via the setTimout
+** Reads the selected event
 */
 function read_event() {
     // Read every note and sends from the event
     let save = event_obj;
     for (let i = 0; i < save.cue_list.length; i++) {
-        timeouts.push(setTimeout(function() {
+
+        var timer = new Timer(function() {
             var msg_midi = save.cue_list[i];
             output.send(msg_midi.type, {
                 note: msg_midi.options.param1,
@@ -73,8 +71,72 @@ function read_event() {
                 $("#nb"+i).addClass('active');
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
             }
-        }, event_obj.cue_list[i].delay));
+        }, event_obj.cue_list[i].delay);
+
+        timeouts.push(timer);
     }
+}
+
+/*
+** Pauses or resumes the current list of cues
+*/
+function pause_or_resume(elem) {
+    if (elem.innerHTML == "Pause") {
+        var nb_to_delete = 0;
+        for (let i = 0; i < timeouts.length; i++){
+            clearTimeout(timeouts[i].pause());
+            var time_remaining = timeouts[i].remain();
+            if (time_remaining <= 0) {
+                nb_to_delete++;
+            }
+        }
+        timeouts.splice(0,nb_to_delete);
+        elem.innerHTML = "Resume";
+    }
+    else if (elem.innerHTML == "Resume") {
+        for (let i = 0; i < timeouts.length; i++){
+            clearTimeout(timeouts[i].resume());
+        }
+        elem.innerHTML = "Pause";
+    }
+}
+
+/*
+**  Clear all the pending timeouts, effectively stoping the current event playing
+*/
+function stopPlay() {
+    for (let i = 0; i < timeouts.length; i++){
+        clearTimeout(timeouts[i].stop());
+
+    }
+    timeouts = new Array();
+}
+
+/*
+** setTimeout wrapper to handle pause, stop and resume
+*/
+function Timer(callback, delay) {
+    var timerId, start, remaining = delay;
+    this.remain = function () {
+        return remaining;
+    }
+
+    this.pause = function() {
+        window.clearTimeout(timerId);
+        remaining -= new Date() - start;
+    };
+
+    this.resume = function() {
+        start = new Date();
+        window.clearTimeout(timerId);
+        timerId = window.setTimeout(callback, remaining);
+    };  
+
+    this.resume();
+    this.stop = function() {
+        window.clearTimeout(timerId);
+    };
+
 }
 
 /*
@@ -115,13 +177,10 @@ function display_cue_list() {
                 liste += "<li class=\"col-md-12 list-group-item btn-primary\"  onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">"+i
                     +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
             }
-
             else{
                 liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">"+i
                 +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;                
             }
-
-            
             liste += " - Delay: " + cue.delay
             liste += "</li></span>"
         }
@@ -150,22 +209,6 @@ function switch_event(event_name) {
     refresh_UI();
 }
 
-function toggle(a){
-    let e = document.getElementById(a);
-    if(e.style.display == "block")
-        e.style.display = "none";
-    else
-        e.style.display = "block";
-}
-
-/*
-**  Clear all the pending timeouts, effectively stoping the current event playing
-*/
-function stopPlay() {
-  for (let i = 0; i < timeouts.length; i++)
-    clearTimeout(timeouts[i]);
-}
-
 // Popup alert when the user clicks "delete event" button
 // If yes, event deleted
 // If no, Do nothing.
@@ -189,7 +232,9 @@ function popup (message) {
     });
 };
 
-// Copy-pasted function
+/*
+** Copy-pasted function. Returns if an object is Empty or not
+*/
 // Speed up calls to hasOwnProperty
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 function isEmpty(obj) {
@@ -226,4 +271,12 @@ function toogle_top_left_buttons(on_off) {
         $(".no_event_disable").attr("disabled", false);
     }
     
+}
+
+function toggle(a){
+    let e = document.getElementById(a);
+    if(e.style.display == "block")
+        e.style.display = "none";
+    else
+        e.style.display = "block";
 }
