@@ -6,6 +6,23 @@
       "name": "mario",
       "cue_list": [
         {
+          "type": "programme",
+          "channel": 3,
+          "delay": 0,
+          "options": {
+            "param1": 4
+          }
+        },
+        {
+          "type": "cc",
+          "channel": 3,
+          "delay": 0,
+          "options": {
+            "param1": 696969,
+            "param2": 127
+          }
+        },
+        {
           "type": "noteon",
           "channel": 3,
           "delay": 0,

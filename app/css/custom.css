@@ -26,10 +26,10 @@ html, body{
 }
 
 /* CSS pour la liste des cues */
-li {
+li, tr {
     cursor: pointer;
 }
-.list-group-item:hover{
+.list-group-item:hover, tbody tr:hover{
   background: #68a2ff;
   transition: background 0.5s;
 }

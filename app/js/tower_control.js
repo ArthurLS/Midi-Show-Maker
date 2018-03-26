@@ -41,7 +41,7 @@ function refresh_UI() {
     
     // timeout of 50ms to wait if change is still happening from the calling function
     setTimeout(function() {
-        display_cue_list();
+        display_cue_table();
         display_event_list();
     }, 50);
 }
@@ -190,6 +190,51 @@ function display_cue_list() {
     else{
         toogle_top_left_buttons("off");
         $("#list").html("No event selected");
+    }
+}
+
+/*
+** Show every event from the selected event in #table
+*/
+function display_cue_table() {
+    //let column_names = ["Id", "Type", "Channel", "Delay", "Note", "Velocity"];
+    let column_names = ["Id", "Type", "Channel", "Delay", "Note"];
+    let heads = "";
+    for (var i = 0; i < column_names.length; i++) {
+        heads += "<th scope=\"col\">"+column_names[i]+"</th>";
+    }
+    let table = "<table class=\"table\"><thead><tr style=\"cursor: default;\">"+heads+"</tr></thead>";
+    table += "<tbody>";
+    if (event_selected != "") {
+        toogle_top_left_buttons("on");
+        
+        for (let i = 0; i < event_obj.cue_list.length; i++) {
+            let cue = event_obj.cue_list[i];
+
+            table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
+
+            table += "<td>"+i+"</td>"
+                    +"<td>"+cue.type+"</td>"
+                    +"<td>"+cue.channel+"</td>"
+                    +"<td>"+cue.delay+"</td>";
+                    // handles options
+                    if (cue.options.param1 != undefined) {
+                        table += "<td>"+cue.options.param1+"</td>"
+                    }
+                    else table += "<td></td>"
+                    // Velocity
+                    /*if (cue.options.param2 != undefined) {
+                        table += "<td>"+cue.options.param2+"</td>"
+                    }
+                    else table += "<td></td>"*/
+        }
+        table += "</tbody>"
+        $("#table").html(table);
+    }
+    else{
+        toogle_top_left_buttons("off");
+        table += "</tbody>"
+        $("#table").html(table);
     }
 }
 
