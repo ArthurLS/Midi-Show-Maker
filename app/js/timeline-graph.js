@@ -74,7 +74,9 @@ d3.tip = require("d3-tip");
 
             var x = d3.time.scale().domain([minDt, maxDt]).range([groupWidth, width]);
 
-            var xAxis = d3.svg.axis().scale(x).orient('bottom').tickSize(-height);
+            //var xAxis = d3.svg.axis().scale(x).orient('bottom').tickSize(-height);
+            var xAxis = d3.svg.axis().scale(x).orient('bottom').tickSize(-height).tickFormat(d3.format("d"));
+            //permet d'afficher les axis sous forme d'int et non de date
 
             var zoom = d3.behavior.zoom().x(x).on('zoom', zoomed);
 
@@ -115,20 +117,41 @@ d3.tip = require("d3-tip");
                 });
             }).enter();
 
+            //le dessin des intervals rectangulaires
             var intervalBarHeight = 0.8 * groupHeight;
             var intervalBarMargin = (groupHeight - intervalBarHeight) / 2;
+            /*
             var intervals = groupIntervalItems.append('rect').attr('class', withCustom('interval')).attr('width', function (d) {
                 return Math.max(options.intervalMinWidth, x(d.to) - x(d.from));
+            //}).attr('height', intervalBarHeight).attr('y', intervalBarMargin).attr('x', function (d) {
             }).attr('height', intervalBarHeight).attr('y', intervalBarMargin).attr('x', function (d) {
                 return x(d.from);
             });
+            */
 
+            var intervals = groupIntervalItems.append('rect').attr('class', withCustom('interval')).attr('width', function (d) {
+                return Math.max(options.intervalMinWidth, x(d.to) - x(d.from));
+            }).attr('height', intervalBarHeight/128).attr('y', function (d) {
+                //intervalBarHeight est la largeur du rectangle
+                //intervalBarMargin est le décalage dont il est sujet
+                console.log(d.hauteur);
+                console.log(intervalBarHeight);
+                console.log(intervalBarMargin);
+                //note: svg trace depuis (x,-y)
+                return (intervalBarMargin + intervalBarHeight - (intervalBarHeight/128) * (d.hauteur) ); //permet le tracer par hauteur de note
+            }).attr('x', function (d) {
+                return x(d.from);
+            });
+
+
+            // le texte dans les intervals
             var intervalTexts = groupIntervalItems.append('text').text(function (d) {
                 return d.label;
             }).attr('fill', 'white').attr('class', withCustom('interval-text')).attr('y', groupHeight / 2 + 5).attr('x', function (d) {
                 return x(d.from);
             });
 
+            // pour les points
             var groupDotItems = svg.selectAll('.group-dot-item').data(data).enter().append('g').attr('clip-path', 'url(#chart-content)').attr('class', 'item').attr('transform', function (d, i) {
                 return 'translate(0, ' + groupHeight * i + ')';
             }).selectAll('.dot').data(function (d) {
