@@ -8,6 +8,12 @@ var mario = JSON.parse(fs.readFileSync(data_file));
 'use strict';
 const element = document.getElementById('chart');
 
+function hauteurtostring(hauteur){
+    var pitch = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    const result = pitch[hauteur%12] + (((hauteur - hauteur%12)/12) - 1).toString(); //démo 10 min ou 15 min par groupe. -> 7 min chacun
+    return result;
+}
+
 function makedata(mario) {
 
     var data = [];
@@ -22,14 +28,14 @@ function makedata(mario) {
         var one = mario.cue_list[i];
 
         var two = new Object();
-        two.label = ''; //TODO: appeler fonction qui prend la hauteur et renvoie note CDEFGAB musique
+        two.label = hauteurtostring(one.options.note);//'a'; //TODO: appeler fonction qui prend la hauteur et renvoie note CDEFGAB musique
         two.type = TimelineChart.TYPE.INTERVAL;
         two.from = new Date(start); //équivaut à des ms
-        two.to = new Date(start + one.delay);
+        two.to = new Date(/*start + */one.delay);
         two.customClass = 'blue-interval';
         two.hauteur = one.options.note;
 
-        start += one.delay; //update pour les notes suivantes
+        start /*+*/= one.delay; //update pour les notes suivantes
         //console.log(two);
         obj.data.push(two);
     }
