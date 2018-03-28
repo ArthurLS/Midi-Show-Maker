@@ -82,6 +82,7 @@ function save_event() {
 	var new_event_name = $("#event_name").val()+"";
 	if (command == "new_event") {
 		if (new_event_name == "") {
+            $('#error-display').css('display', 'table');
 			$('#bad-boy').html("Please enter an event name");
 		}
 		else{
@@ -92,6 +93,7 @@ function save_event() {
 	}
 	else if(command == "edit_event"){
 		if (new_event_name == "") {
+            $('#error-display').css('display', 'table');
 			$('#bad-boy').html("Please enter an event name");
 		}
 		else{
@@ -266,3 +268,21 @@ function popup (message) {
         type: "info"
     });
 };
+
+/**
+ * If choice = 1 close and save
+ * if choice = 2 save only
+ * */
+function check_values(choice) {
+	if($("#channel").val()<0 || $("#channel").val()>15 || $("#param1").val()<0 || $("#param1").val()>127 || $("#param2").val()<0 || $("#param2").val()>127){
+        $('#error-display').css('display', 'table');
+		$('#bad-boy').html("One or more entry are not into bounds");
+	}
+	else if (choice==1){
+        save_all();
+        close_window();
+	}
+	else if (choice==2){
+        save_all();
+	}
+}
