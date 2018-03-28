@@ -149,18 +149,18 @@ function display_event_list() {
         for (event_name in project.list_events) {
             if (event_selected == event_name) {
                 liste += "<div class=\"btn btn-sq-lg event-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+event_name
-                +" <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup('edit_event', '"+event_name+"')\">Edit</button>"+
+                +" <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup_little('edit_event', '"+event_name+"')\">Edit</button>"+
                 " </div>";
             }
             else{
                 liste += "<div class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+event_name +
-                " <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup('edit_event', '"+event_name+"')\">Edit</button>"+ 
+                " <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup_little('edit_event', '"+event_name+"')\">Edit</button>"+
                 "</div>";
             }
         }
     }
     // adds the cyan "New Event" button
-    liste += "<div class=\"btn btn-sq-lg event-new\" onclick=\"open_popup(\'new_event\')\"> New <br>Event </div>"
+    liste += "<div class=\"btn btn-sq-lg event-new\" onclick=\"open_popup_little(\'new_event\')\"> New <br>Event </div>"
     $("#event_buttons").html(liste);
 }
 
