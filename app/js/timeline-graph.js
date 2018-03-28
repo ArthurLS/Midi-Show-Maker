@@ -241,7 +241,7 @@ d3.tip = require("d3-tip");
                     var percent = (positionData.width - options.textTruncateThreshold) / positionData.textWidth;
                     if (percent < 1) {
                         if (positionData.width > options.textTruncateThreshold) {
-                            return d.label.substr(0, Math.floor(d.label.length * percent)) + '...';
+                            return d.label;
                         } else {
                             return '';
                         }
