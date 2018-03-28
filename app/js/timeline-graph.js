@@ -236,17 +236,17 @@ d3.tip = require("d3-tip");
                         return '-0.5em';
                     }
                     return '0.5em';
+                }).attr('font-size', function (d) {
+                    var positionData = getTextPositionData.call(this, d);
+                    var percent = (positionData.width - options.textTruncateThreshold) / positionData.textWidth;
+                        if (positionData.width > options.textTruncateThreshold) {
+                            return '16px';
+                        } else {
+                            return (positionData.width / options.textTruncateThreshold*16).toString() + 'px';
+                        }
                 }).text(function (d) {
                     var positionData = getTextPositionData.call(this, d);
                     var percent = (positionData.width - options.textTruncateThreshold) / positionData.textWidth;
-                    if (percent < 1) {
-                        if (positionData.width > options.textTruncateThreshold) {
-                            return d.label;
-                        } else {
-                            return '';
-                        }
-                    }
-
                     return d.label;
                 });
 
