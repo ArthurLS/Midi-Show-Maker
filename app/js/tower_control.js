@@ -14,6 +14,7 @@ var event_selected = "";
 var event_obj = {};
 
 var timeouts = [];
+var soundsPlaying = [];
 
 /*
 ** Called on the onload event of index.html
@@ -30,7 +31,7 @@ function onload_init(){
 function refresh_UI() {
     // reloads the global object from the file
     project = JSON.parse(fs.readFileSync(data_file));
-    
+
     if (project.list_events.hasOwnProperty(event_selected)) {
         event_obj = project.list_events[event_selected];
     }
@@ -38,7 +39,7 @@ function refresh_UI() {
         event_obj = {};
         event_selected = "";
     }
-    
+
     // timeout of 50ms to wait if change is still happening from the calling function
     setTimeout(function() {
         display_cue_table();
@@ -56,17 +57,26 @@ ipc.on('message', (event, message) => {
 ** Reads the selected event
 */
 function read_event() {
+    soundsPlaying = []; // Something fishy was happening...
     // Read every note and sends from the event
     let save = event_obj;
     for (let i = 0; i < save.cue_list.length; i++) {
 
         var timer = new Timer(function() {
             var msg_midi = save.cue_list[i];
-            output.send(msg_midi.type, {
-                note: msg_midi.options.param1,
-                velocity: msg_midi.options.param2,
-                channel: msg_midi.channel
-            });
+            if (msg_midi.type != "programme" && msg_midi.type != "musicFile") {
+              output.send(msg_midi.type, {
+                  note: msg_midi.options.param1,
+                  velocity: msg_midi.options.param2,
+                  channel: msg_midi.channel
+              });
+            }
+            else if (msg_midi.type == "musicFile") {
+              console.log(msg_midi);
+              loadSound(msg_midi.options.paramText, i);
+              soundsPlaying.push(playSound(i, msg_midi.options.param1, msg_midi.options.param2));
+
+            }
             if (remote.getGlobal('ShowActiveCue')) {
                 $("#nb"+i).addClass('active');
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
@@ -82,6 +92,8 @@ function read_event() {
 */
 function pause_or_resume(elem) {
     if (elem.innerHTML == "Pause") {
+        for (let i = 0; i < soundsPlaying.length; i++)
+          soundsPlaying[i].paused= true;
         var nb_to_delete = 0;
         for (let i = 0; i < timeouts.length; i++){
             clearTimeout(timeouts[i].pause());
@@ -94,6 +106,8 @@ function pause_or_resume(elem) {
         elem.innerHTML = "Resume";
     }
     else if (elem.innerHTML == "Resume") {
+      for (let i = 0; i < soundsPlaying.length; i++)
+        soundsPlaying[i].paused = false;
         for (let i = 0; i < timeouts.length; i++){
             clearTimeout(timeouts[i].resume());
         }
@@ -105,6 +119,8 @@ function pause_or_resume(elem) {
 **  Clear all the pending timeouts, effectively stoping the current event playing
 */
 function stopPlay() {
+  for (let i = 0; i < soundsPlaying.length; i++)
+    soundsPlaying[i].stop();
     for (let i = 0; i < timeouts.length; i++){
         clearTimeout(timeouts[i].stop());
 
@@ -130,7 +146,7 @@ function Timer(callback, delay) {
         start = new Date();
         window.clearTimeout(timerId);
         timerId = window.setTimeout(callback, remaining);
-    };  
+    };
 
     this.resume();
     this.stop = function() {
@@ -179,7 +195,7 @@ function display_cue_list() {
             }
             else{
                 liste += "<li class=\"col-md-12 list-group-item btn-secondary\"  onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">"+i
-                +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;                
+                +" Type: "+cue.type+" - Channel: "+cue.channel+" - Note: "+cue.options.param1;
             }
             liste += " - Delay: " + cue.delay
             liste += "</li></span>"
@@ -207,7 +223,7 @@ function display_cue_table() {
     table += "<tbody>";
     if (event_selected != "") {
         toogle_top_left_buttons("on");
-        
+
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
 
@@ -315,7 +331,7 @@ function toogle_top_left_buttons(on_off) {
     else {
         $(".no_event_disable").attr("disabled", false);
     }
-    
+
 }
 
 function toggle(a){

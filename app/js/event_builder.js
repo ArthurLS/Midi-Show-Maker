@@ -4,7 +4,7 @@
 params:
 	int id -> identifier of the event
 	string name -> name of the event
-	object options -> TBD 
+	object options -> TBD
 */
 function create_event(id, name, options) {
 	var event = {
@@ -31,7 +31,7 @@ function add_event(event_obj) {
 		event_obj.name += " ("+i+")";
 		project.list_events[event_obj.name] = event_obj;
 		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
-	}	
+	}
 }
 
 /*
@@ -121,7 +121,7 @@ function update_cue_channel(parent_cue_list, cue_index, new_channel) {
 /*
 	CUE NOTE_(ON/OFF) OPTIONS
 */
-function update_cue_options(parent_cue_list, cue_index, type, param1, param2) {
+function update_cue_options(parent_cue_list, cue_index, type, param1, param2, paramText) {
 	var options_res = {};
 	if (type == "noteon" || type == "noteoff" || type == "cc") {
 		options_res["param1"] = param1;
@@ -129,6 +129,11 @@ function update_cue_options(parent_cue_list, cue_index, type, param1, param2) {
 	}
 	else if(type == "programme"){
 		options_res["param1"] = param1;
+	}
+	else if (type == "musicFile") {
+		options_res["paramText"] = paramText;
+		options_res["param1"] = param1;
+		options_res["param2"] = param2;
 	}
 
 	parent_cue_list[cue_index].options = options_res;
@@ -157,5 +162,3 @@ function move_cue(parent_cue_list, old_index, new_index) {
 	console.log("move_cue");
 	parent_cue_list.splice(new_index, 0, parent_cue_list.splice(old_index, 1)[0]);
 }
-
-
