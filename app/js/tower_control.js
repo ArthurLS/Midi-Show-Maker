@@ -10,8 +10,8 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = "";
-var event_obj = {};
+var event_selected = "mario";
+var event_obj = project.list_events[event_selected];
 
 var isPlaying = false;
 var timeouts = [];
@@ -50,6 +50,7 @@ function refresh_UI() {
         display_event_list();
     }, 50);
     toogle_enabled_buttons();
+    refresh_Timeline(); // dans timeline-data
 }
 
 ipc.on('message', (event, message) => {
@@ -407,3 +408,4 @@ function toggle(a){
     else
         e.style.display = "block";
 }
+

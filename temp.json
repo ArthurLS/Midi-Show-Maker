@@ -14,20 +14,20 @@
           }
         },
         {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 0,
-          "options": {
-            "param1": 52,
-            "param2": 127
-          }
-        },
-        {
           "type": "cc",
           "channel": 3,
           "delay": 0,
           "options": {
             "param1": 696969,
+            "param2": 127
+          }
+        },
+        {
+          "type": "noteon",
+          "channel": 3,
+          "delay": 0,
+          "options": {
+            "param1": 52,
             "param2": 127
           }
         },
@@ -65,16 +65,6 @@
           "options": {
             "param1": 52,
             "param2": 127
-          }
-        },
-        {
-          "type": "musicFile",
-          "channel": 0,
-          "delay": 1000,
-          "options": {
-            "paramText": "C:\\Users\\Dasko\\Desktop\\rickastley_artists.mp3",
-            "param1": 0,
-            "param2": 2000
           }
         },
         {
@@ -415,58 +405,6 @@
           "options": {
             "param1": 45,
             "param2": 127
-          }
-        }
-      ],
-      "options": {}
-    },
-    "TEST": {
-      "id": 0,
-      "name": "TEST",
-      "cue_list": [
-        {
-          "type": "noteon",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "param1": 50,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 0,
-          "delay": 500,
-          "options": {
-            "param1": 50,
-            "param2": 127
-          }
-        },
-        {
-          "type": "musicFile",
-          "channel": 0,
-          "delay": 1500,
-          "options": {
-            "paramText": "C:\\Users\\Dasko\\Desktop\\rickastley_artists.mp3",
-            "param1": 20000,
-            "param2": 25000
-          }
-        }
-      ],
-      "options": {}
-    },
-    "Sound": {
-      "id": 0,
-      "name": "Sound",
-      "cue_list": [
-        {
-          "type": "musicFile",
-          "channel": 0,
-          "delay": 1000,
-          "options": {
-            "paramText": "C:\\Users\\Dasko\\Desktop\\Trance - 009 Sound System Dreamscape (HD).mp3",
-            "param1": 10000,
-            "param2": 13000
           }
         }
       ],
