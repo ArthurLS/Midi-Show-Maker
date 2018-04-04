@@ -1,10 +1,11 @@
 <div class="row">
 	<div class="col-md-12">
-		<button type="button" class="btn btn-success no_event_disable" onclick="open_popup('new_cue', 'xx')">Add a Cue</button>
+		<button type="button" class="btn btn-success" id="add_cue_btn" onclick="open_popup('new_cue', 'xx')">Add a Cue</button>
 
-		<button type="button" class="btn no_event_disable" onclick="read_event()" style="background-color: #008CBA; color: white">Play Event</button>
-		<button type="button" class="btn btn-danger no_event_disable" id="btn_pause_resume" onclick="pause_or_resume(this)">Pause</button>
-		<button type="button" class="btn btn-danger no_event_disable" onclick="stopPlay()">Stop</button>
+		<button type="button" class="btn" id="play_event_btn" onclick="read_event();" style="background-color: #008CBA; color: white">Play Event</button>
+		<button type="button" class="btn btn-danger" id="pause_resume_btn" onclick="pause_or_resume(this)">Pause</button>
+		<button type="button" class="btn btn-danger" id="stop_btn" onclick="stopPlay()">Stop</button>
+		<button type="button" class="btn btn-primary" id="stop_btn" onclick="getTime()">Get Time</button>
 	</div>
 </div>
 <br>

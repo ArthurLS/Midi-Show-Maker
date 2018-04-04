@@ -13,7 +13,10 @@ if (fs.existsSync(data_file)) {
 var event_selected = "";
 var event_obj = {};
 
+var isPlaying = false;
 var timeouts = [];
+
+var timer_of_event = new Date();
 
 /*
 ** Called on the onload event of index.html
@@ -38,13 +41,15 @@ function refresh_UI() {
         event_obj = {};
         event_selected = "";
     }
-    
+
     // timeout of 50ms to wait if change is still happening from the calling function
     setTimeout(function() {
         display_cue_table();
         display_event_list();
     }, 50);
+    toogle_enabled_buttons();
 }
+
 ipc.on('message', (event, message) => {
     if(message == 'refresh'){
         console.log("ask refresh");
@@ -56,6 +61,8 @@ ipc.on('message', (event, message) => {
 ** Reads the selected event
 */
 function read_event() {
+    isPlaying = true;
+    var timer_of_event = new Date();
     // Read every note and sends from the event
     let save = event_obj;
     for (let i = 0; i < save.cue_list.length; i++) {
@@ -71,17 +78,32 @@ function read_event() {
                 $("#nb"+i).addClass('active');
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
             }
+            if (i == save.cue_list.length -1) {
+                isPlaying = false;
+                $("#nb"+(i-1)).removeClass('active');
+                $("#nb"+(i)).removeClass('active');
+            }
         }, event_obj.cue_list[i].delay);
 
         timeouts.push(timer);
     }
+    toogle_enabled_buttons();
 }
 
 /*
 ** Pauses or resumes the current list of cues
 */
-function pause_or_resume(elem) {
-    if (elem.innerHTML == "Pause") {
+function pause_or_resume() {
+    // If it's playing, then pause
+    if(isPlaying == "Pause") {
+        isPlaying = true;
+        for (let i = 0; i < timeouts.length; i++){
+            clearTimeout(timeouts[i].resume());
+        }
+        $("#pause_resume_btn").html("Pause");
+    }
+    else if (isPlaying) {
+        isPlaying = "Pause";
         var nb_to_delete = 0;
         for (let i = 0; i < timeouts.length; i++){
             clearTimeout(timeouts[i].pause());
@@ -90,27 +112,42 @@ function pause_or_resume(elem) {
                 nb_to_delete++;
             }
         }
+        $("#pause_resume_btn").html("Resume");
         timeouts.splice(0,nb_to_delete);
-        elem.innerHTML = "Resume";
     }
-    else if (elem.innerHTML == "Resume") {
-        for (let i = 0; i < timeouts.length; i++){
-            clearTimeout(timeouts[i].resume());
-        }
-        elem.innerHTML = "Pause";
-    }
+    // else, play again
+    
+    toogle_enabled_buttons();
+}
+
+function getTime() {
+    var cue_list = event_obj.cue_list;
+    var cue_size = cue_list.length;
+
+    // When is the last cue gonna play
+    var last_remaining = timeouts[timeouts.length-1].getupdate();
+
+    // What was the original last cue delay
+    var last_delay = cue_list[cue_size-1].delay;
+    var result = last_delay - last_remaining;
+    console.log("WE ARE AT "+result+"ms");
+    return result;
 }
 
 /*
 **  Clear all the pending timeouts, effectively stoping the current event playing
 */
 function stopPlay() {
+    isPlaying = false;
     for (let i = 0; i < timeouts.length; i++){
         clearTimeout(timeouts[i].stop());
 
     }
     timeouts = new Array();
+    refresh_UI(); 
+    $("#pause_resume_btn").html("Pause");
 }
+
 
 /*
 ** setTimeout wrapper to handle pause, stop and resume
@@ -119,6 +156,9 @@ function Timer(callback, delay) {
     var timerId, start, remaining = delay;
     this.remain = function () {
         return remaining;
+    }
+    this.getupdate = function () {
+        return remaining - (new Date() - start);
     }
 
     this.pause = function() {
@@ -169,7 +209,6 @@ function display_event_list() {
 */
 function display_cue_list() {
     if (event_selected != "") {
-        toogle_top_left_buttons("on");
         let liste = "<ul class=\"list-group\" class='liste' id=\"liste_cues\">";
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
@@ -188,7 +227,6 @@ function display_cue_list() {
         $("#list").html(liste);
     }
     else{
-        toogle_top_left_buttons("off");
         $("#list").html("No event selected");
     }
 }
@@ -206,7 +244,6 @@ function display_cue_table() {
     let table = "<table class=\"table\"><thead><tr style=\"cursor: default;\">"+heads+"</tr></thead>";
     table += "<tbody>";
     if (event_selected != "") {
-        toogle_top_left_buttons("on");
         
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
@@ -232,7 +269,7 @@ function display_cue_table() {
         $("#table").html(table);
     }
     else{
-        toogle_top_left_buttons("off");
+        toogle_enabled_buttons();
         table += "</tbody>"
         $("#table").html(table);
     }
@@ -306,16 +343,42 @@ function isEmpty(obj) {
     return true;
 }
 
-function toogle_top_left_buttons(on_off) {
-    // OFF, button are disabled
-    if (on_off == "off") {
-        $(".no_event_disable").attr("disabled", true);
+function toogle_enabled_buttons() {
+    // All buttons are disabled if no events are selected
+    if (event_selected == "") {
+        $("#add_cue_btn").attr("disabled", true);
+        $("#play_event_btn").attr("disabled", true);
+        $("#pause_resume_btn").attr("disabled", true);
+        $("#stop_btn").attr("disabled", true);
+        
     }
-    // ON, button are enabled
+    // If event is selected
     else {
-        $(".no_event_disable").attr("disabled", false);
+        // if the event is playing
+        if (isPlaying) {
+            $("#add_cue_btn").attr("disabled", false);
+            $("#play_event_btn").attr("disabled", false);
+
+            $("#pause_resume_btn").attr("disabled", false);
+            $("#stop_btn").attr("disabled", false);
+        }
+        // if the event is not playing
+        else if(!isPlaying){
+            $("#add_cue_btn").attr("disabled", false);
+            $("#play_event_btn").attr("disabled", false);
+
+            $("#pause_resume_btn").attr("disabled", true);
+            $("#stop_btn").attr("disabled", true);
+        } 
+        // if the event is not playing
+        else if(isPlaying == "Pause"){
+            $("#add_cue_btn").attr("disabled", false);
+            $("#play_event_btn").attr("disabled", false);
+
+            $("#pause_resume_btn").attr("disabled", false);
+            $("#stop_btn").attr("disabled", false);
+        }
     }
-    
 }
 
 function toggle(a){
