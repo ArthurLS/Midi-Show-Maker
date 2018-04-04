@@ -28,17 +28,27 @@
 		</div>
 		<br>
 		<div class="row" id="options_list">
-			
+
+		</div>
+		<br>
+
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div id="error-display" class="alert alert-dismissible alert-danger col-md-10 col-md-offset-1" style="display: none;">
+				<p id="bad-boy"></p>
+			</div>
 		</div>
 	</div>
-	<br>
+
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1">
-				<button type="button" class="btn btn-primary" onclick="save_all()">Save All</button>
+				<button type="button" class="btn btn-primary" onclick="check_values(2)">Save All</button>
 			</div>
 			<div class="col-md-2">
-				<button type="button" class="btn btn-success" onclick="save_all(); close_window()">Save and Close</button>
+				<button type="button" class="btn btn-success" onclick="check_values(1)">Save and Close</button>
 			</div>
 			<div class="col-md-2">
 	    		<input type="button" class="btn btn-warning" onclick="close_window()" value="Close (Doesn't Save!)"/>

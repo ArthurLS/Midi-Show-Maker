@@ -13,10 +13,18 @@
 		<div class="row">
 			<div class="col-md-4">
 				<input type="text" id="event_name" class="form-control" value="" autofocus>
-				
-				<p id="bad-boy" style="color: white; font-size: 120%; font-style: bold;"></p>
-				
-				<button type="button" class="btn btn-success" onclick="save_event()">Save and Close</button>
+
+				<br>
+				<div id="error-display" class="alert alert-dismissible alert-danger col-md-10 col-md-offset-1" style="display: none;">
+					<p id="bad-boy"></p>
+				</div>
+
+				<div class="col-xs-5">
+					<button type="button" class="btn btn-success" onclick="save_event()">Save and Close</button>
+				</div>
+				<div class="col-xs-5">
+					<input type="button" class="btn btn-warning" onclick="close_window()" value="Close (Doesn't Save!)"/>
+				</div>
 			</div>
 		</div>
 	</div>
