@@ -16,8 +16,6 @@
 </head>
 <body onload="onload_init();">
 
-  <main role="main">
-
   <div class="flex-container fill">
 
     <div class="flex-1">
@@ -25,22 +23,14 @@
 
       <div class="col-md-6 maxed-out" include="sections/top_right.html"></div>
 
-      </div>
-      <hr>
     </div>
-    <div class="container">
-      <div class="row">
-        <!-- <div class="col-xl-12" include="sections/timeline.html"></div> -->
+    <div class="flex-1">
         <div class="col-xl-12">
           <div  id="chart" style="height: 300px; width:1000px;" ></div>
-      </div>
 
+        </div>
     </div>
-
-    <div class="flex-1">
-      <div class="col-md-12" include="sections/timeline.html"></div>
-    </div>
-  </div>
+</div>
 
   <script>window.$ = window.jQuery = require('./js/jquery-1.11.1.js');</script>
 
@@ -55,7 +45,6 @@
   <!-- <script src="./js/midi_io.js"></script> -->
   <script src="./js/tower_control.js"></script>
   <script src="./js/popup_manager.js"></script>
-  <script src="./js/testListe.js"></script>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>

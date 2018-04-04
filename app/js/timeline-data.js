@@ -1,9 +1,7 @@
 var d3 = require('d3');
 d3.tip = require('d3-tip');
 
-
-var data_file = 'app/json/data.json';
-var mario = JSON.parse(fs.readFileSync(data_file));
+/*note: the first event_obj is now called event_obj*/
 
 'use strict';
 const element = document.getElementById('chart');
@@ -14,26 +12,26 @@ function hauteurtostring(hauteur){
     return result;
 }
 
-function makedata(mario) {
+function makedata(event_obj) {
 
     var data = [];
     var start = 0; //on démarre à 0
     var obj = new Object();  //objet temporaire
 
-    obj.label = "mario"; //temporaire
+    obj.label = event_selected; //temporaire
     obj.data = [];
 
-    for (let i = 0; i < mario.cue_list.length; i++) {
+    for (let i = 0; i < event_obj.cue_list.length; i++) {
 
-        var one = mario.cue_list[i];
+        var one = event_obj.cue_list[i];
 
         var two = new Object();
-        two.label = hauteurtostring(one.options.note);//'a'; //TODO: appeler fonction qui prend la hauteur et renvoie note CDEFGAB musique
+        two.label = hauteurtostring(one.options.param1);//'a'; //TODO: appeler fonction qui prend la hauteur et renvoie note CDEFGAB musique
         two.type = TimelineChart.TYPE.INTERVAL;
         two.from = new Date(start); //équivaut à des ms
         two.to = new Date(/*start + */one.delay);
         two.customClass = 'blue-interval';
-        two.hauteur = one.options.note;
+        two.hauteur = one.options.param1;
 
         start /*+*/= one.delay; //update pour les notes suivantes
         //console.log(two);
@@ -44,9 +42,9 @@ function makedata(mario) {
 
 }
 
-console.log( makedata(mario));
+console.log( makedata(event_obj));
 
-var data = [makedata(mario)]; /*[{
+var data = [makedata(event_obj)]; /*[{
     label: 'Name',
     data: [{
         type: TimelineChart.TYPE.POINT,

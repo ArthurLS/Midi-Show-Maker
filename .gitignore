@@ -2,8 +2,4 @@ node_modules
 ./package.json
 ./package-lock.*
 ./.idea/
-<<<<<<< HEAD
 Opren Electron-win32-x64
-=======
-Opren Electron-win32-x64
->>>>>>> timeline

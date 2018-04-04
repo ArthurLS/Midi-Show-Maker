@@ -14,12 +14,12 @@
           }
         },
         {
-          "type": "cc",
-          "channel": 3,
+          "type": "noteon",
+          "channel": 0,
           "delay": 0,
           "options": {
-            "param1": 696969,
-            "param2": 127
+            "param1": 60,
+            "param2": 0
           }
         },
         {
@@ -29,6 +29,15 @@
           "options": {
             "param1": 52,
             "param2": 127
+          }
+        },
+        {
+          "type": "noteon",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 0,
+            "param2": 0
           }
         },
         {

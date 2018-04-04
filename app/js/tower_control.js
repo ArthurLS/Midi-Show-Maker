@@ -10,8 +10,8 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = "";
-var event_obj = {};
+var event_selected = "mario";
+var event_obj = project.list_events[event_selected];
 
 var isPlaying = false;
 var timeouts = [];
@@ -104,7 +104,7 @@ function read_event() {
 ** Pauses or resumes the current list of cues
 */
 function pause_or_resume(elem) {
-   
+
     if(isPlaying == "Pause") {
         for (let i = 0; i < soundsPlaying.length; i++)
             soundsPlaying[i].paused = false;
@@ -131,7 +131,7 @@ function pause_or_resume(elem) {
         timeouts.splice(0,nb_to_delete);
     }
     // else, play again
-    
+
     toogle_enabled_buttons();
 }
 
@@ -161,7 +161,7 @@ function stopPlay() {
 
     }
     timeouts = new Array();
-    refresh_UI(); 
+    refresh_UI();
     $("#pause_resume_btn").html("Pause");
 }
 
@@ -366,7 +366,7 @@ function toogle_enabled_buttons() {
         $("#play_event_btn").attr("disabled", true);
         $("#pause_resume_btn").attr("disabled", true);
         $("#stop_btn").attr("disabled", true);
-        
+
     }
     // If event is selected
     else {
@@ -385,7 +385,7 @@ function toogle_enabled_buttons() {
 
             $("#pause_resume_btn").attr("disabled", true);
             $("#stop_btn").attr("disabled", true);
-        } 
+        }
         // if the event is not playing
         else if(isPlaying == "Pause"){
             $("#add_cue_btn").attr("disabled", false);
