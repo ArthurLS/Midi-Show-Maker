@@ -134,9 +134,9 @@ d3.tip = require("d3-tip");
             }).attr('height', intervalBarHeight/128).attr('y', function (d) {
                 //intervalBarHeight est la largeur du rectangle
                 //intervalBarMargin est le décalage dont il est sujet
-                console.log(d.hauteur);
-                console.log(intervalBarHeight);
-                console.log(intervalBarMargin);
+                //console.log(d.hauteur);
+                //console.log(intervalBarHeight);
+                //console.log(intervalBarMargin);
                 //note: svg trace depuis (x,-y)
                 return (intervalBarMargin + intervalBarHeight - (intervalBarHeight/128) * (d.hauteur) ); //permet le tracer par hauteur de note
             }).attr('x', function (d) {
@@ -145,11 +145,24 @@ d3.tip = require("d3-tip");
 
 
             // le texte dans les intervals
+            /*
             var intervalTexts = groupIntervalItems.append('text').text(function (d) {
                 return d.label;
             }).attr('fill', 'white').attr('class', withCustom('interval-text')).attr('y', groupHeight / 2 + 5).attr('x', function (d) {
                 return x(d.from);
+            });*/
+            var intervalTexts = groupIntervalItems.append('text').text(function (d) {
+                return d.label;
+            }).attr('fill', 'white').attr('class', withCustom('interval-text')).attr('y', function(d){
+                //console.log(Math.min(16, x(d.to - d.from)) + 2);
+                //console.log("le dec: " + (0 - (-1 * x(d.to - d.from))/16 ).toString());
+                var upordown = d.hauteur > 64 ? -2 : 100 - (-1 * x(d.to - d.from))/4 ;
+                return ( (intervalBarMargin + intervalBarHeight - (intervalBarHeight/128) * (d.hauteur) ) + upordown);
+            //) ); //groupHeight / 2 + 5 ;
+            }).attr('x', function (d) {
+                return x(d.from);
             });
+
 
             // pour les points
             var groupDotItems = svg.selectAll('.group-dot-item').data(data).enter().append('g').attr('clip-path', 'url(#chart-content)').attr('class', 'item').attr('transform', function (d, i) {

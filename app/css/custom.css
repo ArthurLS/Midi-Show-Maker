@@ -30,8 +30,8 @@ canvas {
 }
 
 rect.interval.blue-interval {
-    fill: blue;
-    stroke: blue;
+    fill: #99ccff; //blue;
+    stroke: #99ccff; //blue;
 }
 
 circle.blue-dot {
