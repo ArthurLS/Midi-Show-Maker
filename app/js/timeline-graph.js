@@ -156,7 +156,7 @@ d3.tip = require("d3-tip");
             }).attr('fill', 'white').attr('class', withCustom('interval-text')).attr('y', function(d){
                 //console.log(Math.min(16, x(d.to - d.from)) + 2);
                 //console.log("le dec: " + (0 - (-1 * x(d.to - d.from))/16 ).toString());
-                var upordown = d.hauteur > 64 ? -2 : 100 - (-1 * x(d.to - d.from))/4 ;
+                var upordown = -5;//d.hauteur > 64 ? -2 : 100 - (-1 * x(d.to - d.from))/4 ;
                 return ( (intervalBarMargin + intervalBarHeight - (intervalBarHeight/128) * (d.hauteur) ) + upordown);
             //) ); //groupHeight / 2 + 5 ;
             }).attr('x', function (d) {

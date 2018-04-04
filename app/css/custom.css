@@ -14,8 +14,11 @@ html, body{
   height: 100%;
 }
 .maxed-out{
-  max-height: 50vh;
+  max-height: 68vh;
   overflow: auto;
+}
+.maxed-out-timeline{
+    max-height: 30vh;
 }
 
 
