@@ -134,8 +134,13 @@ function update_cue_options(parent_cue_list, cue_index, type, param1, param2, pa
 		options_res["paramText"] = paramText;
 		options_res["param1"] = param1;
 		options_res["param2"] = param2;
-	}
 
+		// We need to preload the file if we changed it !
+		if (parent_cue_list[cue_index].options.paramText != paramText) {
+			// Check if the current song is already loaded!
+			if (!createjs.Sound.loadComplete(paramText)) loadSound(paramText, paramText);
+		}
+	}
 	parent_cue_list[cue_index].options = options_res;
 }
 
