@@ -15,12 +15,26 @@
   <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
 </head>
 <body onload="onload_init();">
+
+  <main role="main">
+
   <div class="flex-container fill">
 
     <div class="flex-1">
       <div class="col-md-6 maxed-out" include="sections/top_left.html"></div>
 
       <div class="col-md-6 maxed-out" include="sections/top_right.html"></div>
+
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <!-- <div class="col-xl-12" include="sections/timeline.html"></div> -->
+        <div class="col-xl-12">
+          <div  id="chart" style="height: 300px; width:1000px;" ></div>
+      </div>
+
     </div>
 
     <div class="flex-1">
@@ -33,11 +47,33 @@
   <script src="./js/utils.js"></script>
   <script>includeFile();</script>
   <script src="./js/event_builder.js"></script>
+
   <script src="./js/midi_io.js"></script>
   <script src="./js/soundjs.min.js"></script>
   <script src="./js/audio_control.js"></script>
+
+  <!-- <script src="./js/midi_io.js"></script> -->
   <script src="./js/tower_control.js"></script>
   <script src="./js/popup_manager.js"></script>
+  <script src="./js/testListe.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+  <!-- <script src="./js/d3/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.7/d3-tip.min.js"></script> -->
+  <!-- <script src="../dist/timeline-chart.js"></script> -->
+  <script src="./js/timeline-graph.js"></script>
+  <script src="./js/timeline-data.js" id="code"></script>
+
+  <!-- <script>
+  console.log("hello");
+  setTimeout(addCanvas, 1000);</script> -->
+
+  <!-- <section flex flex-full-center>
+        <div id="chart"></div> </section> -->
+
 
 
 </body>

@@ -9,7 +9,7 @@ html, body{
 .flex-1{
   flex: 1;
 }
-.fill { 
+.fill {
   min-height: 100%;
   height: 100%;
 }
@@ -29,6 +29,7 @@ html, body{
 li, tr {
     cursor: pointer;
 }
+
 .list-group-item:hover, tbody tr:hover{
   background: #68a2ff;
   transition: background 0.5s;
@@ -78,7 +79,7 @@ li, tr {
 #event_name_title{
   margin-left: 8px;
 }
-/* 
+/*
 .btn-sq {
   width: 100px !important;
   height: 100px !important;
@@ -102,3 +103,68 @@ li, tr {
 sheet.insertRule("body { background-color: red; height: 100%; }", 1);
 sheet.insertRule("html { height: 100%; }", 1);
 */
+
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+#chart {
+    width: 90%;
+    height: 150px;
+    background: rgb(218, 218, 218);
+    opacity: 0.9;
+    border-radius: 5px;
+    border: 1px solid #2b2b2b;
+
+}
+
+#chart line {
+    stroke: #2b2b2b;
+}
+
+#chart line.vertical-marker.now {
+    stroke: #c00;
+}
+
+rect.interval.blue-interval {
+    fill: #99ccff; //blue;
+    stroke: #99ccff; //blue;
+}
+
+circle.blue-dot {
+    fill: blue;
+}
+
+/* Override d3tip */
+
+.d3-tip {
+    background: white;
+    color: black;
+}
+
+/* Tiny Flex Grid */
+
+[flex] {
+    display: flex;
+}
+[flex-fill] {
+    flex: 1;
+}
+[flex-full-center] {
+    align-items: center;
+    justify-content: center;
+}
+[flex-direction=column] {
+    flex-direction: column;
+}
+[flex-direction=row] {
+    flex-direction: row;
+}
+[flex-size="40"] {
+    flex: 40;
+}
+[flex-size="60"] {
+    flex: 60;
+}
