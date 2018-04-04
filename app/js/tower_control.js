@@ -16,6 +16,7 @@ var event_obj = {};
 var isPlaying = false;
 var timeouts = [];
 var soundsPlaying = [];
+var loadedSounds = [];
 
 var timer_of_event = new Date();
 
@@ -79,10 +80,8 @@ function read_event() {
               });
             }
             else if (msg_midi.type == "musicFile") {
-              console.log(msg_midi);
-              loadSound(msg_midi.options.paramText, i);
-              soundsPlaying.push(playSound(i, msg_midi.options.param1, msg_midi.options.param2));
-
+              //loadSound(msg_midi.options.paramText, i);
+              soundsPlaying.push(playSound(msg_midi.options.paramText, msg_midi.options.param1, msg_midi.options.param2));
             }
             if (remote.getGlobal('ShowActiveCue')) {
                 $("#nb"+i).addClass('active');
@@ -263,6 +262,10 @@ function display_cue_table() {
     if (event_selected != "") {
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
+            // We need to preload soundfiles why not do it here?
+            if (cue.type == "musicFile") {
+              if (!createjs.Sound.loadComplete(i))   loadSound(cue.options.paramText, cue.options.paramText);
+            }
 
             table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
 

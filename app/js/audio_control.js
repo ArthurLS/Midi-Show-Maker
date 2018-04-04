@@ -9,5 +9,6 @@ function playSound(id, from, to) {
 
 
 function loadSound(sURL, id) {
+  console.log("Loading file " + sURL + ", with id " + id);
   createjs.Sound.registerSound(sURL, id);
 }
