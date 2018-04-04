@@ -167,12 +167,24 @@ var data = [makedata(event_obj)]; /*[{
 }];
 */
 
-const timeline = new TimelineChart(element, data, {
+var timeline = new TimelineChart(element, data, {
     enableLiveTimer: true,
     tip: function(d) {
         return d.at || d.from +"<br>" + d.to;
     }
 }).onVizChange(e => console.log(e));
+
+function refresh_Timeline() {
+    var chartDiv = document.getElementById('svgChart');
+    chartDiv.remove();
+    data = [makedata(event_obj)];
+    timeline = new TimelineChart(element, data, {
+        enableLiveTimer: true,
+        tip: function(d) {
+            return d.at || d.from +"<br>" + d.to;
+        }
+    }).onVizChange(e => console.log(e));
+}
 
 /*
 note: penser à changer dans timeline-graph.js le fait qu'on commence à 0 (voir domaine de d3) -> FAIT

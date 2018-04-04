@@ -49,6 +49,7 @@ function refresh_UI() {
         display_event_list();
     }, 50);
     toogle_enabled_buttons();
+    refresh_Timeline(); // dans timeline-data
 }
 
 ipc.on('message', (event, message) => {
@@ -404,3 +405,4 @@ function toggle(a){
     else
         e.style.display = "block";
 }
+
