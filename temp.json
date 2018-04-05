@@ -2,26 +2,9 @@
   "name": "The Best Project",
   "list_events": {
     "mario": {
-      "id": 1,
+      "id": 0,
       "name": "mario",
       "cue_list": [
-        {
-          "type": "programme",
-          "channel": 3,
-          "delay": 0,
-          "options": {
-            "param1": 4
-          }
-        },
-        {
-          "type": "cc",
-          "channel": 3,
-          "delay": 0,
-          "options": {
-            "param1": 696969,
-            "param2": 127
-          }
-        },
         {
           "type": "noteon",
           "channel": 3,
@@ -386,7 +369,7 @@
       "options": {}
     },
     "test_event": {
-      "id": 5,
+      "id": 1,
       "name": "test_event",
       "cue_list": [
         {

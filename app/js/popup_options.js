@@ -52,7 +52,6 @@ function init_window_cue(){
 ** Initialise the popup window for an event
 */
 function init_window_event(){
-
 	event_selected += url.searchParams.get("event_name");
 
 	if (command == "new_event") {
@@ -88,7 +87,7 @@ function save_event() {
 			$('#bad-boy').html("Please enter an event name");
 		}
 		else{
-			var event_obj = create_event(0, new_event_name, {});
+			var event_obj = create_event(new_event_name, {});
 			add_event(event_obj);
 			close_window();
 		}
@@ -266,7 +265,7 @@ $("#type_list").change(function(){
 ** Closes the window when the user clicks outside the popup window
 */
 $(window).blur(function(){
-		if (canBlur)
+	if (canBlur)
     	close_window();
 });
 

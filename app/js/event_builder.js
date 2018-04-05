@@ -6,9 +6,9 @@ params:
 	string name -> name of the event
 	object options -> TBD
 */
-function create_event(id, name, options) {
+function create_event(name, options) {
 	var event = {
-		"id": id,
+		"id": 0,
 		"name": name,
 		"cue_list": [],
 		"options": {}
@@ -18,6 +18,7 @@ function create_event(id, name, options) {
 
 function add_event(event_obj) {
 	project = JSON.parse(fs.readFileSync(data_file));
+	event_obj["id"] = Object.keys(project.list_events).length;
 	if (!project.list_events.hasOwnProperty(event_obj.name)) {
 		project.list_events[event_obj.name] = event_obj;
 		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
