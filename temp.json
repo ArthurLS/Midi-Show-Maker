@@ -6,6 +6,7 @@
       "name": "mario",
       "cue_list": [
         {
+          "name": "First",
           "type": "noteon",
           "channel": 3,
           "delay": 0,
@@ -15,6 +16,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 150,
@@ -24,6 +26,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 450,
@@ -33,6 +36,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 750,
@@ -42,6 +46,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 900,
@@ -51,6 +56,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 1200,
@@ -60,6 +66,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 1800,
@@ -69,6 +76,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 2400,
@@ -78,6 +86,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 2850,
@@ -87,6 +96,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 3300,
@@ -96,6 +106,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 3750,
@@ -105,6 +116,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 4050,
@@ -114,6 +126,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 4350,
@@ -123,6 +136,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 4500,
@@ -132,6 +146,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 4800,
@@ -141,6 +156,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 4950,
@@ -150,6 +166,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 5100,
@@ -159,6 +176,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 5250,
@@ -168,6 +186,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 5550,
@@ -177,6 +196,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 5700,
@@ -186,6 +206,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 6000,
@@ -195,6 +216,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 6300,
@@ -204,6 +226,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 6450,
@@ -213,6 +236,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 6600,
@@ -222,6 +246,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 7050,
@@ -231,6 +256,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 7500,
@@ -240,6 +266,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 7950,
@@ -249,6 +276,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 8400,
@@ -258,6 +286,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 8700,
@@ -267,6 +296,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 9000,
@@ -276,6 +306,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 9150,
@@ -285,6 +316,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 9450,
@@ -294,6 +326,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 9600,
@@ -303,6 +336,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 9750,
@@ -312,6 +346,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 10000,
@@ -321,6 +356,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 10300,
@@ -330,6 +366,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 10450,
@@ -339,6 +376,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 10750,
@@ -348,6 +386,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 11050,
@@ -357,6 +396,7 @@
           }
         },
         {
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 11200,
@@ -373,21 +413,51 @@
       "name": "test_event",
       "cue_list": [
         {
+          "name": "",
           "type": "noteon",
           "channel": 0,
           "delay": 0,
           "options": {
-            "param1": 60,
-            "param2": 127
+            "param1": 0,
+            "param2": 0
           }
         },
         {
+          "name": "Yolo",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 60,
+          "options": {
+            "param1": 0,
+            "param2": 0
+          }
+        },
+        {
+          "name": "",
           "type": "noteon",
           "channel": 1,
           "delay": 500,
           "options": {
             "param1": 45,
             "param2": 127
+          }
+        }
+      ],
+      "options": {}
+    },
+    "Music": {
+      "id": 2,
+      "name": "Music",
+      "cue_list": [
+        {
+          "name": "Adele",
+          "type": "musicFile",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "paramText": "C:\\Users\\Arthur\\Music\\Adele_-_Someone_like_you.mp3",
+            "param1": 0,
+            "param2": 0
           }
         }
       ],

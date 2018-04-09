@@ -2,16 +2,23 @@
 <head>
 	<meta charset="utf-8">
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/custom.css" rel="stylesheet">
 </head>
 <body onload="init_window_cue()" style="border: solid 1px;">
 
-	<div class="container-fluid">
+	<div class="container-fluid" >
 		<div class="row">
 			<h1>
-				Event: <span id="event_name"></span>, Cue n°<span id="cue_id"></span>
+				Event: <span id="event_name"></span><span id="cue_id"></span>
 			</h1>
 		</div>
-		<div class="row">
+		<div class="row" id="name_container">
+			<div class="col-md-4">
+				<h3>Name</h3>
+				<input type="text" id="cue_name" class="form-control" placeholder="Name is Optional" value="">
+			</div>
+		</div>
+		<div class="row" id="input_container">
 			<div class="col-md-4">
 				<h3>Type</h3>
 				<select id="type_list" class="form-control">
@@ -24,6 +31,13 @@
 			<div class="col-md-4">
 				<h3>Delay</h3>
 				<input type="number" id="delay" class="form-control" value="">
+			</div>
+		</div>
+		<div class="row" id="named_cue_container">
+			<div class="col-md-8">
+				<h3>Choose from the named cues</h3>
+				<div id="table">
+				</div>
 			</div>
 		</div>
 		<br>
@@ -44,17 +58,14 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-1">
-				<button type="button" class="btn btn-primary" onclick="check_values(2)">Save All</button>
+			<div class="col-md-2">
+				<button type="button" class="btn btn-success" id="save_close_btn" onclick="check_values(1)">Save and Close</button>
 			</div>
 			<div class="col-md-2">
-				<button type="button" class="btn btn-success" onclick="check_values(1)">Save and Close</button>
-			</div>
-			<div class="col-md-2">
-	    		<input type="button" class="btn btn-warning" onclick="close_window()" value="Close (Doesn't Save!)"/>
+	    		<input type="button" class="btn btn-warning" id="close_btn" onclick="close_window()" value="Close (Doesn't Save!)"/>
 	    	</div>
 	    	<div class="col-md-2">
-	    		<input type="button" class="btn btn-danger" onclick="delete_cue()" value="Delete the Cue"/>
+	    		<input type="button" class="btn btn-danger" id="delete_btn" onclick="delete_cue()" value="Delete the Cue"/>
 	    	</div>
 		</div>
 	</div>

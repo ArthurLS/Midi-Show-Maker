@@ -10,7 +10,7 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = "mario";
+var event_selected = "test_event";
 var event_obj = project.list_events[event_selected];
 
 var isPlaying = false;
@@ -105,21 +105,28 @@ function read_event() {
 */
 function pause_or_resume(elem) {
 
+    console.log("pause_or_resume "+ isPlaying);
+    // Resuming
     if(isPlaying == "Pause") {
-        for (let i = 0; i < soundsPlaying.length; i++)
-            soundsPlaying[i].paused = false;
         isPlaying = true;
+
+        for (let i = 0; i < soundsPlaying.length; i++){
+            soundsPlaying[i].paused = false;
+        }
+        
         for (let i = 0; i < timeouts.length; i++){
             clearTimeout(timeouts[i].resume());
         }
         $("#pause_resume_btn").html("Pause");
     }
-     // If it's playing, then pause
-    else if (isPlaying) {
+
+    // Pausing
+    else {
         isPlaying = "Pause";
         var nb_to_delete = 0;
-        for (let i = 0; i < soundsPlaying.length; i++)
+        for (let i = 0; i < soundsPlaying.length; i++){
             soundsPlaying[i].paused = true;
+        }
         for (let i = 0; i < timeouts.length; i++){
             clearTimeout(timeouts[i].pause());
             var time_remaining = timeouts[i].remain();
@@ -131,7 +138,7 @@ function pause_or_resume(elem) {
         timeouts.splice(0,nb_to_delete);
     }
     // else, play again
-
+    console.log("pause_or_resume "+ isPlaying);
     toogle_enabled_buttons();
 }
 
@@ -161,6 +168,8 @@ function new_event_trigger() {
             add_event(create_event(new_event_name));
             refresh_UI();
             $("#event_name_input").attr("hidden", true);
+            $("#event_name_input").val("");
+            $("#event_name_input").attr("placeholder", "Event Name");
         }
     }
     else{
@@ -225,7 +234,7 @@ function display_cue_list() {
 */
 function display_cue_table() {
     //let column_names = ["Id", "Type", "Channel", "Delay", "Note", "Velocity"];
-    let column_names = ["Id", "Type", "Channel", "Delay", "Note"];
+    let column_names = ["Name or Id", "Type", "Channel", "Delay", "Note"];
     let heads = "";
     for (var i = 0; i < column_names.length; i++) {
         heads += "<th scope=\"col\">"+column_names[i]+"</th>";
@@ -237,13 +246,17 @@ function display_cue_table() {
             let cue = event_obj.cue_list[i];
             // We need to preload soundfiles why not do it here?
             if (cue.type == "musicFile") {
-              if (!createjs.Sound.loadComplete(cue.options.paramText))   loadSound(cue.options.paramText, cue.options.paramText);
+              if (!createjs.Sound.loadComplete(cue.options.paramText)) loadSound(cue.options.paramText, cue.options.paramText);
             }
 
             table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
-
-            table += "<td>"+i+"</td>"
-                    +"<td>"+cue.type+"</td>"
+            if (cue.name != "") {
+                table += "<td>"+cue.name+"</td>";
+            }
+            else{
+                table += "<td>"+i+"</td>";
+            }
+            table += "<td>"+cue.type+"</td>"
                     +"<td>"+cue.channel+"</td>"
                     +"<td>"+cue.delay+"</td>";
                     // handles options
@@ -367,6 +380,7 @@ function isEmpty(obj) {
 }
 
 function toogle_enabled_buttons() {
+    console.log("toogle_enabled_buttons "+ isPlaying);
     // All buttons are disabled if no events are selected
     if (event_selected == "") {
         $("#add_cue_btn").attr("disabled", true);
@@ -378,6 +392,7 @@ function toogle_enabled_buttons() {
     }
     // If event is selected
     else {
+        console.log("Is Playing: "+isPlaying);
         $("#btn_delete_event").attr("disabled", false);
         // if the event is playing
         if (isPlaying) {
@@ -388,20 +403,20 @@ function toogle_enabled_buttons() {
             $("#stop_btn").attr("disabled", false);
         }
         // if the event is not playing
-        else if(!isPlaying){
+        else if(isPlaying == false){
             $("#add_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
             $("#pause_resume_btn").attr("disabled", true);
             $("#stop_btn").attr("disabled", true);
         }
-        // if the event is not playing
+        // if the event is paused
         else if(isPlaying == "Pause"){
             $("#add_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
-            $("#pause_resume_btn").attr("disabled", false);
-            $("#stop_btn").attr("disabled", false);
+            //$("#pause_resume_btn").attr("disabled", false);
+            //$("#stop_btn").attr("disabled", false);
         }
     }
 }

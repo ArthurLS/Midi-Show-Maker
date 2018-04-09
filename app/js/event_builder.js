@@ -65,8 +65,9 @@ params:
 	object delay -> delay from start (ms)
 	object options -> depends on the type
 */
-function create_cue(type, channel, delay, options) {
+function create_cue(type, channel, delay, name, options) {
 	var cue = {
+		"name": name,
 		"type": type,
 		"channel": channel,
 		"delay": delay,
@@ -106,6 +107,13 @@ function find_cue(parent_cue_list, cue) {
 }
 
 /*
+	CUE NAME
+*/
+function update_cue_name(parent_cue_list, cue_index, new_name) {
+	parent_cue_list[cue_index].name = new_name;
+}
+
+/*
 	CUE TYPE
 */
 function update_cue_type(parent_cue_list, cue_index, new_type) {
@@ -135,12 +143,16 @@ function update_cue_options(parent_cue_list, cue_index, type, param1, param2, pa
 		options_res["paramText"] = paramText;
 		options_res["param1"] = param1;
 		options_res["param2"] = param2;
-
-		// We need to preload the file if we changed it !
-		if (parent_cue_list[cue_index].options.paramText != paramText) {
-			// Check if the current song is already loaded!
-			if (!createjs.Sound.loadComplete(paramText)) loadSound(paramText, paramText);
+		// If the element is new, it doesn't have that property!
+		console.log(parent_cue_list[cue_index]);
+		if (parent_cue_list[cue_index].options != null) {
+			// We need to preload the file if we changed it !
+			if (parent_cue_list[cue_index].options.paramText != paramText) {
+				// Check if the current song is already loaded!
+				if (!createjs.Sound.loadComplete(paramText)) loadSound(paramText, paramText);
+			}
 		}
+		else loadSound(paramText, paramText);
 	}
 	parent_cue_list[cue_index].options = options_res;
 }
