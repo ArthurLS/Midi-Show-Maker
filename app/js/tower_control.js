@@ -135,20 +135,6 @@ function pause_or_resume(elem) {
     toogle_enabled_buttons();
 }
 
-function getTime() {
-    var cue_list = event_obj.cue_list;
-    var cue_size = cue_list.length;
-
-    // When is the last cue gonna play
-    var last_remaining = timeouts[timeouts.length-1].getupdate();
-
-    // What was the original last cue delay
-    var last_delay = cue_list[cue_size-1].delay;
-    var result = last_delay - last_remaining;
-    console.log("WE ARE AT "+result+"ms");
-    return result;
-}
-
 /*
 **  Clear all the pending timeouts, effectively stoping the current event playing
 */
@@ -165,35 +151,22 @@ function stopPlay() {
     $("#pause_resume_btn").html("Pause");
 }
 
-
-/*
-** setTimeout wrapper to handle pause, stop and resume
-*/
-function Timer(callback, delay) {
-    var timerId, start, remaining = delay;
-    this.remain = function () {
-        return remaining;
+function new_event_trigger() {
+    if ($("#event_name_input").is(":visible")) {
+        var new_event_name = $("#event_name_input").val();
+        if (new_event_name == "") {
+            $('#event_name_input').attr("placeholder", "Enter A Valid Event Name");
+        }
+        else{
+            add_event(create_event(new_event_name));
+            refresh_UI();
+            $("#event_name_input").attr("hidden", true);
+        }
     }
-    this.getupdate = function () {
-        return remaining - (new Date() - start);
+    else{
+        $("#event_name_input").attr("hidden", false);
+        $("#event_name_input").focus();        
     }
-
-    this.pause = function() {
-        window.clearTimeout(timerId);
-        remaining -= new Date() - start;
-    };
-
-    this.resume = function() {
-        start = new Date();
-        window.clearTimeout(timerId);
-        timerId = window.setTimeout(callback, remaining);
-    };
-
-    this.resume();
-    this.stop = function() {
-        window.clearTimeout(timerId);
-    };
-
 }
 
 /*
@@ -216,8 +189,7 @@ function display_event_list() {
             }
         }
     }
-    // adds the cyan "New Event" button
-    liste += "<div class=\"btn btn-sq-lg event-new\" onclick=\"open_popup_little(\'new_event\')\"> New <br>Event </div>"
+
     $("#event_buttons").html(liste);
 }
 
@@ -324,6 +296,37 @@ function confirmDeleteEvent() {
         }
 };
 
+/*
+** setTimeout wrapper to handle pause, stop and resume
+*/
+function Timer(callback, delay) {
+    var timerId, start, remaining = delay;
+    this.remain = function () {
+        return remaining;
+    }
+    this.getupdate = function () {
+        return remaining - (new Date() - start);
+    }
+
+    this.pause = function() {
+        window.clearTimeout(timerId);
+        remaining -= new Date() - start;
+    };
+
+    this.resume = function() {
+        start = new Date();
+        window.clearTimeout(timerId);
+        timerId = window.setTimeout(callback, remaining);
+    };
+
+    this.resume();
+    this.stop = function() {
+        window.clearTimeout(timerId);
+    };
+
+}
+
+
 /* Popup alert (info)*/
 function popup (message) {
     dialog.showMessageBox({
@@ -370,10 +373,12 @@ function toogle_enabled_buttons() {
         $("#play_event_btn").attr("disabled", true);
         $("#pause_resume_btn").attr("disabled", true);
         $("#stop_btn").attr("disabled", true);
-
+        $("#btn_delete_event").attr("disabled", true);
+        
     }
     // If event is selected
     else {
+        $("#btn_delete_event").attr("disabled", false);
         // if the event is playing
         if (isPlaying) {
             $("#add_cue_btn").attr("disabled", false);
@@ -409,3 +414,18 @@ function toggle(a){
         e.style.display = "block";
 }
 
+
+/*function getTime() {
+    var cue_list = event_obj.cue_list;
+    var cue_size = cue_list.length;
+
+    // When is the last cue gonna play
+    var last_remaining = timeouts[timeouts.length-1].getupdate();
+
+    // What was the original last cue delay
+    var last_delay = cue_list[cue_size-1].delay;
+    var result = last_delay - last_remaining;
+    console.log("WE ARE AT "+result+"ms");
+    return result;
+}
+*/

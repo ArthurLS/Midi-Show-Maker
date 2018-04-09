@@ -87,7 +87,7 @@ function save_event() {
 			$('#bad-boy').html("Please enter an event name");
 		}
 		else{
-			var event_obj = create_event(new_event_name, {});
+			var event_obj = create_event(new_event_name);
 			add_event(event_obj);
 			close_window();
 		}

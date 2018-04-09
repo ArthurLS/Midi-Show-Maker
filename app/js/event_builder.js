@@ -6,7 +6,7 @@ params:
 	string name -> name of the event
 	object options -> TBD
 */
-function create_event(name, options) {
+function create_event(name) {
 	var event = {
 		"id": 0,
 		"name": name,
