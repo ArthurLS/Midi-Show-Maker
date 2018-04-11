@@ -92,6 +92,9 @@ function read_event() {
                 isPlaying = false;
                 $("#nb"+(i-1)).removeClass('active');
                 $("#nb"+(i)).removeClass('active');
+
+                //timeline display cues
+                //display_red_line(index dans la liste)
             }
         }, event_obj.cue_list[i].delay);
 
@@ -113,7 +116,7 @@ function pause_or_resume(elem) {
         for (let i = 0; i < soundsPlaying.length; i++){
             soundsPlaying[i].paused = false;
         }
-        
+
         for (let i = 0; i < timeouts.length; i++){
             clearTimeout(timeouts[i].resume());
         }
@@ -141,6 +144,44 @@ function pause_or_resume(elem) {
     console.log("pause_or_resume "+ isPlaying);
     toogle_enabled_buttons();
 }
+
+/*re-added that part for timeline*/
+var previousRenderedTime = 0; //needed for timeline
+function getTime() {
+    var cue_list = event_obj.cue_list;
+    var cue_size = cue_list.length;
+
+    // When is the last cue gonna play
+    var last_remaining = 0;
+    if (typeof timeouts !== 'undefined' && timeouts.length > 0) {
+        last_remaining = timeouts[timeouts.length-1].getupdate();
+    }
+
+    // What was the original last cue delay
+    var last_delay = cue_list[cue_size-1].delay;
+    var result = last_delay - last_remaining;
+
+    if (last_remaining < 0){
+        stopPlay();
+    }
+
+    if (isPlaying == "Pause") { //added for timeline
+            /*console.log("WE ARE AT "+result+"ms (and we are paused)");*/
+            return previousRenderedTime;
+    } else if (isPlaying == false) { //TODO: to checks
+        previousRenderedTime = 0;
+        return 0;
+    } else { //true
+            /*console.log("WE ARE AT "+result+"ms");*/
+        previousRenderedTime = result; //added for timeline
+        return result;
+    }
+}
+
+function isItPlaying() {
+    return isPlaying;
+}
+/*end of the part added for the red line in timeline*/
 
 /*
 **  Clear all the pending timeouts, effectively stoping the current event playing
@@ -174,7 +215,7 @@ function new_event_trigger() {
     }
     else{
         $("#event_name_input").attr("hidden", false);
-        $("#event_name_input").focus();        
+        $("#event_name_input").focus();
     }
 }
 
@@ -388,7 +429,7 @@ function toogle_enabled_buttons() {
         $("#pause_resume_btn").attr("disabled", true);
         $("#stop_btn").attr("disabled", true);
         $("#btn_delete_event").attr("disabled", true);
-        
+
     }
     // If event is selected
     else {

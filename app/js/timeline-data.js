@@ -186,6 +186,10 @@ function refresh_Timeline() {
     }).onVizChange(e => console.log(e));
 }
 
+$(window).on('resize', function(e) {
+        refresh_Timeline();
+})
+
 /*
 note: penser à changer dans timeline-graph.js le fait qu'on commence à 0 (voir domaine de d3) -> FAIT
 ajouter une classe particulière qui indiquera la chroma: selectionné par jquery pour changer la couleur, et ce en fonction du nombre de channels

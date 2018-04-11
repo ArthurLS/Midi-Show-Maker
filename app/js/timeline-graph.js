@@ -190,13 +190,18 @@ d3.tip = require("d3-tip");
             zoomed();
 
             if (options.enableLiveTimer) {
-                setInterval(updateNowMarker, options.timerTickInterval);
+                setInterval(function () { if (isItPlaying() == true) {updateNowMarker();}}, 10/*options.timerTickInterval*/); //limite la charge cpu               
             }
 
-            function updateNowMarker() {
+            /*function updateNowMarker() {
                 var nowX = x(new Date());
 
                 self.now.attr('x1', nowX).attr('x2', nowX);
+            }*/
+
+            function updateNowMarker() {
+                var xtemp = x(getTime());
+                self.now.attr('x1', xtemp).attr('x2', xtemp);
             }
 
             function withCustom(defaultClass) {
