@@ -10,8 +10,11 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = "test_event";
-var event_obj = project.list_events[event_selected];
+var event_selected = ""; //ex: "test_event"
+var event_obj = {};
+if (event_selected != "") {
+    event_obj = project.list_events[event_selected];
+}
 
 var isPlaying = false;
 var timeouts = [];
@@ -148,8 +151,17 @@ function pause_or_resume(elem) {
 /*re-added that part for timeline*/
 var previousRenderedTime = 0; //needed for timeline
 function getTime() {
+
+    if ((event_obj === '{}' || event_obj === 'undefined' || event_obj == null) || (event_obj.cue_list === '{}' || event_obj.cue_list === 'undefined' || event_obj.cue_list == null)){
+        return new Date(0);
+    }
+
     var cue_list = event_obj.cue_list;
     var cue_size = cue_list.length;
+
+    if (cue_list[cue_size-1] === '{}' || cue_list[cue_size-1] === 'undefined' || cue_list[cue_size-1] == null){
+        return new Date(0);
+    }
 
     // When is the last cue gonna play
     var last_remaining = 0;
@@ -176,6 +188,7 @@ function getTime() {
         previousRenderedTime = result; //added for timeline
         return result;
     }
+
 }
 
 function isItPlaying() {
@@ -421,7 +434,7 @@ function isEmpty(obj) {
 }
 
 function toogle_enabled_buttons() {
-    console.log("toogle_enabled_buttons "+ isPlaying);
+    //TODO: remettre //console.log("toogle_enabled_buttons "+ isPlaying);
     // All buttons are disabled if no events are selected
     if (event_selected == "") {
         $("#add_cue_btn").attr("disabled", true);
