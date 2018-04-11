@@ -137,6 +137,31 @@ rect.interval.blue-interval {
     stroke: #99ccff; //blue;
 }
 
+rect.interval.red-interval {
+    fill: #ff99cc; //blue;
+    stroke: #ff99cc; //blue;
+}
+
+rect.interval.orange-interval {
+    fill: #ffcc99; //blue;
+    stroke: #ffcc99; //blue;
+}
+
+rect.interval.purple-interval {
+    fill: #cc99ff; //blue;
+    stroke: #cc99ff; //blue;
+}
+
+rect.interval.light-green-interval {
+    fill: #ccff99; //blue;
+    stroke: #ccff99; //blue;
+}
+
+rect.interval.green-interval-interval {
+    fill: #99ffcc; //blue;
+    stroke: #99ffcc; //blue;
+}
+
 circle.blue-dot {
     fill: blue;
 }

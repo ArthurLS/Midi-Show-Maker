@@ -78,7 +78,12 @@ d3.tip = require("d3-tip");
             var xAxis = d3.svg.axis().scale(x).orient('bottom').tickSize(-height).tickFormat(d3.format("d"));
             //permet d'afficher les axis sous forme d'int et non de date
 
-            var zoom = d3.behavior.zoom().x(x).on('zoom', zoomed);
+            var zoom = d3.behavior.zoom()
+                    .x(x)
+                    //.center([x(0),x(0)])
+                    //.translate([x(0),x(0)])
+                    .scaleExtent([1,1000])/*.scaleExtent([0,2])*/
+                    .on('zoom', zoomed);
 
             var svg = d3.select(element).append('svg').attr('id', 'svgChart').attr('width', width + margin.left + margin.right).attr('height', height + margin.top + margin.bottom).append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').call(zoom);
 
@@ -190,7 +195,7 @@ d3.tip = require("d3-tip");
             zoomed();
 
             if (options.enableLiveTimer) {
-                setInterval(function () { if (isItPlaying() == true) {updateNowMarker();}}, 10/*options.timerTickInterval*/); //limite la charge cpu               
+                setInterval(function () { if (isItPlaying() == true) {updateNowMarker();}}, 10/*options.timerTickInterval*/); //limite la charge cpu
             }
 
             /*function updateNowMarker() {
@@ -201,6 +206,7 @@ d3.tip = require("d3-tip");
 
             function updateNowMarker() {
                 var xtemp = x(getTime());
+                if (!isNaN(xtemp))
                 self.now.attr('x1', xtemp).attr('x2', xtemp);
             }
 
@@ -214,7 +220,7 @@ d3.tip = require("d3-tip");
                 if (self.onVizChangeFn && d3.event) {
                     self.onVizChangeFn.call(self, {
                         scale: d3.event.scale,
-                        translate: d3.event.translate,
+                        translate: //d3.event.translate,
                         domain: x.domain()
                     });
                 }
