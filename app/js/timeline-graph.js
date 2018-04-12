@@ -220,7 +220,7 @@ d3.tip = require("d3-tip");
                 if (self.onVizChangeFn && d3.event) {
                     self.onVizChangeFn.call(self, {
                         scale: d3.event.scale,
-                        translate: //d3.event.translate,
+                        translate: d3.event.translate,
                         domain: x.domain()
                     });
                 }
