@@ -90,6 +90,7 @@ function save_event() {
 	}
 	else{
 		edit_event_name(event_selected, new_event_name);
+		add($("#bind").val(),$("#event_name").val());
 		close_window();
 	}
 }
