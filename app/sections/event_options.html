@@ -12,7 +12,8 @@
 		<div class="row">
 			<h4>Event Name</h4>
 			<div class="col-md-4">
-				<input type="text" id="event_name" class="form-control" value="" autofocus>
+				Name<input type="text" id="event_name" class="form-control" value="" autofocus>
+				Bind<input type="text" id="bind" class="form-control" value="">
 
 				<br>
 				<div id="error-display" class="alert alert-dismissible alert-danger col-md-10 col-md-offset-1" style="display: none;">
@@ -20,7 +21,7 @@
 				</div>
 
 				<div class="col-xs-5">
-					<button type="button" class="btn btn-success" onclick="save_event()">Save and Close</button>
+					<button type="button" class="btn btn-success" onclick="save_event();">Save and Close</button>
 				</div>
 				<div class="col-xs-5">
 					<input type="button" class="btn btn-warning" onclick="close_window()" value="Close (Doesn't Save!)"/>
@@ -35,5 +36,6 @@
 	<script>window.$ = window.jQuery = require('../js/jquery-1.11.1.js');</script>
 	<script src="../js/popup_options.js"></script> 
 	<script src="../js/event_builder.js"></script> 
+	<script src="../js/addKeyBinding.js"></script>
 </body>
 </html>

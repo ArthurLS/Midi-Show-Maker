@@ -36,6 +36,8 @@ function open_popup_little(command, id) {
     if(command == "new_event" || command == "edit_event"){
 
         modalPath = path.join('file://', __dirname, 'sections/event_options.html?command='+command+'&event_name='+id);
+
+
     }
     else{
         modalPath = path.join('file://', __dirname, 'sections/cue_options.html?command='+command+'&event_name='+event_selected+'&cue_id='+id);
