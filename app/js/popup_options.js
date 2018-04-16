@@ -271,7 +271,9 @@ $(window).blur(function(){
 // Keybord Shortcuts
 $(document).keydown(function(e) {
 	switch(e.which) {
-		case 13:  save_event();
+		case 13:  
+			if(command == "edit_event") save_event();
+			else check_values(1);
 		break;
 
         default: return; // exit this handler for other keys

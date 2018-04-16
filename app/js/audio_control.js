@@ -4,8 +4,12 @@ function playSound(id, from, to) {
   instance.position = from;
   if (to != 0) instance.duration = to;
 
+  instance.on("complete", stopPlay(), this);
+
   return instance.play();
 }
+
+
 
 
 function loadSound(sURL, id) {

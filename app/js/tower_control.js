@@ -161,9 +161,9 @@ function getTime() {
     var last_delay = cue_list[cue_size-1].delay;
     var result = last_delay - last_remaining;
 
-    if (last_remaining < 0){
+/*    if (last_remaining < 0){
         stopPlay();
-    }
+    }*/
 
     if (isPlaying == "Pause") { //added for timeline
             /*console.log("WE ARE AT "+result+"ms (and we are paused)");*/
@@ -207,13 +207,15 @@ function new_event_trigger() {
         }
         else{
             add_event(create_event(new_event_name));
-            refresh_UI();
             $("#event_name_input").attr("hidden", true);
             $("#event_name_input").val("");
             $("#event_name_input").attr("placeholder", "Event Name");
+            $("#new_event_btn").html("New Event");
+            refresh_UI();
         }
     }
     else{
+        $("#new_event_btn").html("Create");
         $("#event_name_input").attr("hidden", false);
         $("#event_name_input").focus();
     }
@@ -239,7 +241,6 @@ function display_event_list() {
             }
         }
     }
-
     $("#event_buttons").html(liste);
 }
 
@@ -287,7 +288,11 @@ function display_cue_table() {
             let cue = event_obj.cue_list[i];
             // We need to preload soundfiles why not do it here?
             if (cue.type == "musicFile") {
-              if (!createjs.Sound.loadComplete(cue.options.paramText)) loadSound(cue.options.paramText, cue.options.paramText);
+                console.log("prout");
+                if (!createjs.Sound.loadComplete(cue.options.paramText)) {
+                    loadSound(cue.options.paramText, cue.options.paramText);
+                    console.log("Music: "+cue.options.paramText+" has been loaded");
+                }
             }
 
             table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
@@ -305,11 +310,6 @@ function display_cue_table() {
                         table += "<td>"+cue.options.param1+"</td>"
                     }
                     else table += "<td></td>"
-                    // Velocity
-                    /*if (cue.options.param2 != undefined) {
-                        table += "<td>"+cue.options.param2+"</td>"
-                    }
-                    else table += "<td></td>"*/
         }
         table += "</tbody>"
         $("#table").html(table);
@@ -424,20 +424,22 @@ function toogle_enabled_buttons() {
     console.log("toogle_enabled_buttons "+ isPlaying);
     // All buttons are disabled if no events are selected
     if (event_selected == "") {
-        $("#add_cue_btn").attr("disabled", true);
+        $("#add_new_cue_btn").attr("disabled", true);
+        $("#add_named_cue_btn").attr("disabled", true);
         $("#play_event_btn").attr("disabled", true);
         $("#pause_resume_btn").attr("disabled", true);
         $("#stop_btn").attr("disabled", true);
-        $("#btn_delete_event").attr("disabled", true);
+        $("#delete_event_btn").attr("disabled", true);
 
     }
     // If event is selected
     else {
         console.log("Is Playing: "+isPlaying);
-        $("#btn_delete_event").attr("disabled", false);
+        $("#delete_event_btn").attr("disabled", false);
         // if the event is playing
         if (isPlaying) {
-            $("#add_cue_btn").attr("disabled", false);
+            $("#add_new_cue_btn").attr("disabled", false);
+            $("#add_named_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
             $("#pause_resume_btn").attr("disabled", false);
@@ -445,7 +447,8 @@ function toogle_enabled_buttons() {
         }
         // if the event is not playing
         else if(isPlaying == false){
-            $("#add_cue_btn").attr("disabled", false);
+            $("#add_new_cue_btn").attr("disabled", false);
+            $("#add_named_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
             $("#pause_resume_btn").attr("disabled", true);
@@ -453,7 +456,8 @@ function toogle_enabled_buttons() {
         }
         // if the event is paused
         else if(isPlaying == "Pause"){
-            $("#add_cue_btn").attr("disabled", false);
+            $("#add_new_cue_btn").attr("disabled", false);
+            $("#add_named_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
             //$("#pause_resume_btn").attr("disabled", false);
