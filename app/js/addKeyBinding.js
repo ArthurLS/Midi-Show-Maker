@@ -2,6 +2,7 @@ var keys = {};
 var content;
 var data_file = './temp.json';
 var project = JSON.parse(fs.readFileSync(data_file));
+var Mousetrap = require("mousetrap");
 
 function add(key,event) {
     cmd='Mousetrap.bind("'+key+'", function(){switch_event("'+event+'");read_event();});';//String

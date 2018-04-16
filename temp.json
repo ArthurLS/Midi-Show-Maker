@@ -1,20 +1,439 @@
 {
   "name": "The Best Project",
   "list_events": {
-    "test_event": {
-      "id": 5,
-      "name": "test_event",
+    "mario": {
+      "id": 0,
+      "name": "mario",
       "cue_list": [
         {
+          "name": "First",
           "type": "noteon",
-          "channel": 0,
+          "channel": 3,
           "delay": 0,
           "options": {
-            "param1": 60,
+            "param1": 52,
             "param2": 127
           }
         },
         {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 150,
+          "options": {
+            "param1": 52,
+            "param2": 127
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 450,
+          "options": {
+            "param1": 52,
+            "param2": 127
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 750,
+          "options": {
+            "param1": 48,
+            "param2": 127
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 900,
+          "options": {
+            "param1": 52,
+            "param2": 127
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 1200,
+          "options": {
+            "param1": 55,
+            "param2": 127
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 1800,
+          "options": {
+            "param2": 127,
+            "param1": 43
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 2400,
+          "options": {
+            "param2": 127,
+            "param1": 48
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 2850,
+          "options": {
+            "param2": 127,
+            "param1": 43
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 3300,
+          "options": {
+            "param2": 127,
+            "param1": 40
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 3750,
+          "options": {
+            "param2": 127,
+            "param1": 45
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 4050,
+          "options": {
+            "param2": 127,
+            "param1": 47
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 4350,
+          "options": {
+            "param2": 127,
+            "param1": 46
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 4500,
+          "options": {
+            "param2": 127,
+            "param1": 45
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 4800,
+          "options": {
+            "param2": 127,
+            "param1": 52
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 4950,
+          "options": {
+            "param2": 127,
+            "param1": 55
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 5100,
+          "options": {
+            "param2": 127,
+            "param1": 57
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 5250,
+          "options": {
+            "param2": 127,
+            "param1": 53
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 5550,
+          "options": {
+            "param2": 127,
+            "param1": 55
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 5700,
+          "options": {
+            "param2": 127,
+            "param1": 52
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 6000,
+          "options": {
+            "param2": 127,
+            "param1": 48
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 6300,
+          "options": {
+            "param2": 127,
+            "param1": 50
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 6450,
+          "options": {
+            "param2": 127,
+            "param1": 47
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 6600,
+          "options": {
+            "param2": 127,
+            "param1": 48
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 7050,
+          "options": {
+            "param2": 127,
+            "param1": 43
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 7500,
+          "options": {
+            "param2": 127,
+            "param1": 40
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 7950,
+          "options": {
+            "param2": 127,
+            "param1": 45
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 8400,
+          "options": {
+            "param2": 127,
+            "param1": 47
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 8700,
+          "options": {
+            "param2": 127,
+            "param1": 46
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 9000,
+          "options": {
+            "param2": 127,
+            "param1": 45
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 9150,
+          "options": {
+            "param2": 127,
+            "param1": 52
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 9450,
+          "options": {
+            "param2": 127,
+            "param1": 55
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 9600,
+          "options": {
+            "param2": 127,
+            "param1": 57
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 9750,
+          "options": {
+            "param2": 127,
+            "param1": 53
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 10000,
+          "options": {
+            "param2": 127,
+            "param1": 55
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 10300,
+          "options": {
+            "param2": 127,
+            "param1": 52
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 10450,
+          "options": {
+            "param2": 127,
+            "param1": 48
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 10750,
+          "options": {
+            "param2": 127,
+            "param1": 50
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 11050,
+          "options": {
+            "param2": 127,
+            "param1": 47
+          }
+        },
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 3,
+          "delay": 11200,
+          "options": {
+            "param2": 127,
+            "param1": 48
+          }
+        }
+      ],
+      "options": {}
+    },
+    "test_event": {
+      "id": 1,
+      "name": "test_event",
+      "cue_list": [
+        {
+          "name": "",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 0,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Yolo",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 60,
+          "options": {
+            "param1": 0,
+            "param2": 0
+          }
+        },
+        {
+          "name": "",
           "type": "noteon",
           "channel": 1,
           "delay": 500,
@@ -26,447 +445,19 @@
       ],
       "options": {}
     },
-    "TEST": {
-      "id": 3,
-      "name": "TEST",
+    "Music": {
+      "id": 2,
+      "name": "Music",
       "cue_list": [
         {
-          "type": "noteon",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "param1": 50,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 0,
-          "delay": 500,
-          "options": {
-            "param1": 50,
-            "param2": 127
-          }
-        },
-        {
+          "name": "Adele",
           "type": "musicFile",
           "channel": 0,
-          "delay": 1500,
-          "options": {
-            "paramText": "C:\\Users\\Dasko\\Desktop\\rickastley_artists.mp3",
-            "param1": 20000,
-            "param2": 25000
-          }
-        }
-      ],
-      "options": {}
-    },
-    "Sound": {
-      "id": 3,
-      "name": "Sound",
-      "cue_list": [
-        {
-          "type": "musicFile",
-          "channel": 0,
-          "delay": 1000,
-          "options": {
-            "paramText": "C:\\Users\\Dasko\\Desktop\\Trance - 009 Sound System Dreamscape (HD).mp3",
-            "param1": 10000,
-            "param2": 13000
-          }
-        }
-      ],
-      "options": {}
-    },
-    "mario": {
-      "id": 3,
-      "name": "mario",
-      "cue_list": [
-        {
-          "type": "programme",
-          "channel": 3,
           "delay": 0,
           "options": {
-            "param1": 4
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 0,
-          "options": {
-            "param1": 52,
-            "param2": 127
-          }
-        },
-        {
-          "type": "cc",
-          "channel": 3,
-          "delay": 0,
-          "options": {
-            "param1": 696969,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 150,
-          "options": {
-            "param1": 52,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 450,
-          "options": {
-            "param1": 52,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 750,
-          "options": {
-            "param1": 48,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 900,
-          "options": {
-            "param1": 52,
-            "param2": 127
-          }
-        },
-        {
-          "type": "musicFile",
-          "channel": 0,
-          "delay": 1000,
-          "options": {
-            "paramText": "C:\\Users\\Dasko\\Desktop\\rickastley_artists.mp3",
+            "paramText": "C:\\Users\\Arthur\\Music\\Adele_-_Someone_like_you.mp3",
             "param1": 0,
-            "param2": 2000
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 1200,
-          "options": {
-            "param1": 55,
-            "param2": 127
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 1800,
-          "options": {
-            "param2": 127,
-            "param1": 43
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 2400,
-          "options": {
-            "param2": 127,
-            "param1": 48
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 2850,
-          "options": {
-            "param2": 127,
-            "param1": 43
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 3300,
-          "options": {
-            "param2": 127,
-            "param1": 40
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 3750,
-          "options": {
-            "param2": 127,
-            "param1": 45
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 4050,
-          "options": {
-            "param2": 127,
-            "param1": 47
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 4350,
-          "options": {
-            "param2": 127,
-            "param1": 46
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 4500,
-          "options": {
-            "param2": 127,
-            "param1": 45
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 4800,
-          "options": {
-            "param2": 127,
-            "param1": 52
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 4950,
-          "options": {
-            "param2": 127,
-            "param1": 55
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 5100,
-          "options": {
-            "param2": 127,
-            "param1": 57
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 5250,
-          "options": {
-            "param2": 127,
-            "param1": 53
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 5550,
-          "options": {
-            "param2": 127,
-            "param1": 55
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 5700,
-          "options": {
-            "param2": 127,
-            "param1": 52
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 6000,
-          "options": {
-            "param2": 127,
-            "param1": 48
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 6300,
-          "options": {
-            "param2": 127,
-            "param1": 50
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 6450,
-          "options": {
-            "param2": 127,
-            "param1": 47
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 6600,
-          "options": {
-            "param2": 127,
-            "param1": 48
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 7050,
-          "options": {
-            "param2": 127,
-            "param1": 43
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 7500,
-          "options": {
-            "param2": 127,
-            "param1": 40
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 7950,
-          "options": {
-            "param2": 127,
-            "param1": 45
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 8400,
-          "options": {
-            "param2": 127,
-            "param1": 47
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 8700,
-          "options": {
-            "param2": 127,
-            "param1": 46
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 9000,
-          "options": {
-            "param2": 127,
-            "param1": 45
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 9150,
-          "options": {
-            "param2": 127,
-            "param1": 52
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 9450,
-          "options": {
-            "param2": 127,
-            "param1": 55
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 9600,
-          "options": {
-            "param2": 127,
-            "param1": 57
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 9750,
-          "options": {
-            "param2": 127,
-            "param1": 53
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 10000,
-          "options": {
-            "param2": 127,
-            "param1": 55
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 10300,
-          "options": {
-            "param2": 127,
-            "param1": 52
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 10450,
-          "options": {
-            "param2": 127,
-            "param1": 48
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 10750,
-          "options": {
-            "param2": 127,
-            "param1": 50
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 11050,
-          "options": {
-            "param2": 127,
-            "param1": 47
-          }
-        },
-        {
-          "type": "noteon",
-          "channel": 3,
-          "delay": 11200,
-          "options": {
-            "param2": 127,
-            "param1": 48
+            "param2": 0
           }
         }
       ],
