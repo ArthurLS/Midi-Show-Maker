@@ -29,9 +29,9 @@ function createWindow () {
     slashes: true
   }))
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
-  
+  // Open the DevTools. - Tidying up a bit...
+  // mainWindow.webContents.openDevTools()
+
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -42,7 +42,7 @@ function createWindow () {
   })
 
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show();   
+    mainWindow.show();
   })
 
 }
