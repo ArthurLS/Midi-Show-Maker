@@ -83,36 +83,60 @@ function read_event() {
     for (let i = 0; i < save.cue_list.length; i++) {
         var timer = new Timer(function() {
             var msg_midi = save.cue_list[i];
-            if (msg_midi.type != "programme" && msg_midi.type != "musicFile") {
+            if (msg_midi.type == "noteoff" || msg_midi.type == "noteon" || msg_midi.type == "poly aftertouch") {
                 output.send(msg_midi.type, {
                     note: msg_midi.options.param1,
                     velocity: msg_midi.options.param2,
-                    channel: 0
+                    channel: msg_midi.channel
                 });
-                if (i > 0) {
+                // send to the previous one a noteoff AND if it's music in the midi show maker
+                if (i > 0 && msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
                     var msg_midi2 = save.cue_list[i-1];
                     output.send('noteoff', {
                         note: msg_midi2.options.param1,
                         velocity: msg_midi2.options.param2,
-                        channel: 0
+                        channel: msg_midi2.channel
                     });
                 }
-
+            }
+            else if (msg_midi.type == 'cc'){
+                output.send(msg_midi.type, {
+                    controller: msg_midi.options.param1,
+                    value: msg_midi.options.param2,
+                    channel: msg_midi2.channel
+                }); 
+            }
+            else if (msg_midi.type == "programme"){
+                output.send('program', {
+                    number: msg_midi.options.param1,
+                    channel: msg_midi.options.param2
+                });
             }
             else if (msg_midi.type == "musicFile") {
               //loadSound(msg_midi.options.paramText, i);
               soundsPlaying.push(playSound(msg_midi.options.paramText, msg_midi.options.param1, msg_midi.options.param2));
             }
+            else{
+                output.send(msg_midi.type);
+            }
             if (remote.getGlobal('ShowActiveCue')) {
                 $("#nb"+i).addClass('active');
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
             }
+            // If it's the last one, do special stuff to it
             if (i == save.cue_list.length -1) {
                 isPlaying = false;
                 setTimeout(function() {
                     $("#nb"+(i-1)).removeClass('active');
                     $("#nb"+(i)).removeClass('active');
-                    output.send('stop');
+                    // cancel yourself bitch
+                    if (msg_midi.type == "noteon") {
+                        output.send('noteoff', {
+                            note: msg_midi.options.param1,
+                            velocity: msg_midi.options.param2,
+                            channel: 0
+                        });
+                    }
                 }, 300);
             }
         }, event_obj.cue_list[i].delay);

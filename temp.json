@@ -404,6 +404,13 @@
             "param2": 127,
             "param1": 48
           }
+        },
+        {
+          "name": "Stop",
+          "type": "stop",
+          "channel": 0,
+          "delay": 11300,
+          "options": {}
         }
       ],
       "options": {}
@@ -413,42 +420,112 @@
       "name": "test_event",
       "cue_list": [
         {
-          "name": "",
+          "name": "Green Light",
           "type": "noteon",
           "channel": 0,
           "delay": 0,
           "options": {
-            "param1": 60,
+            "param1": 2,
             "param2": 127
           }
         },
         {
-          "name": "Yalla",
+          "name": "Blue Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Red Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 1,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Black",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 1000,
+          "options": {
+            "param1": 0,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Green Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 1500,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Red Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 1500,
+          "options": {
+            "param1": 1,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Flash On",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 2250,
+          "options": {
+            "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Black",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 2500,
+          "options": {
+            "param1": 0,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Flash Off",
           "type": "noteoff",
           "channel": 0,
-          "delay": 0,
+          "delay": 2750,
           "options": {
-            "param1": 0,
+            "param1": 10,
             "param2": 0
           }
         },
         {
-          "name": "Yolo",
+          "name": "Blue Light",
           "type": "noteon",
           "channel": 0,
-          "delay": 0,
+          "delay": 3000,
           "options": {
-            "param1": 0,
-            "param2": 0
+            "param1": 3,
+            "param2": 127
           }
         },
         {
-          "name": "",
+          "name": "Black",
           "type": "noteon",
-          "channel": 1,
-          "delay": 500,
+          "channel": 0,
+          "delay": 4000,
           "options": {
-            "param1": 45,
+            "param1": 0,
             "param2": 127
           }
         }
@@ -475,7 +552,7 @@
     }
   },
   "configuration": {
-    "input": "nanoPAD2 1 PAD 0",
+    "input": "VMidi 1 1",
     "output": "LoopBe Internal MIDI 6",
     "keybindings": {}
   }
