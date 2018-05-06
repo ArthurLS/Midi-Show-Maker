@@ -1,6 +1,7 @@
 const fs = require('fs');
 const remote = require('electron').remote;
 const path = require('path');
+const BrowserWindow = remote.BrowserWindow;
 const ipc = require('electron').ipcRenderer;
 
 var data_file = './temp.json';
@@ -107,13 +108,12 @@ function read_event() {
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
             }
             if (i == save.cue_list.length -1) {
-                console.log("here");
                 isPlaying = false;
-                $("#nb"+(i-1)).removeClass('active');
-                $("#nb"+(i)).removeClass('active');
-
-                //timeline display cues
-                //display_red_line(index dans la liste)
+                setTimeout(function() {
+                    $("#nb"+(i-1)).removeClass('active');
+                    $("#nb"+(i)).removeClass('active');
+                    output.send('stop');
+                }, 300);
             }
         }, event_obj.cue_list[i].delay);
 

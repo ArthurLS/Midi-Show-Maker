@@ -475,8 +475,8 @@
     }
   },
   "configuration": {
-    "input": "VMidi 1 2",
-    "output": "VMidi 1 3",
+    "input": "nanoPAD2 1 PAD 0",
+    "output": "LoopBe Internal MIDI 6",
     "keybindings": {}
   }
 }
