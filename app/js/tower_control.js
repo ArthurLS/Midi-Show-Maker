@@ -30,7 +30,6 @@ function onload_init(){
     init_midi_io();
     refresh_UI();
 }
-
 /*
 ** Function that reloads everything on the UI
 ** -> add your own display() function if need be!
@@ -87,8 +86,17 @@ function read_event() {
                 output.send(msg_midi.type, {
                     note: msg_midi.options.param1,
                     velocity: msg_midi.options.param2,
-                    channel: msg_midi.channel
+                    channel: 0
                 });
+                if (i > 0) {
+                    var msg_midi2 = save.cue_list[i-1];
+                    output.send('noteoff', {
+                        note: msg_midi2.options.param1,
+                        velocity: msg_midi2.options.param2,
+                        channel: 0
+                    });
+                }
+
             }
             else if (msg_midi.type == "musicFile") {
               //loadSound(msg_midi.options.paramText, i);
