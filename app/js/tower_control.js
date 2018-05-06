@@ -1,6 +1,7 @@
 const fs = require('fs');
 const remote = require('electron').remote;
 const path = require('path');
+const BrowserWindow = remote.BrowserWindow;
 const ipc = require('electron').ipcRenderer;
 
 var data_file = './temp.json';

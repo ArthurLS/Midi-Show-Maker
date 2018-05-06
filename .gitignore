@@ -3,3 +3,4 @@ node_modules
 ./package-lock.*
 ./.idea/
 Opren Electron-win32-x64
+Midionysos-win32-x64
