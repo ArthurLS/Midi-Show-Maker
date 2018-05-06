@@ -10,7 +10,7 @@ var fs = require('fs')
 
 var data_file = './temp.json';
 
-var basic_file = {"name": "Unnamed Project",  "list_events": {},  "configuration": {"input": "", "output": ""}};
+var basic_file = {"name": "Unnamed Project",  "list_events": {},  "configuration": {"input": "", "output": "", "keybindings": {}}};
 
 if (!fs.existsSync(data_file)) {
     fs.writeFileSync(data_file, JSON.stringify(basic_file, null, 2));
@@ -39,8 +39,9 @@ const template = [
                 type:'separator'
             },
             {
-                label : 'Configurations',
-                click () {createInput()}
+                label : 'Configurations', click (item, focusedWindow) {
+                    createInput(focusedWindow);
+                }
             },
             {
                 role: 'quit'
@@ -238,15 +239,14 @@ function newFile(){
     })
 }
 
-function createInput(){
+function createInput(focusedWindow){
     let win_TR = new BrowserWindow({frame: false, width: 800, height: 600, resizable: false, modal: true, show: false});
     var modalPath = path.join('file://', __dirname, 'app/sections/configInputOutput.html');
 
     win_TR.loadURL(modalPath);
 
     win_TR.on('closed', () => {
-        // Allows to select the new_event selected (if there was one in the popup)
-        // We can also do that with if(id == "new_event")
+        send_message(focusedWindow, "input changed");
         win_TR = null;
     })
 
@@ -255,10 +255,11 @@ function createInput(){
     })
 }
 
-
+// sends a message throught ipc
 function send_message(focusedWindow, message) {
     focusedWindow.webContents.send('message', message);
 }
+
 //Load a projet file into temp.json
 function loadFile(callback, focusedWindow){
     dialog.showOpenDialog({ filters: [{ name: '.json', extensions: ['json'] }]}, function (fileNames) {

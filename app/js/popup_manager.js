@@ -31,13 +31,10 @@ function open_popup(command, id) {
 
 function open_popup_little(command, id) {
     console.log("open_popup: command -> "+command+" :/ id -> "+id);
-    let win_TR = new BrowserWindow({frame: false, width: 400, height: 300, modal: true, show: false});
+    let win_TR = new BrowserWindow({frame: false, width: 500, height: 400, modal: true, show: false});
     var modalPath;
     if(command == "new_event" || command == "edit_event"){
-
         modalPath = path.join('file://', __dirname, 'sections/event_options.html?command='+command+'&event_name='+id);
-
-
     }
     else{
         modalPath = path.join('file://', __dirname, 'sections/cue_options.html?command='+command+'&event_name='+event_selected+'&cue_id='+id);

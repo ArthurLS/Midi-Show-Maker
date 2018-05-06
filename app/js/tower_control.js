@@ -1,6 +1,5 @@
 const fs = require('fs');
 const remote = require('electron').remote;
-const BrowserWindow = remote.BrowserWindow;
 const path = require('path');
 const ipc = require('electron').ipcRenderer;
 
@@ -28,6 +27,7 @@ var timer_of_event = new Date();
 ** Sets up the page layout
 */
 function onload_init(){
+    init_midi_io();
     refresh_UI();
 }
 
@@ -54,6 +54,7 @@ function refresh_UI() {
     }, 50);
     toogle_enabled_buttons();
     refresh_Timeline(); // dans timeline-data
+ 
 }
 
 ipc.on('message', (event, message) => {
@@ -61,7 +62,14 @@ ipc.on('message', (event, message) => {
         console.log("ask refresh");
         refresh_UI();
     }
+    else if(message == 'input changed'){
+        remote.getCurrentWindow().reload();
+        setTimeout(function() {
+            init_midi_io();
+        }, 50);
+    }
 })
+
 
 /*
 ** Reads the selected event
@@ -73,15 +81,14 @@ function read_event() {
     // Read every note and sends from the event
     let save = event_obj;
     for (let i = 0; i < save.cue_list.length; i++) {
-
         var timer = new Timer(function() {
             var msg_midi = save.cue_list[i];
             if (msg_midi.type != "programme" && msg_midi.type != "musicFile") {
-              output.send(msg_midi.type, {
-                  note: msg_midi.options.param1,
-                  velocity: msg_midi.options.param2,
-                  channel: msg_midi.channel
-              });
+                output.send(msg_midi.type, {
+                    note: msg_midi.options.param1,
+                    velocity: msg_midi.options.param2,
+                    channel: msg_midi.channel
+                });
             }
             else if (msg_midi.type == "musicFile") {
               //loadSound(msg_midi.options.paramText, i);
@@ -92,6 +99,7 @@ function read_event() {
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
             }
             if (i == save.cue_list.length -1) {
+                console.log("here");
                 isPlaying = false;
                 $("#nb"+(i-1)).removeClass('active');
                 $("#nb"+(i)).removeClass('active');

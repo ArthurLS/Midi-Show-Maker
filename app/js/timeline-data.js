@@ -40,9 +40,9 @@ function makedata(event_obj) {
 
         var two = new Object();
         two.label = hauteurtostring(one.options.param1);//'a'; //TODO: appeler fonction qui prend la hauteur et renvoie note CDEFGAB musique
-        if (i == 0) {
+/*        if (i == 0) {
             console.log("i: "+i+" "+one.options.param1);
-        }
+        }*/
         two.type = TimelineChart.TYPE.INTERVAL;
         two.from = new Date(one.delay); //équivaut à des ms
         //two.from = (new Date(one.delay - 100)); //équivaut à des ms
@@ -65,7 +65,7 @@ function makedata(event_obj) {
 
 }
 
-console.log( makedata(event_obj));
+//console.log( makedata(event_obj));
 
 var data = [makedata(event_obj)]; /*[{
     label: 'Name',
@@ -198,14 +198,14 @@ var timeline = new TimelineChart(element, data, {
 }).onVizChange(e => console.log(e));
 
 function refresh_Timeline() {
-    console.log(event_selected+"    refreshed");
+    //console.log(event_selected+"    refreshed");
     var chartDiv = document.getElementById('svgChart');
     if (chartDiv != null){
         chartDiv.remove();
     }
 
     data = [makedata(event_obj)];
-    console.log("TIMELINE input::: "+event_obj);
+    //console.log("TIMELINE input::: "+event_obj);
     timeline = new TimelineChart(element, data, {
         enableLiveTimer: true,
         tip: function(d) {

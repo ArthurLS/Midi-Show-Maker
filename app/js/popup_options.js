@@ -17,6 +17,15 @@ var command = url.searchParams.get("command");
 var canBlur = true;
 
 /*
+** Closes the window when the user clicks outside the popup window
+*/
+$(window).blur(function(){
+	if (canBlur)
+    	close_window();
+});
+
+
+/*
 ** Initialise the popup window for a cue
 ** differs if it's for a new cue or old cue
 */
@@ -28,7 +37,6 @@ function init_window_cue(){
 	document.getElementById("event_name").innerHTML = event_selected;
 	cue_id = url.searchParams.get("cue_id");
 	console.log("Cue ID: "+cue_id);
-
 	if (command == 'edit_cue') {
 		$("#named_cue_container").attr("hidden", true);
 		cue_id = Number(cue_id);
@@ -64,8 +72,10 @@ function init_window_cue(){
 */
 function init_window_event(){
 	event_selected += url.searchParams.get("event_name");
-
 	document.getElementById("event_name_title").innerHTML = "Event: "+event_selected;
+	$("#event_name").val(event_selected);
+
+
 }
 
 /*
@@ -259,14 +269,6 @@ function display_options(type) {
 $("#type_list").change(function(){
 	var selected_type = $('#type_list').find(":selected").val();
 	display_options(selected_type);
-});
-
-/*
-** Closes the window when the user clicks outside the popup window
-*/
-$(window).blur(function(){
-	if (canBlur)
-    	close_window();
 });
 
 // Keybord Shortcuts

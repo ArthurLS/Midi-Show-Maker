@@ -418,18 +418,8 @@
           "channel": 0,
           "delay": 0,
           "options": {
-            "param1": 0,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Yolo",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 60,
-          "options": {
-            "param1": 0,
-            "param2": 0
+            "param1": 60,
+            "param2": 127
           }
         },
         {
@@ -437,6 +427,46 @@
           "type": "noteon",
           "channel": 1,
           "delay": 500,
+          "options": {
+            "param1": 45,
+            "param2": 127
+          }
+        },
+        {
+          "name": "52",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 1000,
+          "options": {
+            "param1": 52,
+            "param2": 127
+          }
+        },
+        {
+          "name": "45",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 1500,
+          "options": {
+            "param1": 45,
+            "param2": 127
+          }
+        },
+        {
+          "name": "52",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 2000,
+          "options": {
+            "param1": 52,
+            "param2": 127
+          }
+        },
+        {
+          "name": "45",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 2500,
           "options": {
             "param1": 45,
             "param2": 127
@@ -465,9 +495,8 @@
     }
   },
   "configuration": {
-    "input": "RtMidi Output Client 131:0",
-    "output": "RtMidi Input Client 130:0",
-    "keysBindings": {
-    }
+    "output": "Microsoft GS Wavetable Synth 0",
+    "keybindings": {},
+    "input": "nanoPAD2 1 PAD 0"
   }
 }
