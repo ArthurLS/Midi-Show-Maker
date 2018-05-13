@@ -91,6 +91,7 @@ function read_event() {
                 });
                 // send to the previous one a noteoff AND if it's music in the midi show maker
                 if (i > 0 && msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
+                    console.log("here");
                     var msg_midi2 = save.cue_list[i-1];
                     output.send('noteoff', {
                         note: msg_midi2.options.param1,
@@ -130,12 +131,14 @@ function read_event() {
                     $("#nb"+(i-1)).removeClass('active');
                     $("#nb"+(i)).removeClass('active');
                     // cancel yourself bitch
-                    if (msg_midi.type == "noteon") {
-                        output.send('noteoff', {
-                            note: msg_midi.options.param1,
-                            velocity: msg_midi.options.param2,
-                            channel: 0
-                        });
+                    if (msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
+                        if (msg_midi.type == "noteon") {
+                            output.send('noteoff', {
+                                note: msg_midi.options.param1,
+                                velocity: msg_midi.options.param2,
+                                channel: 0
+                            });
+                        }
                     }
                 }, 300);
             }
@@ -347,7 +350,6 @@ function display_cue_table() {
                     console.log("Music: "+cue.options.paramText+" has been loaded");
                 }
             }
-
             table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
             if (cue.name != "") {
                 table += "<td>"+cue.name+"</td>";
@@ -434,6 +436,19 @@ function Timer(callback, delay) {
 }
 
 
+// Keybord Shortcuts
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 13:  
+            if($("#event_name_input").is(":focus")) new_event_trigger();
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
+
 /* Popup alert (info)*/
 function popup (message) {
     dialog.showMessageBox({
@@ -512,9 +527,6 @@ function toogle_enabled_buttons() {
             $("#add_new_cue_btn").attr("disabled", false);
             $("#add_named_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
-
-            //$("#pause_resume_btn").attr("disabled", false);
-            //$("#stop_btn").attr("disabled", false);
         }
     }
 }
@@ -527,18 +539,3 @@ function toggle(a){
         e.style.display = "block";
 }
 
-
-/*function getTime() {
-    var cue_list = event_obj.cue_list;
-    var cue_size = cue_list.length;
-
-    // When is the last cue gonna play
-    var last_remaining = timeouts[timeouts.length-1].getupdate();
-
-    // What was the original last cue delay
-    var last_delay = cue_list[cue_size-1].delay;
-    var result = last_delay - last_remaining;
-    console.log("WE ARE AT "+result+"ms");
-    return result;
-}
-*/

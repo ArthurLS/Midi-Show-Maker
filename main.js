@@ -13,15 +13,13 @@ const ipc = electron.ipcMain;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-const main_window_width = 1920;
-const main_window_height = 1080;
-
 global.ShowActiveCue = false;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: main_window_width, height: main_window_height, show: false})
+  mainWindow = new BrowserWindow({show: false})
 
+  mainWindow.maximize();
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'app/index.html'),

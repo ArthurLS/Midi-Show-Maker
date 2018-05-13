@@ -320,6 +320,7 @@ function getFileLocation() {
 	setTimeout(function(){ canBlur = true }, 50);
 }
 
+var hasOwnProperty = Object.prototype.hasOwnProperty;
 function display_named_cues() {
 	let column_names = ["From Event", "Name", "Type", "Channel", "Delay", "Note"];
     let heads = "";
@@ -330,21 +331,24 @@ function display_named_cues() {
     table += "<tbody>";
     for (var event_name in project.list_events) {
     	event_obj = project.list_events[event_name];
-    
+    	let named_cue = {};
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
             if (cue.name != "") {
-        		table += "<tr class=\"primary\" onclick=\"choose_cue(\'"+event_name+"\',"+i+")\" id=\""+event_name+i+"\">";
-	            table += "<td>"+event_name+"</td>"
-	            		+"<td>"+cue.name+"</td>"
-	            		+"<td>"+cue.type+"</td>"
-	                    +"<td>"+cue.channel+"</td>"
-	                    +"<td>"+cue.delay+"</td>";
-	                    // handles options
-	                    if (cue.options.param1 != undefined) {
-	                        table += "<td>"+cue.options.param1+"</td>"
-	                    }
-	                    else table += "<td></td>"
+            	if(!named_cue.hasOwnProperty(cue.name)){
+	        		table += "<tr class=\"primary\" onclick=\"choose_cue(\'"+event_name+"\',"+i+")\" id=\""+event_name+i+"\">";
+		            table += "<td>"+event_name+"</td>"
+		            		+"<td>"+cue.name+"</td>"
+		            		+"<td>"+cue.type+"</td>"
+		                    +"<td>"+cue.channel+"</td>"
+		                    +"<td>"+cue.delay+"</td>";
+                    // handles options
+                    if (cue.options.param1 != undefined) {
+                        table += "<td>"+cue.options.param1+"</td>";
+                    }
+                    else table += "<td></td>";	
+                    named_cue[cue.name] = "named";
+            	}
             }
         }
         table += "</tbody>"

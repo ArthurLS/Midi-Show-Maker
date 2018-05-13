@@ -6,7 +6,7 @@
       "name": "mario",
       "cue_list": [
         {
-          "name": "First",
+          "name": "",
           "type": "noteon",
           "channel": 3,
           "delay": 0,
@@ -415,135 +415,418 @@
       ],
       "options": {}
     },
-    "test_event": {
-      "id": 1,
-      "name": "test_event",
-      "cue_list": [
-        {
-          "name": "Green Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "param1": 2,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Blue Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "param1": 3,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Red Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "param1": 1,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Black",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 1000,
-          "options": {
-            "param1": 0,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Green Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 1500,
-          "options": {
-            "param1": 2,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Red Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 1500,
-          "options": {
-            "param1": 1,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Flash On",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 2250,
-          "options": {
-            "param1": 10,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Black",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 2500,
-          "options": {
-            "param1": 0,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Flash Off",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 2750,
-          "options": {
-            "param1": 10,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Blue Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 3000,
-          "options": {
-            "param1": 3,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Black",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 4000,
-          "options": {
-            "param1": 0,
-            "param2": 127
-          }
-        }
-      ],
-      "options": {}
-    },
-    "Music": {
+    "Main Show": {
       "id": 2,
-      "name": "Music",
+      "name": "Main Show",
       "cue_list": [
         {
-          "name": "Adele",
+          "name": "Aint High Enough",
           "type": "musicFile",
           "channel": 0,
           "delay": 0,
           "options": {
-            "paramText": "C:\\Users\\Arthur\\Music\\Adele_-_Someone_like_you.mp3",
+            "paramText": "C:\\Users\\Arthur\\Desktop\\Aint No Mountain High Enough short.mp3",
             "param1": 0,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Tammi OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 11,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Marvin OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Black",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 0,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Red Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 359,
+          "options": {
+            "param1": 1,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Yellow light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 850,
+          "options": {
+            "param1": 4,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Green Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 2275,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Cyan Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 2500,
+          "options": {
+            "param1": 5,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Blue Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 3759,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Pink Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 4454,
+          "options": {
+            "param1": 6,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Purple Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 4705,
+          "options": {
+            "param1": 7,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Cyan Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 5399,
+          "options": {
+            "param1": 5,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Blue Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 5639,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Green Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 5639,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Pink Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 5902,
+          "options": {
+            "param1": 6,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Yellow light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 5902,
+          "options": {
+            "param1": 4,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Red Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 6124,
+          "options": {
+            "param1": 1,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Purple Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 6124,
+          "options": {
+            "param1": 7,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Marvin ON",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 6339,
+          "options": {
+            "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Black",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 6339,
+          "options": {
+            "param1": 0,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Red Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 8306,
+          "options": {
+            "param1": 1,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Yellow light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 8509,
+          "options": {
+            "param1": 4,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Green Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 9991,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Cyan Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 10164,
+          "options": {
+            "param1": 5,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Blue Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 11379,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Pink Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 12062,
+          "options": {
+            "param1": 6,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Purple Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 12259,
+          "options": {
+            "param1": 7,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Cyan Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13080,
+          "options": {
+            "param1": 5,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Blue Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13320,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Green Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13320,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Yellow light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13583,
+          "options": {
+            "param1": 4,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Pink Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13583,
+          "options": {
+            "param1": 6,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Purple Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13805,
+          "options": {
+            "param1": 7,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Red Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 13805,
+          "options": {
+            "param1": 1,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Tammi ON",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 16590,
+          "options": {
+            "param1": 11,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Marvin OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 16590,
+          "options": {
+            "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Marvin ON",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 22352,
+          "options": {
+            "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Tammi OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 22352,
+          "options": {
+            "param1": 11,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Marvin OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 23889,
+          "options": {
+            "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Tammi ON",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 23889,
+          "options": {
+            "param1": 11,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Marvin ON",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 29751,
+          "options": {
+            "param1": 10,
             "param2": 0
           }
         }
@@ -553,7 +836,7 @@
   },
   "configuration": {
     "input": "VMidi 1 1",
-    "output": "LoopBe Internal MIDI 6",
+    "output": "Microsoft GS Wavetable Synth 0",
     "keybindings": {}
   }
 }
