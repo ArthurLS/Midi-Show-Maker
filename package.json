@@ -1,8 +1,8 @@
 {
-  "name": "opren_electron",
-  "productName": "Opren Electron",
+  "name": "midionysos",
+  "productName": "MiDionysos",
   "version": "1.0.0",
-  "description": "Projet Régie OPREN",
+  "description": "Create your MIDI show from scratch",
   "main": "main.js",
   "scripts": {
     "start": "electron ."

@@ -294,7 +294,7 @@ d3.tip = require("d3-tip");
                 var ext = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
                 var defaultOptions = {
-                    intervalMinWidth: 8, // px
+                    intervalMinWidth: 10, // px
                     tip: undefined,
                     textTruncateThreshold: 30,
                     enableLiveTimer: false,

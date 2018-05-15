@@ -31,7 +31,6 @@ function onload_init(){
     init_midi_io();
     refresh_UI();
 }
-
 /*
 ** Function that reloads everything on the UI
 ** -> add your own display() function if need be!
@@ -84,29 +83,63 @@ function read_event() {
     for (let i = 0; i < save.cue_list.length; i++) {
         var timer = new Timer(function() {
             var msg_midi = save.cue_list[i];
-            if (msg_midi.type != "programme" && msg_midi.type != "musicFile") {
+            if (msg_midi.type == "noteoff" || msg_midi.type == "noteon" || msg_midi.type == "poly aftertouch") {
                 output.send(msg_midi.type, {
                     note: msg_midi.options.param1,
                     velocity: msg_midi.options.param2,
                     channel: msg_midi.channel
+                });
+                // send to the previous one a noteoff AND if it's music in the midi show maker
+                if (i > 0 && msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
+                    var msg_midi2 = save.cue_list[i-1];
+                    output.send('noteoff', {
+                        note: msg_midi2.options.param1,
+                        velocity: msg_midi2.options.param2,
+                        channel: msg_midi2.channel
+                    });
+                }
+            }
+            else if (msg_midi.type == 'cc'){
+                output.send(msg_midi.type, {
+                    controller: msg_midi.options.param1,
+                    value: msg_midi.options.param2,
+                    channel: msg_midi2.channel
+                }); 
+            }
+            else if (msg_midi.type == "programme"){
+                output.send('program', {
+                    number: msg_midi.options.param1,
+                    channel: msg_midi.options.param2
                 });
             }
             else if (msg_midi.type == "musicFile") {
               //loadSound(msg_midi.options.paramText, i);
               soundsPlaying.push(playSound(msg_midi.options.paramText, msg_midi.options.param1, msg_midi.options.param2));
             }
+            else{
+                output.send(msg_midi.type);
+            }
             if (remote.getGlobal('ShowActiveCue')) {
                 $("#nb"+i).addClass('active');
                 if (i != 0) $("#nb"+(i-1)).removeClass('active');
             }
+            // If it's the last one, do special stuff to it
             if (i == save.cue_list.length -1) {
-                console.log("here");
                 isPlaying = false;
-                $("#nb"+(i-1)).removeClass('active');
-                $("#nb"+(i)).removeClass('active');
-
-                //timeline display cues
-                //display_red_line(index dans la liste)
+                setTimeout(function() {
+                    $("#nb"+(i-1)).removeClass('active');
+                    $("#nb"+(i)).removeClass('active');
+                    // cancel yourself bitch
+                    if (msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
+                        if (msg_midi.type == "noteon") {
+                            output.send('noteoff', {
+                                note: msg_midi.options.param1,
+                                velocity: msg_midi.options.param2,
+                                channel: 0
+                            });
+                        }
+                    }
+                }, 300);
             }
         }, event_obj.cue_list[i].delay);
 
@@ -316,7 +349,6 @@ function display_cue_table() {
                     console.log("Music: "+cue.options.paramText+" has been loaded");
                 }
             }
-
             table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
             if (cue.name != "") {
                 table += "<td>"+cue.name+"</td>";
@@ -403,6 +435,19 @@ function Timer(callback, delay) {
 }
 
 
+// Keybord Shortcuts
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 13:  
+            if($("#event_name_input").is(":focus")) new_event_trigger();
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
+
 /* Popup alert (info)*/
 function popup (message) {
     dialog.showMessageBox({
@@ -481,9 +526,6 @@ function toogle_enabled_buttons() {
             $("#add_new_cue_btn").attr("disabled", false);
             $("#add_named_cue_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
-
-            //$("#pause_resume_btn").attr("disabled", false);
-            //$("#stop_btn").attr("disabled", false);
         }
     }
 }
@@ -496,18 +538,3 @@ function toggle(a){
         e.style.display = "block";
 }
 
-
-/*function getTime() {
-    var cue_list = event_obj.cue_list;
-    var cue_size = cue_list.length;
-
-    // When is the last cue gonna play
-    var last_remaining = timeouts[timeouts.length-1].getupdate();
-
-    // What was the original last cue delay
-    var last_delay = cue_list[cue_size-1].delay;
-    var result = last_delay - last_remaining;
-    console.log("WE ARE AT "+result+"ms");
-    return result;
-}
-*/
