@@ -91,7 +91,6 @@ function read_event() {
                 });
                 // send to the previous one a noteoff AND if it's music in the midi show maker
                 if (i > 0 && msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
-                    console.log("here");
                     var msg_midi2 = save.cue_list[i-1];
                     output.send('noteoff', {
                         note: msg_midi2.options.param1,

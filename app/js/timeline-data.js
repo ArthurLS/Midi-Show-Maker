@@ -77,7 +77,7 @@ function refresh_Timeline() {
         tip: function(d) {
             return d.at || d.from +"<br>" + d.to;
         }
-    }).onVizChange(e => console.log(e));
+    }).onVizChange(e => console.log());
 }
 
 $(window).on('resize', function(e) {

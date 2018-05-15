@@ -15,7 +15,7 @@ html, body{
 }
 .maxed-out{
   max-height: 68vh;
-  overflow: auto;
+  /* overflow: auto; */
 }
 .maxed-out-timeline{
     max-height: 30vh;
@@ -82,30 +82,7 @@ li, tr {
 #event_name_title{
   margin-left: 8px;
 }
-/*
-.btn-sq {
-  width: 100px !important;
-  height: 100px !important;
-  font-size: 10px;
-}
 
-.btn-sq-sm {
-  width: 50px !important;
-  height: 50px !important;
-  font-size: 10px;
-}
-
-.btn-sq-xs {
-  width: 25px !important;
-  height: 25px !important;
-  padding:2px;
-}
- */
-
- /*var sheet = document.styleSheets[1];
-sheet.insertRule("body { background-color: red; height: 100%; }", 1);
-sheet.insertRule("html { height: 100%; }", 1);
-*/
 
 
 canvas {
