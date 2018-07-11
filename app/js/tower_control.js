@@ -54,7 +54,6 @@ function refresh_UI() {
     }, 50);
     toogle_enabled_buttons();
     refresh_Timeline(); // dans timeline-data
- 
 }
 
 ipc.on('message', (event, message) => {
@@ -89,15 +88,6 @@ function read_event() {
                     velocity: msg_midi.options.param2,
                     channel: msg_midi.channel
                 });
-                // send to the previous one a noteoff AND if it's music in the midi show maker
-                if (i > 0 && msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
-                    var msg_midi2 = save.cue_list[i-1];
-                    output.send('noteoff', {
-                        note: msg_midi2.options.param1,
-                        velocity: msg_midi2.options.param2,
-                        channel: msg_midi2.channel
-                    });
-                }
             }
             else if (msg_midi.type == 'cc'){
                 output.send(msg_midi.type, {
@@ -129,16 +119,6 @@ function read_event() {
                 setTimeout(function() {
                     $("#nb"+(i-1)).removeClass('active');
                     $("#nb"+(i)).removeClass('active');
-                    // cancel yourself bitch
-                    if (msg_midi.type == "noteon" && msg_midi.options.param1 > 39) {
-                        if (msg_midi.type == "noteon") {
-                            output.send('noteoff', {
-                                note: msg_midi.options.param1,
-                                velocity: msg_midi.options.param2,
-                                channel: 0
-                            });
-                        }
-                    }
                 }, 300);
             }
         }, event_obj.cue_list[i].delay);
@@ -190,8 +170,8 @@ function pause_or_resume(elem) {
     toogle_enabled_buttons();
 }
 
-/*re-added that part for timeline*/
-var previousRenderedTime = 0; //needed for timeline
+
+var previousRenderedTime = 0; 
 function getTime() {
 
     if ((event_obj === '{}' || event_obj === 'undefined' || event_obj == null) || (event_obj.cue_list === '{}' || event_obj.cue_list === 'undefined' || event_obj.cue_list == null)){
@@ -215,10 +195,6 @@ function getTime() {
     var last_delay = cue_list[cue_size-1].delay;
     var result = last_delay - last_remaining;
 
-/*    if (last_remaining < 0){
-        stopPlay();
-    }*/
-
     if (isPlaying == "Pause") { //added for timeline
             /*console.log("WE ARE AT "+result+"ms (and we are paused)");*/
             return previousRenderedTime;
@@ -232,11 +208,6 @@ function getTime() {
     }
 
 }
-
-function isItPlaying() {
-    return isPlaying;
-}
-/*end of the part added for the red line in timeline*/
 
 /*
 **  Clear all the pending timeouts, effectively stoping the current event playing
