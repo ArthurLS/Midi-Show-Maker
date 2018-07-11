@@ -435,19 +435,9 @@
           "channel": 0,
           "delay": 0,
           "options": {
-            "paramText": "C:\\Users\\Arthur\\Desktop\\Aint No Mountain short Enough.mp3",
+            "paramText": "C:\\Users\\Arthur\\Music\\Aint No Mountain High Enough.mp3",
             "param1": 0,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Marvin OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "param1": 10,
-            "param2": 0
+            "param2": 35000
           }
         },
         {
@@ -458,6 +448,16 @@
           "options": {
             "param1": 0,
             "param2": 127
+          }
+        },
+        {
+          "name": "Marvin OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 0,
+          "options": {
+            "param1": 10,
+            "param2": 0
           }
         },
         {
@@ -581,16 +581,6 @@
           }
         },
         {
-          "name": "Red Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 6124,
-          "options": {
-            "param1": 1,
-            "param2": 127
-          }
-        },
-        {
           "name": "Purple Light OFF",
           "type": "noteoff",
           "channel": 0,
@@ -598,6 +588,16 @@
           "options": {
             "param1": 7,
             "param2": 0
+          }
+        },
+        {
+          "name": "Red Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 6124,
+          "options": {
+            "param1": 1,
+            "param2": 127
           }
         },
         {
@@ -771,16 +771,6 @@
           }
         },
         {
-          "name": "Tammi ON",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 16484,
-          "options": {
-            "param1": 11,
-            "param2": 127
-          }
-        },
-        {
           "name": "Marvin OFF",
           "type": "noteoff",
           "channel": 0,
@@ -788,6 +778,16 @@
           "options": {
             "param1": 10,
             "param2": 0
+          }
+        },
+        {
+          "name": "Tammi ON",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 16484,
+          "options": {
+            "param1": 11,
+            "param2": 127
           }
         },
         {
@@ -941,6 +941,26 @@
           }
         },
         {
+          "name": "Pink Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 19793,
+          "options": {
+            "param1": 6,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Cyan Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 19793,
+          "options": {
+            "param1": 5,
+            "param2": 0
+          }
+        },
+        {
           "name": "Blue Light",
           "type": "noteon",
           "channel": 0,
@@ -967,26 +987,6 @@
           "delay": 19793,
           "options": {
             "param1": 7,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Pink Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 19793,
-          "options": {
-            "param1": 6,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Cyan Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 19793,
-          "options": {
-            "param1": 5,
             "param2": 0
           }
         },
@@ -1041,16 +1041,6 @@
           }
         },
         {
-          "name": "Red Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 21406,
-          "options": {
-            "param1": 1,
-            "param2": 127
-          }
-        },
-        {
           "name": "Purple Light OFF",
           "type": "noteoff",
           "channel": 0,
@@ -1061,13 +1051,13 @@
           }
         },
         {
-          "name": "Tammi OFF",
+          "name": "Red Light OFF",
           "type": "noteoff",
           "channel": 0,
-          "delay": 22352,
+          "delay": 21406,
           "options": {
-            "param1": 11,
-            "param2": 0
+            "param1": 1,
+            "param2": 127
           }
         },
         {
@@ -1077,6 +1067,16 @@
           "delay": 22352,
           "options": {
             "param1": 10,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Tammi OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 22352,
+          "options": {
+            "param1": 11,
             "param2": 0
           }
         },
@@ -1181,36 +1181,6 @@
           }
         },
         {
-          "name": "Blue Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 27030,
-          "options": {
-            "param1": 3,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Green Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 27030,
-          "options": {
-            "param1": 2,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Pink Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 27030,
-          "options": {
-            "param1": 6,
-            "param2": 0
-          }
-        },
-        {
           "name": "Red Light OFF",
           "type": "noteoff",
           "channel": 0,
@@ -1237,6 +1207,36 @@
           "delay": 27030,
           "options": {
             "param1": 4,
+            "param2": 0
+          }
+        },
+        {
+          "name": "Blue Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 27030,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Green Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 27030,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Pink Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 27030,
+          "options": {
+            "param1": 6,
             "param2": 0
           }
         },
@@ -1442,8 +1442,8 @@
     }
   },
   "configuration": {
-    "input": "LoopBe Internal MIDI 0",
-    "output": "VMidi 1 2",
+    "input": "VMidi 1 1",
+    "output": "LoopBe Internal MIDI 1",
     "keybindings": {}
   }
 }

@@ -195,7 +195,7 @@ d3.tip = require("d3-tip");
             zoomed();
 
             if (options.enableLiveTimer) {
-                setInterval(function () { if (isItPlaying() == true) {updateNowMarker();}}, 10/*options.timerTickInterval*/); //limite la charge cpu
+                setInterval(function () { if (isPlaying == true) {updateNowMarker();}}, 10/*options.timerTickInterval*/); //limite la charge cpu
             }
 
             /*function updateNowMarker() {
