@@ -3,6 +3,7 @@
 	<div class="col-md-8">
 		<button type="button" class="btn btn-success" id="add_new_cue_btn" onclick="open_popup('new_cue', 'xx')">Add New Cue</button>
 		<button type="button" class="btn btn-success" id="add_named_cue_btn" onclick="open_popup('named_cue', 'xx')">Add Named Cue</button>
+		<button type="button" class="btn btn-success" id="add_block_btn" onclick="open_popup('new_block', 'xx')">Add Block</button><br>
 		<button type="button" class="btn" id="play_event_btn" onclick="read_event();" style="background-color: #008CBA; color: white">Play Event</button>
 		<button type="button" class="btn btn-danger" id="pause_resume_btn" onclick="pause_or_resume(this)">Pause</button>
 		<button type="button" class="btn btn-danger" id="stop_btn" onclick="stopPlay()">Stop</button>
@@ -19,9 +20,11 @@
 		<table class="table">
 			<thead>
 				<tr style="cursor: default;">
-				<th scope="col"></th>
+					<th scope="col">Type</th>
+					<th scope="col">Delay</th>
 				</tr>
 			</thead>
+			<tbody id="block_preview_body"></tbody>
 		</table>
 	</div>
 </div>

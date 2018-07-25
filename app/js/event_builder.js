@@ -145,14 +145,16 @@ function update_cue_options(parent_cue_list, cue_index, type, param1, param2, pa
 		options_res["param2"] = param2;
 		// If the element is new, it doesn't have that property!
 		console.log(parent_cue_list[cue_index]);
-		if (parent_cue_list[cue_index].options != null) {
-			// We need to preload the file if we changed it !
-			if (parent_cue_list[cue_index].options.paramText != paramText) {
-				// Check if the current song is already loaded!
-				if (!createjs.Sound.loadComplete(paramText)) loadSound(paramText, paramText);
+		if(paramText != ""){
+			if (parent_cue_list[cue_index].options != null) {
+				// We need to preload the file if we changed it !
+				if (parent_cue_list[cue_index].options.paramText != paramText) {
+					// Check if the current song is already loaded!
+					if (!createjs.Sound.loadComplete(paramText)) loadSound(paramText, paramText);
+				}
 			}
+			else loadSound(paramText, paramText);
 		}
-		else loadSound(paramText, paramText);
 	}
 	parent_cue_list[cue_index].options = options_res;
 }
@@ -161,9 +163,7 @@ function update_cue_options(parent_cue_list, cue_index, type, param1, param2, pa
 /*
 	ADD - DELETE - MOVE CUE
 */
-
 function delete_cue_with_index(cue_list, index) {
-	console.log("hey " + index);
 	cue_list.splice(index, 1);
 }
 function delete_cue_with_object(cue_list, cue) {

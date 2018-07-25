@@ -21,7 +21,17 @@ html, body{
     max-height: 30vh;
 }
 
+h3{
+  margin-top: 5px;
+}
 
+.base_input{
+  color: black;
+  border-radius: 5px;
+  height: 25px;
+  font-size: 16px;
+  max-width: 106px;
+}
 
 
 .hidden{
@@ -194,3 +204,11 @@ html {
 ::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
 ::-webkit-scrollbar-corner { background-color: #646464;}
 ::-webkit-resizer { background-color: #666;}
+
+.preview_btn{
+  margin: 0px; 
+  width: 55px; 
+  height: 32px; 
+  font-size: 12px; 
+  padding: 2px;
+}

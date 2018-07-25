@@ -10,7 +10,7 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = ""; //ex: "test_event"
+var event_selected = "block test"; //ex: "test_event"
 var event_obj = {};
 if (event_selected != "") {
     event_obj = project.list_events[event_selected];
@@ -301,7 +301,6 @@ function display_cue_list() {
 ** Show every event from the selected event in #table
 */
 function display_cue_table() {
-    //let column_names = ["Id", "Type", "Channel", "Delay", "Note", "Velocity"];
     let column_names = ["Name or Id", "Type", "Channel", "Delay", "Note"];
     let heads = "";
     for (var i = 0; i < column_names.length; i++) {
@@ -314,27 +313,39 @@ function display_cue_table() {
             let cue = event_obj.cue_list[i];
             // We need to preload soundfiles why not do it here?
             if (cue.type == "musicFile") {
-                console.log("prout");
                 if (!createjs.Sound.loadComplete(cue.options.paramText)) {
                     loadSound(cue.options.paramText, cue.options.paramText);
                     console.log("Music: "+cue.options.paramText+" has been loaded");
                 }
             }
-            table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
-            if (cue.name != "") {
-                table += "<td>"+cue.name+"</td>";
-            }
+            if (cue.type == "block"){
+                table += "<tr class=\"primary\" id=\"nb" +i+"\">";
+                if (cue.name != "") table += "<td onclick=\"open_popup(\'edit_block\', "+i+")\" >"+cue.name+"</td>";
+                else table += "<td onclick=\"open_popup(\'edit_block\', "+i+")\" >"+i+"</td>";
+
+                table += "<td onclick=\"open_popup(\'edit_block\', "+i+")\" >"+cue.type+"</td>"
+                        +"<td onclick=\"open_popup(\'edit_block\', "+i+")\" ></td>"
+                        +"<td onclick=\"open_popup(\'edit_block\', "+i+")\" >"+cue.delay+"</td>";
+
+                table += '<td style="padding: 2px">'+'<button type="button" class="preview_btn btn btn-info" onclick="preview_block('+i+')" >Preview</button>'+"</td>";
+            } 
+                
             else{
-                table += "<td>"+i+"</td>";
+                table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
+
+                if (cue.name != "") table += "<td>"+cue.name+"</td>";
+                else table += "<td>"+i+"</td>";
+
+                table += "<td>"+cue.type+"</td>"
+                        +"<td>"+cue.channel+"</td>"
+                        +"<td>"+cue.delay+"</td>";
+                // handles options
+                if (cue.options.param1 != undefined && cue.type != "musicFile") {
+                    table += "<td>"+cue.options.param1+"</td>"
+                }
+
+                table += "<td></td>"
             }
-            table += "<td>"+cue.type+"</td>"
-                    +"<td>"+cue.channel+"</td>"
-                    +"<td>"+cue.delay+"</td>";
-                    // handles options
-                    if (cue.options.param1 != undefined) {
-                        table += "<td>"+cue.options.param1+"</td>"
-                    }
-                    else table += "<td></td>"
         }
         table += "</tbody>"
         $("#table").html(table);
@@ -344,6 +355,27 @@ function display_cue_table() {
         table += "</tbody>"
         $("#table").html(table);
     }
+}
+
+function preview_block(id) {
+    console.log("this is preview_block "+$("#block_preview_body").html());
+    if ($("#block_preview_body").html() == "") {
+
+        var str = "";
+        var block_list = event_obj.cue_list[id]["options"];
+        console.log(block_list);
+        for (var i = 0; i < block_list.length; i++) {
+            str += '<tr>';
+            str += '<td>'+block_list[i].type+'</td>';
+            str += '<td>'+block_list[i].delay+'</td>';
+        }
+        $("#block_preview_body").html(str);
+    }
+    else {
+        console.log("here");
+        $("#block_preview_body").html("");
+    }
+
 }
 
 /*

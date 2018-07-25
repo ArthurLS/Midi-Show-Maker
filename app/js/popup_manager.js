@@ -3,8 +3,10 @@ function open_popup(command, id) {
 	let win_TR = new BrowserWindow({frame: false, width: 1200, height: 800, modal: true, show: false});
 	var modalPath;
 	if(command == "new_event" || command == "edit_event"){
-
 		modalPath = path.join('file://', __dirname, 'sections/event_options.html?command='+command+'&event_name='+id);
+	}
+	else if(command == "new_block" || command == "edit_block"){
+		modalPath = path.join('file://', __dirname, 'sections/block_options.html?command='+command+'&event_name='+event_selected+'&block_id='+id);
 	}
 	else{
 		modalPath = path.join('file://', __dirname, 'sections/cue_options.html?command='+command+'&event_name='+event_selected+'&cue_id='+id);

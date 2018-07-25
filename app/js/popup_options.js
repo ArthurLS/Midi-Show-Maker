@@ -14,7 +14,8 @@ let event_obj = "";
 
 let url = new URL(window.location.href);
 var command = url.searchParams.get("command");
-var canBlur = true;
+console.log(command);
+var canBlur = false;
 
 /*
 ** Closes the window when the user clicks outside the popup window
@@ -36,8 +37,7 @@ function init_window_cue(){
 	event_obj = project.list_events[event_selected];
 	document.getElementById("event_name").innerHTML = event_selected;
 	cue_id = url.searchParams.get("cue_id");
-	console.log("Cue ID: "+cue_id);
-	if (command == 'edit_cue') {
+	if (command == "edit_cue") {
 		$("#named_cue_container").attr("hidden", true);
 		cue_id = Number(cue_id);
 		document.getElementById("cue_id").innerHTML = ", Cue n°"+cue_id;
@@ -49,7 +49,7 @@ function init_window_cue(){
 		display_types(event_obj.cue_list[cue_id].type);
 		display_options(event_obj.cue_list[cue_id].type);
 	}
-	else if (command == 'new_cue'){
+	else if (command == "new_cue"){
 		$("#named_cue_container").attr("hidden", true);
 		$("#channel").val(0);
 		$("#delay").val(0);
@@ -57,7 +57,7 @@ function init_window_cue(){
 		display_options('noteon');
 		$("#delete_btn").attr("disabled", true);
 	}
-	else if (command == 'named_cue'){
+	else if (command == "named_cue"){
 		display_named_cues();
 		$("#input_container").attr("hidden", true);
 		$("#name_container").attr("hidden", true);
@@ -74,8 +74,6 @@ function init_window_event(){
 	event_selected += url.searchParams.get("event_name");
 	document.getElementById("event_name_title").innerHTML = "Event: "+event_selected;
 	$("#event_name").val(event_selected);
-
-
 }
 
 /*
@@ -276,7 +274,7 @@ $(document).keydown(function(e) {
 	switch(e.which) {
 		case 13:  
 			if(command == "edit_event") save_event();
-			else check_values(1);
+			else if(command != "edit_block" && command != "new_block") check_values(1);
 		break;
 
         default: return; // exit this handler for other keys
@@ -308,6 +306,7 @@ function check_values(choice) {
         save_all();
         close_window();
 	}
+	else save_all();
 }
 
 function getFileLocation() {

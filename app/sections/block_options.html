@@ -1,0 +1,73 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/custom.css" rel="stylesheet">
+</head>
+<body onload="init_window_block()" style="border: solid 1px;">
+
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-md-4">
+				<h1>
+					Event: <span id="event_name"></span><span id="cue_id"></span>
+				</h1>
+			</div>
+		</div>
+		<div class="row" id="name_container">
+			<div class="col-md-4">
+				<h3>Name</h3>
+				<input type="text" id="block_name" class="form-control" placeholder="Block name is Optional" >
+			</div>
+			<div class="col-md-4">
+				<h3>Delay</h3>
+				<input type="number" id="block_delay" class="form-control" placeholder="Block Delay" value="0">
+			</div>
+			<div class="col-md-4">
+				<h3>Number of Cues in the block</h3>
+				<input type="number" id="nb_cues" class="form-control" onclick="update_nb_cue(this.value)" onblur="update_nb_cue(this.value)">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12" id="table">
+				
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div id="error-display" class="alert alert-dismissible alert-danger col-md-10 col-md-offset-1" style="display: none;">
+				<p id="bad-boy"></p>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="error-display" class="alert alert-dismissible alert-danger col-md-10 col-md-offset-1" style="display: none;">
+				<p id="bad-boy"></p>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1">
+				<button type="button" class="btn btn-success" id="save_close_btn" onclick="save_block()">Save</button>
+			</div>
+			<div class="col-md-1">
+	    		<button type="button" class="btn btn-warning" id="close_btn" onclick="close_window()" >Close</button>
+	    	</div>
+	    	<div class="col-md-1">
+	    		<button type="button" class="btn btn-danger" id="delete_btn" onclick="delete_cue()">Delete</button>
+	    	</div>
+		</div>
+	</div>
+	<script>window.$ = window.jQuery = require('../js/jquery-1.11.1.js');</script>
+	<script src="../js/soundjs.min.js"></script>
+	<script src="../js/audio_control.js"></script>
+	<script src="../js/block_options.js"></script>
+	<script src="../js/event_builder.js"></script>
+	<script src="../js/popup_options.js"></script>
+</body>
+</html>
