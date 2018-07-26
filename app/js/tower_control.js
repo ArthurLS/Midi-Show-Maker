@@ -10,7 +10,7 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = "block test"; //ex: "test_event"
+var event_selected = ""; //ex: "test_event"
 var event_obj = {};
 if (event_selected != "") {
     event_obj = project.list_events[event_selected];
@@ -92,21 +92,8 @@ function read_event() {
                 });
             }
             else if(msg_midi.type == 'block'){
-                
-                for (let j = 0; j < msg_midi["options"].length; j++) {
-                    var timer_block = new Timer(function() {
 
-                        var b_cue = save.cue_list[i]["options"][j];
-                        console.log("Read block Note");
-                        console.log(b_cue);
-                        output.send(b_cue["type"], {
-                            note: b_cue.options.param1,
-                            velocity: b_cue.options.param2,
-                            channel: b_cue.channel
-                        });
-                    }, Number(save.cue_list[i]["options"][j].delay));
-                    timeouts.push(timer_block);
-                }
+                read_block(save.cue_list[i]);
 
             }
             else if (msg_midi.type == "programme"){
@@ -143,6 +130,34 @@ function read_event() {
         timeouts.push(timer);
     }
     toogle_enabled_buttons();
+}
+
+var loop_count = 1;
+
+function read_block(block_obj) {
+    for (let j = 0; j < block_obj["cue_list"].length; j++) {
+        var timer_block = new Timer(function() {
+            var b_cue = block_obj["cue_list"][j];
+            if (b_cue.type != "restart_loop") {
+                console.log("Is timed: delay="+block_obj["cue_list"][j].delay);
+                output.send(b_cue.type, {
+                    note: b_cue.options.param1,
+                    velocity: b_cue.options.param2,
+                    channel: b_cue.channel
+                });
+            }
+            else {
+                for (let k = 0; k < block_obj["cue_list"].length-1; k++) {
+                    console.log(block_obj["cue_list"][j].delay);
+                    block_obj["cue_list"][k].delay;
+                }
+                loop_count ++;
+                console.log("Loop is restarting");
+                read_block(block_obj);
+            }
+        }, Number(block_obj["cue_list"][j].delay));
+        timeouts.push(timer_block);
+    }         
 }
 
 /*
@@ -187,6 +202,23 @@ function pause_or_resume(elem) {
     toogle_enabled_buttons();
 }
 
+/*
+**  Clear all the pending timeouts, effectively stoping the current event playing
+*/
+function stopPlay() {
+    isPlaying = false;
+    for (let i = 0; i < soundsPlaying.length; i++)
+        soundsPlaying[i].stop();
+    for (let i = 0; i < timeouts.length; i++){
+        clearTimeout(timeouts[i].stop());
+    }
+    timeouts = new Array();
+    loop_count = 0;
+    refresh_UI();
+    $("#pause_resume_btn").html("Pause");
+}
+
+
 
 var previousRenderedTime = 0; 
 function getTime() {
@@ -219,28 +251,13 @@ function getTime() {
         previousRenderedTime = 0;
         return 0;
     } else { //true
-            /*console.log("WE ARE AT "+result+"ms");*/
+            console.log("WE ARE AT "+result+"ms");
         previousRenderedTime = result; //added for timeline
         return result;
     }
 
 }
 
-/*
-**  Clear all the pending timeouts, effectively stoping the current event playing
-*/
-function stopPlay() {
-    isPlaying = false;
-    for (let i = 0; i < soundsPlaying.length; i++)
-        soundsPlaying[i].stop();
-    for (let i = 0; i < timeouts.length; i++){
-        clearTimeout(timeouts[i].stop());
-
-    }
-    timeouts = new Array();
-    refresh_UI();
-    $("#pause_resume_btn").html("Pause");
-}
 
 function new_event_trigger() {
     if ($("#event_name_input").is(":visible")) {
@@ -379,7 +396,7 @@ function preview_block(id) {
     if ($("#block_preview_body").html() == "") {
 
         var str = "";
-        var block_list = event_obj.cue_list[id]["options"];
+        var block_list = event_obj.cue_list[id]["cue_list"];
         console.log(block_list);
         for (var i = 0; i < block_list.length; i++) {
             str += '<tr>';
@@ -513,6 +530,7 @@ function toogle_enabled_buttons() {
     if (event_selected == "") {
         $("#add_new_cue_btn").attr("disabled", true);
         $("#add_named_cue_btn").attr("disabled", true);
+        $("#add_block_btn").attr("disabled", true);
         $("#play_event_btn").attr("disabled", true);
         $("#pause_resume_btn").attr("disabled", true);
         $("#stop_btn").attr("disabled", true);
@@ -527,6 +545,7 @@ function toogle_enabled_buttons() {
         if (isPlaying) {
             $("#add_new_cue_btn").attr("disabled", false);
             $("#add_named_cue_btn").attr("disabled", false);
+            $("#add_block_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
             $("#pause_resume_btn").attr("disabled", false);
@@ -536,6 +555,7 @@ function toogle_enabled_buttons() {
         else if(isPlaying == false){
             $("#add_new_cue_btn").attr("disabled", false);
             $("#add_named_cue_btn").attr("disabled", false);
+            $("#add_block_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
 
             $("#pause_resume_btn").attr("disabled", true);
@@ -545,6 +565,7 @@ function toogle_enabled_buttons() {
         else if(isPlaying == "Pause"){
             $("#add_new_cue_btn").attr("disabled", false);
             $("#add_named_cue_btn").attr("disabled", false);
+            $("#add_block_btn").attr("disabled", false);
             $("#play_event_btn").attr("disabled", false);
         }
     }

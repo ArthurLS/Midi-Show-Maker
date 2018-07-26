@@ -2,6 +2,9 @@ var block_id;
 var block_obj;
 
 var nb_cues;
+var is_loop;
+
+
 
 /*
 ** Initialise the popup window for a block
@@ -15,14 +18,17 @@ function init_window_block() {
 	if (command == "new_block") {
 		block_id = create_block();
 		block_obj = event_obj["cue_list"][block_id];
+		is_loop = false;
+		
 		update_nb_cue(3)
 		nb_cues = 3;
 	}
 	else if (command == "edit_block"){
 		block_id = url.searchParams.get("block_id");
 		block_obj = event_obj["cue_list"][block_id];
-		nb_cues = block_obj["options"].length;
-
+		nb_cues = block_obj["cue_list"].length;
+		is_loop = block_obj["options"].is_loop; 
+		if (is_loop) $("#loop_checkbox").prop("checked", true);
 		$("#block_name").val(block_obj.name)
 	}	
 
@@ -47,17 +53,20 @@ function init_cues_display() {
 
     // Generates the tbody
     for (var i = 0; i < nb_cues; i++) {
-    	var cue_type = block_obj["options"][i].type;
+    	var cue_type = block_obj["cue_list"][i].type;
+
     	table += '<tr class="primary" style="cursor: default" id="tr_'+i+'">'
-    	 		+ display_block_line(i, cue_type) + '</tr>';
+				+ display_block_line(i, cue_type) + '</tr>';
+    	
    	}
 	table += "</tbody>";
 	$("#table").html(table);
 
 	// Generates the <select> for each line
 	for (var i = 0; i < nb_cues; i++) {
-		var cue_type =  block_obj["options"][i].type;
-		display_types_line(cue_type, i)
+		var cue_type =  block_obj["cue_list"][i].type;
+		if (cue_type != "restart_loop") display_types_line(cue_type, i)
+		
 	}
 }
 
@@ -65,22 +74,27 @@ function init_cues_display() {
 ** Adjusts in the JSON and in the UI the number of cues in the block
 */
 function update_nb_cue(nb) {
-	console.log("update_nb_cue");
-	if (nb != "") {
-		if (nb != nb_cues) {
-			nb_cues = nb;
-			//if the user deletes a cue (downs the count by > 1)
-			while (nb_cues < block_obj["options"].length) {
-				block_obj["options"].pop();
+
+	if ((is_loop && nb >= 1) || (!is_loop && nb >= 0)) {
+		if (nb != "") {
+			if (nb != nb_cues) {
+				nb_cues = nb;
+				//if the user deletes a cue (downs the count by > 1)
+				while (nb_cues < block_obj["cue_list"].length) {
+					if(block_obj["cue_list"][0].type == "restart_loop") delete_cue_with_index(block_obj["cue_list"], 1);
+					else delete_cue_with_index(block_obj["cue_list"], 0);
+				}
+				
+				//if the user adds a cue (ups the count by > 1)
+				while(nb_cues > block_obj["cue_list"].length){
+					add_cue(event_obj.cue_list[block_id]["cue_list"], create_cue("noteon", 0, 0, "", {"param1": "", "param2": ""}));
+				}
 			}
-			
-			//if the user adds a cue (ups the count by > 1)
-			while(nb_cues > block_obj["options"].length){
-				add_cue(event_obj.cue_list[block_id]["options"], create_cue("noteon", "0", "0", "", {"param1": "", "param2": ""}));
-			}
+			init_cues_display();
 		}
-		init_cues_display();
 	}
+	else if(is_loop) $("#nb_cues").val(1);
+	else if(!is_loop) $("#nb_cues").val(0);
 }
 
 /*
@@ -92,9 +106,29 @@ function create_block() {
 	var block_delay = Number($("#block_delay").val());
 	var block_name = $("#block_name").val();
 	//create_cue(type, channel, delay, name, options) 
-	var block = create_cue("block", 0, block_delay, block_name, []);
+	var block = create_cue("block", 0, block_delay, block_name, {"is_loop": false});
 	//returns id
 	return add_cue(event_obj.cue_list, block);
+}
+
+function loop_mode() {
+	// if it's checked
+	if($("#loop_checkbox").prop('checked')){
+		is_loop = true
+		var max = 0;
+		if(block_obj["cue_list"].length > 0) max = block_obj["cue_list"].length-1;
+
+		add_cue(block_obj["cue_list"], create_cue("restart_loop", 0, block_obj["cue_list"][max].delay, "", {"param1": "", "param2": ""}));
+		nb_cues ++;
+	}
+	else{
+		is_loop = false
+		delete_cue_with_type(block_obj["cue_list"], "restart_loop");
+		nb_cues --;
+	}
+	block_obj["options"].is_loop = is_loop;
+	$("#nb_cues").val(nb_cues);
+	init_cues_display();
 }
 
 /*
@@ -110,6 +144,8 @@ function save_block() {
 	//save delay
 	var delay = Number($('#block_delay').val());
 	update_cue_delay(event_obj.cue_list, block_id, delay);
+
+	// saves the cues in the block
 	var count = 0;
 	for (var i = 0; i < nb_cues; i++) {
 		count += check_values_block(i);
@@ -148,8 +184,8 @@ function update_cue_block_type(id) {
     
     else if(type == "musicFile") c_opt = {"param1": "", "param2": "", "paramText": ""};
 
-    block_obj["options"][id]["options"] = c_opt;
-    block_obj["options"][id]["type"] = type;
+    block_obj["cue_list"][id]["options"] = c_opt;
+    block_obj["cue_list"][id]["type"] = type;
 
 	$("#tr_"+id).html(display_block_line(id, type)+'</tr>');
 	display_types_line(type, id);
@@ -160,16 +196,26 @@ function update_cue_block_type(id) {
 */
 function up_channel(id) {
 	var c_channel = Number($('#channel_'+id).val());
-	update_cue_channel(block_obj["options"], id, c_channel);
+	update_cue_channel(block_obj["cue_list"], id, c_channel);
 }
 /*
 ** Updates the delay for a specific cue into the local object
 */
 function up_delay(id) {
 	var c_delay = Number($('#delay_'+id).val());
-	update_cue_delay(block_obj["options"], id, c_delay);
+	if (block_obj["cue_list"][id].delay < c_delay) change_restart_val(c_delay);
+	update_cue_delay(block_obj["cue_list"], id, c_delay);
 	init_cues_display();
 }
+function change_restart_val(new_delay) {
+	for (var i = 0; i < block_obj["cue_list"].length; i++) {
+		if(block_obj["cue_list"][i].type == "restart_loop"){
+			block_obj["cue_list"][i].delay = Math.max(block_obj["cue_list"][i].delay, new_delay)
+			break;
+		}
+	}
+}
+
 /*
 ** Updates the options for a specific cue into the local object
 */
@@ -178,13 +224,13 @@ function up_options(id) {
 	var c_param1 = Number($('#param1_'+id).val());
 	var c_param2 = Number($('#param2_'+id).val());
 	var c_text = $('#paramText_'+id).val();
-    update_cue_options(block_obj["options"], id, type, c_param1, c_param2, c_text);
+    update_cue_options(block_obj["cue_list"], id, type, c_param1, c_param2, c_text);
 }
 /*
 ** Deletes a cue
 */
 function delete_block_cue(id) {
-	delete_cue_with_index(block_obj["options"], id);
+	delete_cue_with_index(block_obj["cue_list"], id);
 	nb_cues --;
 	$("#nb_cues").val(nb_cues);
 	update_nb_cue(nb_cues);
@@ -197,6 +243,7 @@ function delete_block_cue(id) {
 function check_values_block(id) {
 	var count = 0;
 	var type = $('#type_list_'+id).find(":selected").val();
+	
 	if($("#channel_"+id).val() < 0 || $("#channel_"+id).val() > 15 || $("#channel_"+id).val() == "") count++;
 
 	if (type == "musicFile") {
@@ -224,13 +271,17 @@ function check_values_block(id) {
 */
 function display_block_line(id, type) {
 	var res = "";
-	var cue_obj = block_obj["options"][id];
+	var cue_obj = block_obj["cue_list"][id];
 
 
-    var line = '<td>'+id+'</td>'
-			+'<td>'+'<select class="base_input" id="type_list_'+id+'" onchange="update_cue_block_type(\''+id+'\')"></select>'+'</td>'
-	        +'<td>'+'<input type="number" id="channel_'+id+'" onchange="up_channel('+id+')" class="base_input" value="'+cue_obj["channel"]+'">'+'</td>'
-	        +'<td>'+'<input type="number" id="delay_'+id+'" onchange="up_delay('+id+')" class="base_input" value="'+cue_obj["delay"]+'">'+'</td>';
+    var line = '<td>'+id+'</td>';
+    if (type != "restart_loop") {
+    	line +='<td>'+'<select class="base_input" id="type_list_'+id+'" onchange="update_cue_block_type(\''+id+'\')"></select>'+'</td>'
+    	line += '<td>'+'<input type="number" id="channel_'+id+'" onchange="up_channel('+id+')" class="base_input" value="'+cue_obj["channel"]+'">'+'</td>'
+    }	
+    else line +='<td>Restart Loop</td>'+'<td></td>'
+	
+	line +='<td>'+'<input type="number" id="delay_'+id+'" onchange="up_delay('+id+')" class="base_input" value="'+cue_obj["delay"]+'">'+'</td>';
 
     if (type == "noteon" || type == "noteoff" || type == "cc"){
        	line +='<td>'+'<input type="number" id="param1_'+id+'" class="base_input" onchange="up_options('+id+')" placeholder="Note pitch" value="'+cue_obj["options"]["param1"]+'">'+'</td>'
@@ -252,10 +303,15 @@ function display_block_line(id, type) {
         	+'<td>'+'<input type="number" id="param2_'+id+'" class="base_input" placeholder="No Options" disabled>'+'</td>'
         	+'<td>'+'<input type="number" id="paramText_'+id+'" class="base_input" placeholder="No Options" disabled>'+'</td>';
     }
-    // add named cue
-    line += '<td style="padding: 2px">'+'<button type="button" style="width: 80px;" class="preview_btn btn btn-success">Named Cue</button>'+"</td>";
-    // delete cue
-    line += '<td style="padding: 2px">'+'<button type="button" style="width: 70px;" class="preview_btn btn btn-danger" onclick="delete_block_cue('+id+')" >Delete</button>'+"</td>";
+    if (type != "restart_loop") {
+		// add named cue
+	    line += '<td style="padding: 2px">'+'<button type="button" style="width: 80px;" class="preview_btn btn btn-success">Named Cue</button>'+"</td>";
+	    // delete cue
+	    line += '<td style="padding: 2px">'+'<button type="button" style="width: 70px;" class="preview_btn btn btn-danger" onclick="delete_block_cue('+id+')" >Delete</button>'+"</td>";
+    }
+    else{
+    	line += "<td></td><td></td>";
+    }
 
     return line; 
 }
@@ -286,21 +342,19 @@ function display_types_line(type, id) {
 function getFileLocation_block(id) {
 	canBlur = false; // If we don't disable the blur, the popup will be gone
 	dialog.showOpenDialog({ filters: [{ name: 'Musics', extensions: ['mp3', 'wav'] }]}, function (fileNames) {
-			if (fileNames === undefined) return;
-			var fileName = fileNames[0];
-			console.log("fileNames "+fileName);
-			$("#paramText_"+id).val(fileName);
-			if ($("#param1_"+id).val() == "") {
-				$("#param1_"+id).val(0);
-				block_obj["options"][id]["options"].param1 = 0;
-			} 
-			if ($("#param2_"+id).val() == "") {
-				$("#param2_"+id).val(0);
-				block_obj["options"][id]["options"].param2 = 0; 
-			}
-			
-			
-			block_obj["options"][id]["options"].paramText = fileName;
+		if (fileNames === undefined) return;
+		var fileName = fileNames[0];
+		console.log("fileNames "+fileName);
+		$("#paramText_"+id).val(fileName);
+		if ($("#param1_"+id).val() == "") {
+			$("#param1_"+id).val(0);
+			block_obj["cue_list"][id]["options"].param1 = 0;
+		} 
+		if ($("#param2_"+id).val() == "") {
+			$("#param2_"+id).val(0);
+			block_obj["cue_list"][id]["options"].param2 = 0; 
+		}
+		block_obj["cue_list"][id]["options"].paramText = fileName;
 	});
 	setTimeout(function(){ canBlur = false }, 50);
 }

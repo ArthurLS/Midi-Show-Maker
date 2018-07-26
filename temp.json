@@ -7,49 +7,59 @@
       "cue_list": [
         {
           "name": "",
-          "type": "noteoff",
+          "type": "block",
           "channel": 0,
           "delay": 0,
           "options": {
-            "param1": 1,
-            "param2": 0
-          }
-        },
-        {
-          "name": "DAMN BLOCK",
-          "type": "block",
-          "channel": 0,
-          "delay": 1000,
-          "options": [
+            "is_loop": true
+          },
+          "cue_list": [
             {
               "name": "",
-              "type": "noteon",
+              "type": "noteoff",
               "channel": 0,
               "delay": 0,
               "options": {
                 "param1": 1,
-                "param2": 127
+                "param2": 0
+              }
+            },
+            {
+              "name": "",
+              "type": "noteon",
+              "channel": 0,
+              "delay": 1000,
+              "options": {
+                "param1": 0,
+                "param2": 0
+              }
+            },
+            {
+              "name": "",
+              "type": "noteon",
+              "channel": 0,
+              "delay": 1000,
+              "options": {
+                "param1": 1,
+                "param2": 0
               }
             },
             {
               "name": "",
               "type": "noteoff",
               "channel": 0,
-              "delay": 1000,
+              "delay": 2000,
               "options": {
-                "param1": 1,
-                "param2": 127
+                "param1": 0,
+                "param2": 0
               }
             },
             {
               "name": "",
-              "type": "noteon",
-              "channel": 0,
+              "type": "restart_loop",
+              "channel": null,
               "delay": 2000,
-              "options": {
-                "param1": 1,
-                "param2": 126
-              }
+              "options": {}
             }
           ]
         },
@@ -57,7 +67,7 @@
           "name": "",
           "type": "stop",
           "channel": 0,
-          "delay": 5000,
+          "delay": 10000,
           "options": {}
         }
       ],

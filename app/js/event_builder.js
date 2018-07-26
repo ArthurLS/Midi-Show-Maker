@@ -73,6 +73,7 @@ function create_cue(type, channel, delay, name, options) {
 		"delay": delay,
 		"options": options
 	}
+	if (type == "block") cue["cue_list"] = [];
 	return cue;
 }
 function add_cue(parent_cue_list, cue) {
@@ -167,14 +168,22 @@ function delete_cue_with_index(cue_list, index) {
 	cue_list.splice(index, 1);
 }
 function delete_cue_with_object(cue_list, cue) {
-	sort_list_by_delay(parent_cue_list);
     for (let i = 0; i < cue_list.length; i++) {
-        if (msg_midi == cue) {
+        if (cue_list[i] == cue) {
         	cue_list.splice(i, 1);
         	break;
         }
     }
 }
+function delete_cue_with_type(cue_list, cue_type) {
+    for (let i = 0; i < cue_list.length; i++) {
+        if (cue_list[i].type == cue_type) {
+        	cue_list.splice(i, 1);
+        	break;
+        }
+    }
+}
+
 function move_cue(parent_cue_list, old_index, new_index) {
 	// arr.splice(old_index, 1)[0] -> removes the cue from the list and give us the cue in return
 	console.log("move_cue");

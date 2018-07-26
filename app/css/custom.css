@@ -20,7 +20,11 @@ html, body{
 .maxed-out-timeline{
     max-height: 30vh;
 }
-
+input[type=checkbox]{
+  -webkit-transform: scale(2);
+  padding: 10px;
+  margin-left: 8px;
+}
 h3{
   margin-top: 5px;
 }
@@ -212,3 +216,5 @@ html {
   font-size: 12px; 
   padding: 2px;
 }
+
+
