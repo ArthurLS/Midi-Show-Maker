@@ -7,88 +7,57 @@
       "cue_list": [
         {
           "name": "",
-          "type": "noteon",
+          "type": "noteoff",
           "channel": 0,
           "delay": 0,
           "options": {
-            "param1": 0,
+            "param1": 1,
             "param2": 0
-          }
-        },
-        {
-          "name": "",
-          "type": "musicFile",
-          "channel": 0,
-          "delay": 0,
-          "options": {
-            "paramText": "C:\\Users\\Arthur\\Music\\Aint No Mountain High Enough.mp3",
-            "param1": 10,
-            "param2": 10
           }
         },
         {
           "name": "DAMN BLOCK",
           "type": "block",
           "channel": 0,
-          "delay": "0",
+          "delay": 1000,
           "options": [
             {
               "name": "",
-              "type": "musicFile",
-              "channel": "0",
-              "delay": "1",
+              "type": "noteon",
+              "channel": 0,
+              "delay": 0,
               "options": {
-                "paramText": "C:\\Users\\Arthur\\Music\\Aint No Mountain High Enough.mp3",
-                "param1": "1",
-                "param2": "0"
+                "param1": 1,
+                "param2": 127
               }
             },
             {
               "name": "",
-              "type": "programme",
-              "channel": "1",
-              "delay": "1",
+              "type": "noteoff",
+              "channel": 0,
+              "delay": 1000,
               "options": {
-                "param1": "30"
+                "param1": 1,
+                "param2": 127
               }
             },
             {
               "name": "",
               "type": "noteon",
-              "channel": "1",
-              "delay": "1",
+              "channel": 0,
+              "delay": 2000,
               "options": {
-                "param1": "127",
-                "param2": "127"
-              }
-            },
-            {
-              "name": "",
-              "type": "noteoff",
-              "channel": "1",
-              "delay": "5",
-              "options": {
-                "param1": "1",
-                "param2": "1"
-              }
-            },
-            {
-              "name": "",
-              "type": "noteoff",
-              "channel": "1",
-              "delay": "10",
-              "options": {
-                "param1": "20",
-                "param2": "127"
+                "param1": 1,
+                "param2": 126
               }
             }
           ]
         },
         {
-          "name": "Stop",
+          "name": "",
           "type": "stop",
           "channel": 0,
-          "delay": 11300,
+          "delay": 5000,
           "options": {}
         }
       ],

@@ -28,6 +28,7 @@ function init_window_block() {
 
 	init_cues_display();
 	$("#nb_cues").val(nb_cues);
+	$("#block_delay").val(block_obj.delay);
 }
 
 /*
@@ -88,7 +89,7 @@ function update_nb_cue(nb) {
 function create_block() {
 	console.log("Event Name: "+event_selected);
 
-	var block_delay = $("#block_delay").val();
+	var block_delay = Number($("#block_delay").val());
 	var block_name = $("#block_name").val();
 	//create_cue(type, channel, delay, name, options) 
 	var block = create_cue("block", 0, block_delay, block_name, []);
@@ -107,7 +108,7 @@ function save_block() {
 	var name = $('#block_name').val();
 	update_cue_name(event_obj.cue_list, block_id, name);
 	//save delay
-	var delay = $('#block_delay').val();
+	var delay = Number($('#block_delay').val());
 	update_cue_delay(event_obj.cue_list, block_id, delay);
 	var count = 0;
 	for (var i = 0; i < nb_cues; i++) {
@@ -158,14 +159,14 @@ function update_cue_block_type(id) {
 ** Updates the channel for a specific cue into the local object
 */
 function up_channel(id) {
-	var c_channel = $('#channel_'+id).val();
+	var c_channel = Number($('#channel_'+id).val());
 	update_cue_channel(block_obj["options"], id, c_channel);
 }
 /*
 ** Updates the delay for a specific cue into the local object
 */
 function up_delay(id) {
-	var c_delay = $('#delay_'+id).val();
+	var c_delay = Number($('#delay_'+id).val());
 	update_cue_delay(block_obj["options"], id, c_delay);
 	init_cues_display();
 }
@@ -174,8 +175,8 @@ function up_delay(id) {
 */
 function up_options(id) {
 	var type = $('#type_list_'+id).find(":selected").val();
-	var c_param1 = $('#param1_'+id).val();
-	var c_param2 = $('#param2_'+id).val();
+	var c_param1 = Number($('#param1_'+id).val());
+	var c_param2 = Number($('#param2_'+id).val());
 	var c_text = $('#paramText_'+id).val();
     update_cue_options(block_obj["options"], id, type, c_param1, c_param2, c_text);
 }
@@ -197,7 +198,6 @@ function check_values_block(id) {
 	var count = 0;
 	var type = $('#type_list_'+id).find(":selected").val();
 	if($("#channel_"+id).val() < 0 || $("#channel_"+id).val() > 15 || $("#channel_"+id).val() == "") count++;
-	if($("#delay_"+id).val() < 0 || $("#delay_"+id).val() > 15 || $("#delay_"+id).val() == "") count++;
 
 	if (type == "musicFile") {
 		if ($("#paramText_"+id).val() == "") count++;

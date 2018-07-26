@@ -53,7 +53,7 @@ function refresh_UI() {
         display_event_list();
     }, 50);
     toogle_enabled_buttons();
-    refresh_Timeline(); // dans timeline-data
+    //refresh_Timeline(); // dans timeline-data
 }
 
 ipc.on('message', (event, message) => {
@@ -80,21 +80,34 @@ function read_event() {
     // Read every note and sends from the event
     let save = event_obj;
     for (let i = 0; i < save.cue_list.length; i++) {
+
         var timer = new Timer(function() {
             var msg_midi = save.cue_list[i];
-            if (msg_midi.type == "noteoff" || msg_midi.type == "noteon" || msg_midi.type == "poly aftertouch") {
+            //console.log(msg_midi);
+            if (msg_midi.type == "noteoff" || msg_midi.type == "noteon" || msg_midi.type == "poly aftertouch" || msg_midi.type == 'cc') {
                 output.send(msg_midi.type, {
                     note: msg_midi.options.param1,
                     velocity: msg_midi.options.param2,
                     channel: msg_midi.channel
                 });
             }
-            else if (msg_midi.type == 'cc'){
-                output.send(msg_midi.type, {
-                    controller: msg_midi.options.param1,
-                    value: msg_midi.options.param2,
-                    channel: msg_midi2.channel
-                }); 
+            else if(msg_midi.type == 'block'){
+                
+                for (let j = 0; j < msg_midi["options"].length; j++) {
+                    var timer_block = new Timer(function() {
+
+                        var b_cue = save.cue_list[i]["options"][j];
+                        console.log("Read block Note");
+                        console.log(b_cue);
+                        output.send(b_cue["type"], {
+                            note: b_cue.options.param1,
+                            velocity: b_cue.options.param2,
+                            channel: b_cue.channel
+                        });
+                    }, Number(save.cue_list[i]["options"][j].delay));
+                    timeouts.push(timer_block);
+                }
+
             }
             else if (msg_midi.type == "programme"){
                 output.send('program', {
@@ -105,6 +118,10 @@ function read_event() {
             else if (msg_midi.type == "musicFile") {
               //loadSound(msg_midi.options.paramText, i);
               soundsPlaying.push(playSound(msg_midi.options.paramText, msg_midi.options.param1, msg_midi.options.param2));
+            }
+            else if(msg_midi.type == "stop"){
+                stopPlay();
+                output.send(msg_midi.type);
             }
             else{
                 output.send(msg_midi.type);
