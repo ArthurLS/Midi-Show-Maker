@@ -28,11 +28,10 @@ $(window).blur(function(){
 
 /*
 ** Initialise the popup window for a cue
-** differs if it's for a new cue or old cue
+** Differs if it's for a new cue or for an edit
 */
 function init_window_cue(){
 	// get the cue
-
 	event_selected += url.searchParams.get("event_name");
 	event_obj = project.list_events[event_selected];
 	document.getElementById("event_name").innerHTML = event_selected;

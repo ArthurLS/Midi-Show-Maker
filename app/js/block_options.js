@@ -3,6 +3,10 @@ var block_obj;
 
 var nb_cues;
 
+/*
+** Initialise the popup window for a block
+** Differs if it's for a new cue or for an edit
+*/
 function init_window_block() {
 	event_selected += url.searchParams.get("event_name");
 	event_obj = project.list_events[event_selected];
@@ -22,18 +26,16 @@ function init_window_block() {
 		$("#block_name").val(block_obj.name)
 	}	
 
-	
-	
 	init_cues_display();
 	$("#nb_cues").val(nb_cues);
 }
 
 /*
-** nb_cues is ne number of cues in the block (if exist or not)
+** Resets the display, calls the aux functions for each line (line = cue within the block)
 */
 function init_cues_display() {
 	// Computes the head of the table
-	let column_names = ["Id", "Type", "Channel", "Delay", "Param 1", "Param 2", "Music FIle"];
+	let column_names = ["Id", "Type", "Channel", "Delay", "Param 1", "Param 2", "Music File", "Add Named", "Delete"];
 	let heads = "";
 	for (var i = 0; i < column_names.length; i++) {
         heads += '<th scope="col">'+column_names[i]+'</th>';
@@ -42,21 +44,25 @@ function init_cues_display() {
     let table = '<table class="table"><thead><tr style="cursor: default;">'+heads+'</tr></thead>';
     table += '<tbody id="tbody">';
 
-    // Computes the tbody
+    // Generates the tbody
     for (var i = 0; i < nb_cues; i++) {
     	var cue_type = block_obj["options"][i].type;
     	table += '<tr class="primary" style="cursor: default" id="tr_'+i+'">'
     	 		+ display_block_line(i, cue_type) + '</tr>';
    	}
-
 	table += "</tbody>";
 	$("#table").html(table);
+
+	// Generates the <select> for each line
 	for (var i = 0; i < nb_cues; i++) {
 		var cue_type =  block_obj["options"][i].type;
 		display_types_line(cue_type, i)
 	}
 }
 
+/*
+** Adjusts in the JSON and in the UI the number of cues in the block
+*/
 function update_nb_cue(nb) {
 	console.log("update_nb_cue");
 	if (nb != "") {
@@ -76,6 +82,60 @@ function update_nb_cue(nb) {
 	}
 }
 
+/*
+** Creates a block
+*/
+function create_block() {
+	console.log("Event Name: "+event_selected);
+
+	var block_delay = $("#block_delay").val();
+	var block_name = $("#block_name").val();
+	//create_cue(type, channel, delay, name, options) 
+	var block = create_cue("block", 0, block_delay, block_name, []);
+	//returns id
+	return add_cue(event_obj.cue_list, block);
+}
+
+/*
+** Saves the blocks name/delay 
+** Updates and saves each cue within the block
+** Doesn't save into the json if some values are out of bounds (check_values_block())
+*/
+function save_block() {
+	console.log("Block saving");
+	//save name
+	var name = $('#block_name').val();
+	update_cue_name(event_obj.cue_list, block_id, name);
+	//save delay
+	var delay = $('#block_delay').val();
+	update_cue_delay(event_obj.cue_list, block_id, delay);
+	var count = 0;
+	for (var i = 0; i < nb_cues; i++) {
+		count += check_values_block(i);
+		up_channel(i);
+		up_delay(i);
+		up_options(i);
+	}
+
+	if (count == 0) {
+		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
+		console.log("Block saved");
+		init_cues_display();
+	}
+	else{
+		$('#error-display').css('display', 'table');
+		if (count == 1) $('#bad-boy').html(count+" entry is not into bounds");
+		else $('#bad-boy').html(count+" entries are not into bounds");	
+		setTimeout(function() {
+	        $('#error-display').css('display', 'none');
+	    }, 3500);
+	}        
+}
+
+/*
+** Saves into the local block object according to the type
+** Updates the UI options 
+*/
 function update_cue_block_type(id) {
 	var type = $('#type_list_'+id).find(":selected").val();
 
@@ -94,53 +154,45 @@ function update_cue_block_type(id) {
 	display_types_line(type, id);
 }
 
-function create_block() {
-	console.log("Event Name: "+event_selected);
-
-	var block_delay = $("#block_delay").val();
-	var block_name = $("#block_name").val();
-	//create_cue(type, channel, delay, name, options) 
-	var block = create_cue("block", 0, block_delay, block_name, []);
-	//returns id
-	return add_cue(event_obj.cue_list, block);
+/*
+** Updates the channel for a specific cue into the local object
+*/
+function up_channel(id) {
+	var c_channel = $('#channel_'+id).val();
+	update_cue_channel(block_obj["options"], id, c_channel);
+}
+/*
+** Updates the delay for a specific cue into the local object
+*/
+function up_delay(id) {
+	var c_delay = $('#delay_'+id).val();
+	update_cue_delay(block_obj["options"], id, c_delay);
+	init_cues_display();
+}
+/*
+** Updates the options for a specific cue into the local object
+*/
+function up_options(id) {
+	var type = $('#type_list_'+id).find(":selected").val();
+	var c_param1 = $('#param1_'+id).val();
+	var c_param2 = $('#param2_'+id).val();
+	var c_text = $('#paramText_'+id).val();
+    update_cue_options(block_obj["options"], id, type, c_param1, c_param2, c_text);
+}
+/*
+** Deletes a cue
+*/
+function delete_block_cue(id) {
+	delete_cue_with_index(block_obj["options"], id);
+	nb_cues --;
+	$("#nb_cues").val(nb_cues);
+	update_nb_cue(nb_cues);
 }
 
-function save_block() {
-
-	console.log("Block saving");
-	//save name
-	var name = $('#block_name').val();
-	update_cue_name(event_obj.cue_list, block_id, name);
-	//save delay
-	var delay = $('#block_delay').val();
-	update_cue_delay(event_obj.cue_list, block_id, delay);
-	var count = 0;
-	for (var i = 0; i < nb_cues; i++) {
-		count += check_values_block(i);
-		if (true) {}
-		up_channel(i);
-		up_delay(i);
-		up_options(i);
-		
-	}
-
-	if (count == 0) {
-		fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
-		console.log("Block saved");
-		init_cues_display();
-	}
-	else{
-		$('#error-display').css('display', 'table');
-		if (count == 1) $('#bad-boy').html(count+" entry is not into bounds");
-		else $('#bad-boy').html(count+" entries are not into bounds");	
-		setTimeout(function() {
-	        $('#error-display').css('display', 'none');
-	    }, 3500);
-	}        
-	
-	
-}
-
+/*
+** Verify if every field is filled and inbounds.
+** Returns the number of errors otherwise
+*/
 function check_values_block(id) {
 	var count = 0;
 	var type = $('#type_list_'+id).find(":selected").val();
@@ -148,64 +200,28 @@ function check_values_block(id) {
 	if($("#delay_"+id).val() < 0 || $("#delay_"+id).val() > 15 || $("#delay_"+id).val() == "") count++;
 
 	if (type == "musicFile") {
-		if ($("#paramText_"+id) == "") console.log("1");
-		if ($("#param2_"+id) < 0 || $("#param2_"+id).val() == "")console.log(2);
-		if ($("#param1_"+id) < 0 || $("#param1_"+id).val() == "") console.log(3);
+		if ($("#paramText_"+id).val() == "") count++;
+		if ($("#param2_"+id).val() < 0 || $("#param2_"+id).val() == "") count++;
+		if ($("#param1_"+id).val() < 0 || $("#param1_"+id).val() == "") count++;
 	}
+
 	if(type == "programme" || type == "noteon" || type == "noteoff" || type == "cc" ){
 		if($("#param1_"+id).val()<0 || $("#param1_"+id).val() > 127 || $("#param1_"+id).val() == "") count ++;
 	}
-	
+
 	if (type == "noteon" || type == "noteoff" || type == "cc") {
 		if($("#param2_"+id).val()<0 || $("#param2_"+id).val() > 127 || $("#param2_"+id).val() == "") count ++;
 	}
-    
+
     return count;
 }
 
-function up_channel(id) {
-	var c_channel = $('#channel_'+id).val();
-	update_cue_channel(block_obj["options"], id, c_channel);
-	console.log(block_obj["options"]);
-}
-function up_delay(id) {
-	var c_delay = $('#delay_'+id).val();
-	update_cue_delay(block_obj["options"], id, c_delay);
-	init_cues_display();
-	console.log(block_obj["options"]);
-}
-function up_options(id) {
-	var type = $('#type_list_'+id).find(":selected").val();
-	var c_param1 = $('#param1_'+id).val();
-	var c_param2 = $('#param2_'+id).val();
-	var c_text = $('#paramText_'+id).val();
- 
 
-    update_cue_options(block_obj["options"], id, type, c_param1, c_param2, c_text);
-    console.log(block_obj["options"]);
-}
- 
 
 /*
-** Display the html for the cue type selector
+** Main UI generating function
+** Returns for a cue the specific options and old values of the cue 
 */
-function display_types_line(type, id) {
-	let str = "";
-	for (let i = 0; i < midi_types.length; i++) {
-		if (midi_types[i] != type){
-			if (type == 'xx' && midi_types[i] == 'noteon')
-				str += "<option value=\"noteon\" selected>noteon</option>";
-			else
-				str += "<option value=\""+midi_types[i]+"\">"+midi_types[i]+"</option>";
-		}
-		else
-			str += "<option value=\""+type+"\" selected>"+type+"</option>";
-	}
-
-	$("#type_list_"+id).html(str);
-}
-
-
 function display_block_line(id, type) {
 	var res = "";
 	var cue_obj = block_obj["options"][id];
@@ -236,11 +252,37 @@ function display_block_line(id, type) {
         	+'<td>'+'<input type="number" id="param2_'+id+'" class="base_input" placeholder="No Options" disabled>'+'</td>'
         	+'<td>'+'<input type="number" id="paramText_'+id+'" class="base_input" placeholder="No Options" disabled>'+'</td>';
     }
+    // add named cue
+    line += '<td style="padding: 2px">'+'<button type="button" style="width: 80px;" class="preview_btn btn btn-success">Named Cue</button>'+"</td>";
+    // delete cue
+    line += '<td style="padding: 2px">'+'<button type="button" style="width: 70px;" class="preview_btn btn btn-danger" onclick="delete_block_cue('+id+')" >Delete</button>'+"</td>";
 
     return line; 
 }
 
+/*
+** Generates the <select> options for a cue
+*/
+function display_types_line(type, id) {
+	let str = "";
+	for (let i = 0; i < midi_types.length; i++) {
+		if (midi_types[i] != type){
+			if (type == 'xx' && midi_types[i] == 'noteon')
+				str += "<option value=\"noteon\" selected>noteon</option>";
+			else
+				str += "<option value=\""+midi_types[i]+"\">"+midi_types[i]+"</option>";
+		}
+		else
+			str += "<option value=\""+type+"\" selected>"+type+"</option>";
+	}
 
+	$("#type_list_"+id).html(str);
+}
+
+/*
+** *Valou Made This*
+** Handles the Music File option
+*/
 function getFileLocation_block(id) {
 	canBlur = false; // If we don't disable the blur, the popup will be gone
 	dialog.showOpenDialog({ filters: [{ name: 'Musics', extensions: ['mp3', 'wav'] }]}, function (fileNames) {

@@ -36,21 +36,11 @@
               "name": "",
               "type": "musicFile",
               "channel": "0",
-              "delay": "0",
+              "delay": "1",
               "options": {
                 "paramText": "C:\\Users\\Arthur\\Music\\Aint No Mountain High Enough.mp3",
                 "param1": "1",
                 "param2": "0"
-              }
-            },
-            {
-              "name": "",
-              "type": "noteon",
-              "channel": "0",
-              "delay": "0",
-              "options": {
-                "param1": "0",
-                "param2": "1"
               }
             },
             {
@@ -74,12 +64,12 @@
             },
             {
               "name": "",
-              "type": "noteon",
+              "type": "noteoff",
               "channel": "1",
               "delay": "5",
               "options": {
-                "param1": "60",
-                "param2": "127"
+                "param1": "1",
+                "param2": "1"
               }
             },
             {
