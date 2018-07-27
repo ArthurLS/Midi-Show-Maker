@@ -10,21 +10,32 @@ html, body{
   flex: 1;
 }
 .fill {
-  min-height: 100%;
   height: 100%;
+  margin: 0 0 0 0;
+  width: 100%
 }
 .maxed-out{
-  max-height: 68vh;
-  /* overflow: auto; */
+  height: 62vh;
 }
 .maxed-out-timeline{
-    max-height: 30vh;
+  height: 37vh;
 }
+/* TIMELINE STUFF*/
+#timeline_container{
+  border: solid grey 1px;
+}
+#time_canvas{
+  background-color: black;
+}
+
+
+
+
 input[type=checkbox]{
   -webkit-transform: scale(2);
   padding: 10px;
   margin-left: 8px;
-}
+} */
 h3{
   margin-top: 5px;
 }
@@ -46,7 +57,6 @@ h3{
 li, tr {
     cursor: pointer;
 }
-
 .list-group-item:hover, tbody tr:hover{
   background: #68a2ff;
   transition: background 0.5s;
@@ -96,99 +106,6 @@ li, tr {
 #event_name_title{
   margin-left: 8px;
 }
-
-
-
-canvas {
-  width: 100%;
-  height: 100%;
-}
-
-#chart {
-    width: 100%;
-    height: 30vh;
-    background: rgb(218, 218, 218);
-    opacity: 0.9;
-    border-radius: 5px;
-    border: 1px solid #2b2b2b;
-    overflow-x: hidden;
-    overflow-y: hidden;
-}
-
-#chart line {
-    stroke: #2b2b2b;
-}
-
-#chart line.vertical-marker.now {
-    stroke: #c00;
-}
-
-rect.interval.blue-interval {
-    fill: #99ccff; //blue;
-    stroke: #99ccff; //blue;
-}
-
-rect.interval.red-interval {
-    fill: #ff99cc; //blue;
-    stroke: #ff99cc; //blue;
-}
-
-rect.interval.orange-interval {
-    fill: #ffcc99; //blue;
-    stroke: #ffcc99; //blue;
-}
-
-rect.interval.purple-interval {
-    fill: #cc99ff; //blue;
-    stroke: #cc99ff; //blue;
-}
-
-rect.interval.light-green-interval {
-    fill: #ccff99; //blue;
-    stroke: #ccff99; //blue;
-}
-
-rect.interval.green-interval-interval {
-    fill: #99ffcc; //blue;
-    stroke: #99ffcc; //blue;
-}
-
-circle.blue-dot {
-    fill: blue;
-}
-
-/* Override d3tip */
-
-.d3-tip {
-    background: white;
-    color: black;
-}
-
-/* Tiny Flex Grid */
-
-[flex] {
-    display: flex;
-}
-[flex-fill] {
-    flex: 1;
-}
-[flex-full-center] {
-    align-items: center;
-    justify-content: center;
-}
-[flex-direction=column] {
-    flex-direction: column;
-}
-[flex-direction=row] {
-    flex-direction: row;
-}
-[flex-size="40"] {
-    flex: 40;
-}
-[flex-size="60"] {
-    flex: 60;
-}
-
 
 
 html {

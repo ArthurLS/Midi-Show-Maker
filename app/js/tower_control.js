@@ -10,7 +10,7 @@ if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
 
-var event_selected = ""; //ex: "test_event"
+var event_selected = "Main Show"; //ex: "test_event"
 var event_obj = {};
 if (event_selected != "") {
     event_obj = project.list_events[event_selected];
@@ -36,6 +36,7 @@ function onload_init(){
 ** -> add your own display() function if need be!
 */
 function refresh_UI() {
+    resize();
     // reloads the global object from the file
     project = JSON.parse(fs.readFileSync(data_file));
 
@@ -46,14 +47,14 @@ function refresh_UI() {
         event_obj = {};
         event_selected = "";
     }
-
     // timeout of 50ms to wait if change is still happening from the calling function
     setTimeout(function() {
         display_cue_table();
         display_event_list();
+        draw();
     }, 50);
     toogle_enabled_buttons();
-    //refresh_Timeline(); // dans timeline-data
+
 }
 
 ipc.on('message', (event, message) => {
@@ -68,7 +69,6 @@ ipc.on('message', (event, message) => {
         }, 50);
     }
 })
-
 
 /*
 ** Reads the selected event
@@ -212,46 +212,6 @@ function stopPlay() {
     loop_count = 0;
     refresh_UI();
     $("#pause_resume_btn").html("Pause");
-}
-
-
-
-var previousRenderedTime = 0; 
-function getTime() {
-
-    if ((event_obj === '{}' || event_obj === 'undefined' || event_obj == null) || (event_obj.cue_list === '{}' || event_obj.cue_list === 'undefined' || event_obj.cue_list == null)){
-        return new Date(0);
-    }
-
-    var cue_list = event_obj.cue_list;
-    var cue_size = cue_list.length;
-
-    if (cue_list[cue_size-1] === '{}' || cue_list[cue_size-1] === 'undefined' || cue_list[cue_size-1] == null){
-        return new Date(0);
-    }
-
-    // When is the last cue gonna play
-    var last_remaining = 0;
-    if (typeof timeouts !== 'undefined' && timeouts.length > 0) {
-        last_remaining = timeouts[timeouts.length-1].getupdate();
-    }
-
-    // What was the original last cue delay
-    var last_delay = cue_list[cue_size-1].delay;
-    var result = last_delay - last_remaining;
-
-    if (isPlaying == "Pause") { //added for timeline
-            /*console.log("WE ARE AT "+result+"ms (and we are paused)");*/
-            return previousRenderedTime;
-    } else if (isPlaying == false) { //TODO: to checks
-        previousRenderedTime = 0;
-        return 0;
-    } else { //true
-            console.log("WE ARE AT "+result+"ms");
-        previousRenderedTime = result; //added for timeline
-        return result;
-    }
-
 }
 
 

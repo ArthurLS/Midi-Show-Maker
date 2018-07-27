@@ -1,53 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="../../../../favicon.ico">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-  <title>Midionysos</title>
+    <title>Midionysos</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/custom.css" rel="stylesheet">
-  <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/range.css" rel="stylesheet">
+    <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
 </head>
 <body onload="onload_init();">
 
-  <div class="flex-container fill">
+    <div class="flex-container fill">
 
-    <div class="flex-1">
-      <div class="col-md-6 maxed-out" include="sections/top_left.html"></div>
+        <div class="flex-1">
+            <div class="col-md-7 maxed-out" include="sections/top_left.html"></div>
 
-      <div class="col-md-6 maxed-out" include="sections/top_right.html"></div>
+            <div class="col-md-5 maxed-out" include="sections/top_right.html"></div>
+        </div>
+        <div class="maxed-out-timeline justify-content-center" id="timeline_container">
+            <div class="container fill">
+                <div class="row" style="height: 100%">
+                    <div class="col-md-1" style="background-color: grey; height: 100%"></div>
+                    <div class="col-md-10" style="height: 100%;" id="canvas_container">
+                        
+
+                        <div class="row">
+                            <canvas id="time_canvas" width=1290 height=330></canvas>
+                        </div>
+                        <div class="row">
+                            <input type="range" id="range" min='0' max ='1280' step='1'>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-md-1" style="background-color: #222222; height: 100%"></div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
-<!--     <div class="maxed-out-timeline justify-content-center">
-<div class="flex-1">
-    <div class="">
-      <div  id="chart" ></div>
-    </div>
-</div>
-</div> -->
-</div>
 
-  <script>window.$ = window.jQuery = require('./js/jquery-1.11.1.js');</script>
+    <script>window.$ = window.jQuery = require('./js/libraries/jquery-1.11.1.js');</script>
 
-  <script src="./js/utils.js"></script>
-  <script>includeFile();</script>
-  <script src="./js/soundjs.min.js"></script>
-  <script src="./js/audio_control.js"></script>
-  <script src="./js/event_builder.js"></script>
-  <script src="./js/midi_io.js"></script>
-  <script src="./js/tower_control.js"></script>
-  <script src="./js/popup_manager.js"></script>
+    <script src="./js/utils.js"></script>
+    <script>includeFile();</script>
+    <script src="./js/libraries/soundjs.min.js"></script>
+    <script src="./js/audio_control.js"></script>
+    <script src="./js/event_builder.js"></script>
+    <script src="./js/midi_io.js"></script>
+    <script src="./js/tower_control.js"></script>
+    <script src="./js/popup_manager.js"></script>
+    <script src="./js/timeline.js"></script>
 
-  <script src="./js/keyBinding.js"></script>
-  <script src="./js/addKeyBinding.js"></script>
+    <script src="./js/keyBinding.js"></script>
+    <script src="./js/addKeyBinding.js"></script>
 
-<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
-<script src="./js/timeline-graph.js"></script>
-<script src="./js/timeline-data.js" id="code"></script> -->
 </body>
 </html>
