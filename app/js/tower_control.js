@@ -92,9 +92,7 @@ function read_event() {
                 });
             }
             else if(msg_midi.type == 'block'){
-
                 read_block(save.cue_list[i]);
-
             }
             else if (msg_midi.type == "programme"){
                 output.send('program', {
@@ -139,7 +137,6 @@ function read_block(block_obj) {
         var timer_block = new Timer(function() {
             var b_cue = block_obj["cue_list"][j];
             if (b_cue.type != "restart_loop") {
-                console.log("Is timed: delay="+block_obj["cue_list"][j].delay);
                 output.send(b_cue.type, {
                     note: b_cue.options.param1,
                     velocity: b_cue.options.param2,
@@ -148,7 +145,6 @@ function read_block(block_obj) {
             }
             else {
                 for (let k = 0; k < block_obj["cue_list"].length-1; k++) {
-                    console.log(block_obj["cue_list"][j].delay);
                     block_obj["cue_list"][k].delay;
                 }
                 loop_count ++;
@@ -363,7 +359,6 @@ function display_cue_table() {
 
                 table += '<td style="padding: 2px">'+'<button type="button" class="preview_btn btn btn-info" onclick="preview_block('+i+')" >Preview</button>'+"</td>";
             } 
-                
             else{
                 table += "<tr class=\"primary\" onclick=\"open_popup(\'edit_cue\', "+i+")\" id=\"nb" +i+"\">";
 
@@ -377,8 +372,7 @@ function display_cue_table() {
                 if (cue.options.param1 != undefined && cue.type != "musicFile") {
                     table += "<td>"+cue.options.param1+"</td>"
                 }
-
-                table += "<td></td>"
+                else table += "<td></td>"
             }
         }
         table += "</tbody>"

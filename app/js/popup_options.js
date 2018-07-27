@@ -15,7 +15,7 @@ let event_obj = "";
 let url = new URL(window.location.href);
 var command = url.searchParams.get("command");
 console.log(command);
-var canBlur = false;
+var canBlur = true;
 
 /*
 ** Closes the window when the user clicks outside the popup window
@@ -300,6 +300,9 @@ function check_values(choice) {
 	if($("#channel").val()<0 || $("#channel").val()>15 || $("#param1").val()<0 || $("#param1").val()>127 || $("#param2").val()<0 || $("#param2").val()>127){
         $('#error-display').css('display', 'table');
 		$('#bad-boy').html("One or more entry are not into bounds");
+		setTimeout(function() {
+	        $('#error-display').css('display', 'none');
+	    }, 3500);
 	}
 	else if (choice==1){
         save_all();
@@ -320,7 +323,7 @@ function getFileLocation() {
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 function display_named_cues() {
-	let column_names = ["From Event", "Name", "Type", "Channel", "Delay", "Note"];
+	let column_names = ["From Event", "Name", "Type", "Channel", "Note"];
     let heads = "";
     for (var i = 0; i < column_names.length; i++) {
         heads += "<th scope=\"col\">"+column_names[i]+"</th>";
@@ -333,13 +336,13 @@ function display_named_cues() {
         for (let i = 0; i < event_obj.cue_list.length; i++) {
             let cue = event_obj.cue_list[i];
             if (cue.name != "") {
+            	// so it doesn't show the same cue twice
             	if(!named_cue.hasOwnProperty(cue.name)){
-	        		table += "<tr class=\"primary\" onclick=\"choose_cue(\'"+event_name+"\',"+i+")\" id=\""+event_name+i+"\">";
+	        		table += '<tr class="primary" onclick="named_cue_delay(\''+event_name+'\','+i+')" id="'+event_name+i+'">';
 		            table += "<td>"+event_name+"</td>"
 		            		+"<td>"+cue.name+"</td>"
 		            		+"<td>"+cue.type+"</td>"
 		                    +"<td>"+cue.channel+"</td>"
-		                    +"<td>"+cue.delay+"</td>";
                     // handles options
                     if (cue.options.param1 != undefined) {
                         table += "<td>"+cue.options.param1+"</td>";
@@ -349,19 +352,67 @@ function display_named_cues() {
             	}
             }
         }
-        table += "</tbody>"
-        $("#table").html(table);
+    }
+    table += "</tbody>"+"</table>"
+    $("#named_table").html(table);
+}
+
+/*
+** Thanks w3schools :)
+*/
+function filter_named_cues() {
+	var input, filter, table, tr, td, i;
+    input = document.getElementById("search_name_input");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("named_table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+    	// [1] is cue name
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
     }
 }
-  
-function choose_cue(event_name, cue_index) {
+function filter_event() {
+	var input, filter, table, tr, td, i;
+    input = document.getElementById("search_event_input");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("named_table");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+    	// [0] is events
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+}
+
+function named_cue_delay(event_name, cue_index) {
+
+    var delay = $("#new_named_delay").val();
+    if (delay == null || delay < 0 || delay == "") {
+        $('#error-display').css('display', 'table');
+		$('#bad-boy').html("Please enter a (correct) delay for this new cue");
+		setTimeout(function() {
+	        $('#error-display').css('display', 'none');
+	    }, 3500);
+    } else {
+        choose_cue(event_name, cue_index, delay);
+    }
+}
+
+function choose_cue(event_name, cue_index, delay) {
 	var chosen_cue = project.list_events[event_name]["cue_list"][cue_index];
-	console.log("Event From: "+event_name);
-	console.log("event To:" + event_selected);
-	console.log(chosen_cue);
-	// we just create a new copy of it
-	var new_cue_id = add_cue(project.list_events[event_selected].cue_list, create_cue(chosen_cue.type, chosen_cue.channel, chosen_cue.delay, chosen_cue.name, chosen_cue.options));	
+	// we just create a new copy of it, with the chosen delay
+	var new_cue_id = add_cue(project.list_events[event_selected].cue_list, create_cue(chosen_cue.type, chosen_cue.channel, delay, chosen_cue.name, chosen_cue.options));	
 
 	fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
 	close_window();
 }
+

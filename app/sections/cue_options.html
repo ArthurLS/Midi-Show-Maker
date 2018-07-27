@@ -6,7 +6,7 @@
 </head>
 <body onload="init_window_cue()" style="border: solid 1px;">
 
-	<div class="container-fluid" >
+	<div class="container-fluid" style="max-height: 100%">
 		<div class="row">
 			<div class="col-md-4">
 				<h1>
@@ -35,30 +35,25 @@
 				<input type="number" id="delay" class="form-control" value="">
 			</div>
 		</div>
-		<div class="row" id="named_cue_container">
-			<div class="col-md-8">
-				<h3>Choose from the named cues</h3>
-				<div id="table">
-				</div>
+		<div class="row" id="named_cue_container" style="max-height: 10%;">
+			<div class="col-md-8" style="max-height: 80%;">
+				<input type="text" id="search_event_input" onkeyup="filter_event()" placeholder="Search by Event.." style="display: inline-block;">
+				<input type="text" id="search_name_input" onkeyup="filter_named_cues()" placeholder="Search By Name.." style="display: inline-block;">
+				<br><br>
+				<div id="named_table" style="overflow-y: auto; height: 55%">
+				</div><br>
+				<input type="number" id="new_named_delay" placeholder="Your Delay">
 			</div>
 		</div>
-		<br>
+		
 		<div class="row" id="options_list">
-
 		</div>
 		<br>
-
-	</div>
-
-	<div class="container-fluid">
 		<div class="row">
 			<div id="error-display" class="alert alert-dismissible alert-danger col-md-10 col-md-offset-1" style="display: none;">
 				<p id="bad-boy"></p>
 			</div>
 		</div>
-	</div>
-
-	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-2">
 				<button type="button" class="btn btn-success" id="save_close_btn" onclick="check_values(1)">Save and Close</button>
