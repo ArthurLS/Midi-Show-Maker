@@ -18,34 +18,72 @@ function resize() {
 	draw();
 }
 
+var rekt_list = [];
+
 function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if (event_obj != null) {
+		rekt_list = [];
 		var info = get_info_params();
 		var cue_l = event_obj["cue_list"];
 
-		var radius = 5 * zoom_scale;
+		var height = 5 * zoom_scale;
 		var origin_x = ($("#range").val())*zoom_scale;
 
-		var x_ratio = zoom_scale * Math.round((canvas.width / ((cue_l.length+1)+zoom_scale)));
-		var y_ratio = Math.round((canvas.height) / (info.max_note - info.min_note+2));
+		var x_ratio = zoom_scale * (canvas.width / ((cue_l.length+1)+zoom_scale));
+		// - 10% for the special cues
+		var y_ratio = ((canvas.height - canvas.height * 0.1)  / (info.max_note - info.min_note+2));
 
 		for (var i = 0; i < cue_l.length; i++) {
+			var cue = cue_l[i];
+			// definitive X positioning
 			var posx = (x_ratio*i + 10)-origin_x;
+
+			// Do the math on only the drawable ones (quicker)
+			if (posx >= 0 && (posx+height * 1.5) <= canvas.width) {
+				// basic Y positioning
+				var posy =  (y_ratio * (cue_l[i]["options"].param1 - info.min_note));
+				// since the (0,0) pos is top left, we flip up side down
+				posy = posy + (2 * (((canvas.height / 2)-10) - posy));
+
+				if (cue.type != "noteoff" && cue.type != "noteon" && cue.type != 'cc' && cue.type != 'programme') posy = canvas.height * 0.05;
+
+				// Changes the color
+				var color = "";
+				(cue.type == "noteon") ? (color = "green") : ((cue.type == "noteoff") ? (color = "red") : (color = "white"));
+				drawRect(posx, posy, height * 1.5, height, color);
+
+				rekt_list.push({"id": i, "posx": posx, "posy": posy});
+
+				// small scale -> bigger font
+				// big scale -> smaller font
+				var font_size = (zoom_scale > 2 ? height * 0.8 : height * 2);
+				// letter: if note then note, else type
+				var char = cue.type;
+				if (cue.type == "noteoff" || cue.type == "noteon" || cue.type == 'cc' || cue.type == 'programme') char = cue["options"].param1;
+				
+				if (posy - height*2 < 0) drawChar(posx, posy + 2*height, char, font_size, "white");
+				else drawChar(posx, posy - height, char, font_size, "white");
+			}
 			
-			var posy =  (y_ratio * (cue_l[i]["options"].param1 - info.min_note));
-			posy = posy + (2 * (((canvas.height-10) / 2) - posy));
-
-			drawPoint(posx, posy, radius, "red");
-			//var variable = (condition) ? (true block) : (else block)
-			var font_size = (zoom_scale > 2 ? radius * 0.8 : radius * 2);
-			if (posy - radius < 0) drawChar(posx - radius, posy + radius, cue_l[i]["options"].param1, font_size, "white");
-			else drawChar(posx - radius, posy - radius, cue_l[i]["options"].param1, font_size, "white");
-
-			if (i == cue_l.length -1) console.log("Posx: "+posx+ " Posy: "+posy);
 		}
+		console.log(rekt_list);
 	}
 }
+
+
+
+/*
+** Called when the range changes position
+*/
+function up_range() {
+	draw();
+}
+
+canvas.addEventListener('mousemove', function(evt) {
+	var mousePos = getMousePos(canvas, evt);
+	//console.log(mousePos);
+}, false);
 
 function getMousePos(canvas, evt) {
 	var rect = canvas.getBoundingClientRect();
@@ -54,18 +92,6 @@ function getMousePos(canvas, evt) {
 		y: evt.clientY - rect.top
 	};
 }
-
-
-function up_range() {
-	draw();
-}
-
-canvas.addEventListener('mousemove', function(evt) {
-	var mousePos = getMousePos(canvas, evt);
-	var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-	console.log(message);
-}, false);
-
 canvas.onmousedown = function (e) {
     console.log(e);
     console.log("Posx: "+e.layerX);
@@ -74,12 +100,14 @@ canvas.onmousedown = function (e) {
 
 function zoom_in() {
 	zoom_scale = zoom_scale * 2;
+	zoom_scale = Math.min(zoom_scale, 8);
 	draw();
 }
 
 function zoom_out() {
 	zoom_scale = zoom_scale / 2;
 	zoom_scale = Math.max(zoom_scale, 1);
+	if (zoom_scale == 1) $("#range").val(1);
 	draw();
 	
 }
@@ -103,7 +131,15 @@ function get_info_params() {
 }
 
 
+/*
+* Draws a rectangle on the canvas
+*/
+function drawRect(posx, posy, width, height, color) {
+    ctx.fillStyle = color;
+    ctx.rect(posx, posy, width, height);
+    ctx.fill();
 
+};
 
 /*
 * Draws a point on the canvas
