@@ -27,7 +27,11 @@
         <div class="maxed-out-timeline justify-content-center" id="timeline_container">
             <div class="container fill">
                 <div class="row" style="height: 100%">
-                    <div class="col-md-1" style="background-color: grey; height: 100%"></div>
+                    <div class="col-md-1" style="background-color: grey; height: 100%">
+                        <button class="btn btn-success" id="zoom_in_btn" onclick="zoom_in()" style="font-size: 200%; width: 40px;">+</button>
+                        <button class="btn btn-success" id="zoom_out_btn" onclick="zoom_out()" style="font-size: 200%; width: 40px;">-</button>
+                    </div>
+                    
                     <div class="col-md-10" style="height: 100%;" id="canvas_container">
                         
 
@@ -35,13 +39,16 @@
                             <canvas id="time_canvas" width=1290 height=330></canvas>
                         </div>
                         <div class="row">
-                            <input type="range" id="range" min='0' max ='1280' step='1'>
+                            <input type="range" id="range" min='0' max ='1280' step='1' onclick="up_range();">
                         </div>
 
 
 
                     </div>
-                    <div class="col-md-1" style="background-color: #222222; height: 100%"></div>
+
+                    <div class="col-md-1" style="background-color: #222222; height: 100%">
+                        
+                    </div>
                 </div>
             </div>
         </div>

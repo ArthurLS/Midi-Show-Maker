@@ -28,8 +28,10 @@ var timer_of_event = new Date();
 ** Sets up the page layout
 */
 function onload_init(){
+    $("#range").val(0);
     init_midi_io();
     refresh_UI();
+
 }
 /*
 ** Function that reloads everything on the UI
