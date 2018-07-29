@@ -27,9 +27,33 @@ html, body{
 #time_canvas{
   background-color: black;
 }
+.range{
+  -webkit-appearance: none;
+  height: 4px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  -webkit-transition: .7s;
+  transition: background-color .7s;
+}
 
-
-
+.range:hover {
+  background-color: green;
+  cursor: pointer;
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 10px;
+  border-radius: 20%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+.range::-moz-range-thumb {
+  height: 3px;
+  background: #4CAF50;
+  cursor: pointer;
+}
 
 input[type=checkbox]{
   -webkit-transform: scale(2);

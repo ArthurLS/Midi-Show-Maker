@@ -72,7 +72,6 @@ function init_midi_io() {
 		    fs.writeFileSync(data_file, JSON.stringify(project, null, 2));
 		}
 	}
-	console.log("midi io finished");
 }
 
 

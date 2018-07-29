@@ -307,7 +307,7 @@ function display_cue_table() {
             if (cue.type == "musicFile") {
                 if (!createjs.Sound.loadComplete(cue.options.paramText)) {
                     loadSound(cue.options.paramText, cue.options.paramText);
-                    console.log("Music: "+cue.options.paramText+" has been loaded");
+                    //console.log("Music: "+cue.options.paramText+" has been loaded");
                 }
             }
             if (cue.type == "block"){
@@ -495,7 +495,6 @@ function toogle_enabled_buttons() {
     }
     // If event is selected
     else {
-        console.log("Is Playing: "+isPlaying);
         $("#delete_event_btn").attr("disabled", false);
         // if the event is playing
         if (isPlaying) {
