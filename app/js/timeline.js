@@ -117,12 +117,14 @@ $("#time_canvas").mousemove(throttle(50, function(e) {
 	var offx = e.offsetX;
 	var offy = e.offsetY;
 
+	draw();
+
 	for (var i = 0; i < rekt_list.length; i++) {
 		var cue = rekt_list[i]; 
 		//matches the mouse pos with the cue
 		if (offx > cue.posx && offx < cue.posx + width && offy > cue.posy && offy < cue.posy+height) {
 			is_hovering = true;
-			rect_hover(cue.id, cue.posx, cue.posy, width, height);
+			draw_rect_hover(cue.id, cue.posx, cue.posy, width, height);
 			document.body.style.cursor = "pointer";
 			break;
 		}
@@ -131,20 +133,17 @@ $("#time_canvas").mousemove(throttle(50, function(e) {
 	// reset if it doesn't hover a cue anymore
 	if (!is_hovering){
 		document.body.style.cursor = 'default';
-		rect_hover(-1, 0, 0, 0, 0)
+		draw_rect_hover(-1, 0, 0, 0, 0)
 	}
 
+	draw_line(offx, 0, offx, canvas.height, "red");
 }));
 
 // Draws a light pink rectangle on the hovered cue
 var last_hover = -1;
-function rect_hover(id, posx, posy, width, height) {
-	if (id == -1 && last_hover != -1) {
-		draw();
-		last_hover = -1;
-	}
-	else if (id != -1 && last_hover != id) {
-		draw();
+function draw_rect_hover(id, posx, posy, width, height) {
+	if (id == -1 && last_hover != -1) last_hover = -1;
+	else if (id != -1) {
 
 		var color = "pink";
 		// draw the new one
@@ -203,7 +202,6 @@ function drawRect(posx, posy, width, height, color) {
     ctx.rect(posx, posy, width, height);
     ctx.fill();
 };
-
 /*
 * Draws a point on the canvas
 */
@@ -214,9 +212,8 @@ function drawPoint(posx, posy, radius, color) {
     ctx.fill();
 
 };
-
 /*
-* Draws a character, used inside the points
+* Draws a char on the canvas
 */
 function drawChar(posx, posy, letter, height, color) {
     ctx.fillStyle = color;
@@ -226,7 +223,16 @@ function drawChar(posx, posy, letter, height, color) {
 
     ctx.fill();
 };
-
+/*
+* Draws a line on the canvas
+*/
+function draw_line(from_x, form_y, to_x, to_y, color) {
+	ctx.strokeStyle = color;
+	ctx.beginPath();
+	ctx.moveTo(from_x, form_y);
+	ctx.lineTo(to_x,to_y);
+	ctx.stroke();
+}
 
 /*
 ** Throttle calls to "callback" routine and ensure that it
