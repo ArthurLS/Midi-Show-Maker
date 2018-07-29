@@ -16,17 +16,21 @@
 </head>
 <body onload="onload_init();">
 
-    <div class="flex-container fill">
+    <div id="app_container" style="overflow: hidden;">
 
-        <div class="flex-1">
-            <div class="col-md-7 maxed-out" include="sections/top_left.html"></div>
+        <div id="top_container" style="overflow: hidden;" class="top-side" >
 
-            <div class="col-md-5 maxed-out" include="sections/top_right.html"></div>
+            <div class="col-md-7" include="sections/top_left.html"></div>
+
+            <div class="col-md-5" include="sections/top_right.html"></div>
+
         </div>
-        <div class="maxed-out-timeline justify-content-center" id="timeline_container">
+        
+        <div id="timeline_container" class="bot-side">
+            <!--<hr>-->
             <div class="container fill">
-                <div class="row" style="height: 100%">
-                    <div class="col-md-1" style="background-color: grey; height: 100%; padding: 0;">
+                <div class="row">
+                    <div class="col-md-1" style="background-color: grey; margin: 0; padding: 0; height: 100%">
                         <button class="btn btn-success" id="zoom_in_btn" onclick="zoom_in()" style="font-size: 200%; width: 40px;">+</button>
                         <button class="btn btn-success" id="zoom_out_btn" onclick="zoom_out()" style="font-size: 200%; width: 40px;">-</button>
                         <br>
@@ -40,28 +44,27 @@
                         </select>
                     </div>
                     
-                    <div class="col-md-10" style="height: 100%; padding: 0;" id="canvas_container">
-                        
 
-                        <div class="row" style="margin: 0;">
+                    <div class="col-md-10" style="margin: 0; padding: 0" id="canvas_container">
+                        <div class="row">
                             <canvas id="time_canvas" width=1290 height=330></canvas>
                         </div>
-                        <div class="row" style="margin: 0; padding: 0">
+                        <div class="row">
                             <div class="col-md-1" id="time_label_0" style="margin: 0; padding: 0"></div>
                             <div class="col-md-2" id="time_label_1" style="margin: 0; padding: 0; text-align: right;">100</div>
                             <div class="col-md-3" id="time_label_2" style="margin: 0; padding: 0; text-align: right;">200</div>
                             <div class="col-md-3" id="time_label_3" style="margin: 0; padding: 0; text-align: right;">300</div>
                             <div class="col-md-3" id="time_label_4" style="margin: 0; padding: 0; text-align: right;"></div>
                         </div>
-                        <div class="row" style="margin: 5px 0 0 0;">
-                            <input class="range "type="range" id="range" min='0' max ='1280' step='1' oninput="up_range();">
+                        <div class="row" >
+                            <input class="range" type="range" id="range" min='0' max ='1280' step='1' oninput="up_range();">
                         </div>
-
                     </div>
 
-                    <div class="col-md-1" style="background-color: #222222; height: 100%;padding: 0;">
-                        <span>Damn bruh</span>
-                        <span>Damn</span>
+
+                    <div class="col-md-1" style="background-color: #222222; padding: 0; height: 100%;">
+                        <div style="margin-left: 3px"> Resize top/bot: </div> 
+                        <input type="number" style="width: 100%;" id="split" onchange="split_change(this.value)" oninput="split_change(this.value)" >
                     </div>
                 </div>
             </div>
@@ -71,7 +74,7 @@
 
     </div>
 
-    <script>window.$ = window.jQuery = require('./js/libraries/jquery-1.11.1.js');</script>
+    <script src="./js/libraries/jquery-1.9.1.min.js"> </script>
 
     <script src="./js/utils.js"></script>
     <script>includeFile();</script>

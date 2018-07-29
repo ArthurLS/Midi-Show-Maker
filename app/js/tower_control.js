@@ -28,9 +28,12 @@ var timer_of_event = new Date();
 ** Sets up the page layout
 */
 function onload_init(){
+    
     $("#range").val(0);
     init_midi_io();
     refresh_UI();
+    $("#split").val(63);
+    split_change(63)
 
 }
 /*
@@ -56,7 +59,6 @@ function refresh_UI() {
         draw();
     }, 50);
     toogle_enabled_buttons();
-
 }
 
 ipc.on('message', (event, message) => {
@@ -216,6 +218,26 @@ function stopPlay() {
     $("#pause_resume_btn").html("Pause");
 }
 
+/*
+** Resizing between top and bot containers
+*/
+function split_change(num) {
+    if (num >= 37 && num <= 70){
+        $("#top_container").height(num+'vh');
+        $("#timeline_container").height((100-num)+'vh');
+
+        $("#table").css('max-height', (num-12)+'vh');
+
+        console.log("Top: "+$("#top_container").height()+" Bot: "+$("#timeline_container").height());
+        console.log("Top: "+num+'vh'+" Bot: "+(100-num)+'vh');
+        refresh_UI();
+        resize();
+    } 
+    else if(num > 70){
+        $("#split").val(70);
+    }
+    else $("#split").val(37);
+}
 
 function new_event_trigger() {
     if ($("#event_name_input").is(":visible")) {

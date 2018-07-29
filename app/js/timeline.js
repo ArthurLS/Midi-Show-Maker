@@ -9,7 +9,7 @@ window.addEventListener('resize', function () {
 })
 function resize() {
 	var col_width = document.getElementById("canvas_container").offsetWidth;
-	var row_height = document.getElementById("canvas_container").offsetHeight;
+	var row_height = document.getElementById("timeline_container").offsetHeight;
 	var range = document.getElementById("range");
 	canvas.width = col_width;
 	canvas.height = row_height - 45;
