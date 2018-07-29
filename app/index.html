@@ -29,6 +29,15 @@
                     <div class="col-md-1" style="background-color: grey; height: 100%; padding: 0;">
                         <button class="btn btn-success" id="zoom_in_btn" onclick="zoom_in()" style="font-size: 200%; width: 40px;">+</button>
                         <button class="btn btn-success" id="zoom_out_btn" onclick="zoom_out()" style="font-size: 200%; width: 40px;">-</button>
+                        <br>
+                        <br>
+                        <span style="margin-left: 5px; color: black;">Info:</span>
+                        <select id="info_select" onclick="draw()" style="color: black">
+                            <option value="id">Id</option>
+                            <option value="pitch">Pitch</option>
+                            <option value="name">Name</option>
+                            <option value="type">Type</option>
+                        </select>
                     </div>
                     
                     <div class="col-md-10" style="height: 100%; padding: 0;" id="canvas_container">
@@ -37,8 +46,13 @@
                         <div class="row" style="margin: 0;">
                             <canvas id="time_canvas" width=1290 height=330></canvas>
                         </div>
-                        <span id="time_label_left" style="margin-left: 3px;">0</span>
-                        <span id="time_label_right" style="float: right;margin-right: 3px;">1110</span>
+                        <div class="row" style="margin: 0; padding: 0">
+                            <div class="col-md-1" id="time_label_0" style="margin: 0; padding: 0"></div>
+                            <div class="col-md-2" id="time_label_1" style="margin: 0; padding: 0; text-align: right;">100</div>
+                            <div class="col-md-3" id="time_label_2" style="margin: 0; padding: 0; text-align: right;">200</div>
+                            <div class="col-md-3" id="time_label_3" style="margin: 0; padding: 0; text-align: right;">300</div>
+                            <div class="col-md-3" id="time_label_4" style="margin: 0; padding: 0; text-align: right;"></div>
+                        </div>
                         <div class="row" style="margin: 5px 0 0 0;">
                             <input class="range "type="range" id="range" min='0' max ='1280' step='1' oninput="up_range();">
                         </div>

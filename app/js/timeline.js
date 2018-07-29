@@ -18,30 +18,32 @@ function resize() {
 }
 
 var rekt_list = [];
-
+var x_ratio = 0;
+var y_ratio = 0;
 function draw() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if (event_obj != null) {
 		rekt_list = [];
 		var info = get_info_params();
 		var cue_l = event_obj["cue_list"];
-
-		// height of a rectangle
-		var height = 5 * zoom_scale;
 		// where the relative posx = 0 is
 		var origin_x = $("#range").val();
 
 		// full canvas width -1% for the final cue
-		var x_ratio = zoom_scale * ((canvas.width - canvas.width * 0.01) / info.max_delay);
+		x_ratio = zoom_scale * ((canvas.width - canvas.width * 0.01) / info.max_delay);
 		// full canvas height -10% for the special cues
-		var y_ratio = ((canvas.height - canvas.height * 0.1)  / (info.max_note - info.min_note+2));
+		y_ratio = (canvas.height - canvas.height * 0.1)  / (info.max_note - info.min_note+1);
+
+		// height & width of a rectangle
+		var rect_height = (y_ratio / 2) * 1.3;
+		var rect_width = 8 * zoom_scale;
 
 		for (var i = 0; i < cue_l.length; i++) {
 			var cue = cue_l[i];
 			// definitive posX positioning
 			var posx = (cue.delay*x_ratio) - origin_x;
 			// Do the maths on only the drawable ones (quicker)
-			if (posx >= 0 && (posx+height * 1.5) <= canvas.width) {
+			if (posx >= 0 && (posx+rect_width) <= canvas.width) {
 				
 				// basic Y positioning
 				var posy =  (y_ratio * (cue_l[i]["options"].param1 - info.min_note));
@@ -54,31 +56,46 @@ function draw() {
 				// Changes the color
 				var color = "";
 				(cue.type == "noteon") ? (color = "green") : ((cue.type == "noteoff") ? (color = "red") : (color = "white"));
-				drawRect(posx, posy, height * 1.5, height, color);
+				drawRect(posx, posy, rect_width, rect_height, color);
 
 				// list the drawn cues
 				rekt_list.push({"id": i, "posx": posx, "posy": posy});
 
 				// small scale -> relative ratio bigger font
 				// big scale -> relative ratio smaller font
-				var font_size = (zoom_scale > 2 ? height * 0.8 : height * 2);
+				var font_size = rect_height * 1.8;
 				// letter: if note then pitch, else type
-				var char = cue.type;
-				if (cue.type == "noteoff" || cue.type == "noteon" || cue.type == 'cc' || cue.type == 'programme') char = cue["options"].param1;
+				var info_select = $('#info_select').find(":selected").val();
+				var char = "";
+				if (info_select == "pitch") {
+					if (cue.type == "noteoff" || cue.type == "noteon" || cue.type == 'cc' || cue.type == 'programme') char = cue["options"].param1;
+				}
+				else if (info_select == "type") char = cue.type;
+				else if (info_select == "name") char = cue.name;
+				else char = i;
+				
+				
 				
 				// Always draws the letter in the canvas
-				if (posy - height*2 < 0) drawChar(posx, posy + 2*height, char, font_size, "white");
-				else drawChar(posx, posy - height, char, font_size, "white");
+				if (posy - rect_height*2 < 0) drawChar(posx, posy + 2.5*rect_height, char, font_size, "white");
+				else drawChar(posx, posy - 0.5*rect_height, char, font_size, "white");
 			}
 		}
-		var time_ratio = (info.max_delay / canvas.width) / zoom_scale;
+		var time_ratio = (info.max_delay / (canvas.width - canvas.width * 0.01)) / zoom_scale;
 
-		$("#time_label_left").html(origin_x);
-		$("#time_label_right").html(Math.round((origin_x*time_ratio + canvas.width*time_ratio)));
+		var t0 = origin_x * time_ratio;
+		var t4 = origin_x * time_ratio + (canvas.width - canvas.width * 0.01)* time_ratio;
+		var t1 = t0 + (t4 - t0)/4;
+		var t2 = t0 + (t4 - t0)/2;
+		var t3 = t0 + 3*((t4 - t0)/4);
+		$("#time_label_0").html(Math.round(t0));
+		$("#time_label_1").html(Math.round(t1));
+		$("#time_label_2").html(Math.round(t2));
+		$("#time_label_3").html(Math.round(t3));
+		$("#time_label_4").html(Math.round(t4));
+		
 	}
 }
-
-
 
 /*
 ** Called when the range changes position
@@ -111,8 +128,8 @@ canvas.onmousedown = function (e) {
 // throttle reduces the number of event triggered by the "mousemove" event
 // N.B.: it doesn't reduce, but doesn't call the function linked to it more than once every 50ms
 $("#time_canvas").mousemove(throttle(50, function(e) {
-	var height = 5 * zoom_scale;
-	var width = height * 1.5;
+	var rect_height = (y_ratio / 2) * 1.3;
+	var rect_width = 8 * zoom_scale;
 	var is_hovering = false;
 	var offx = e.offsetX;
 	var offy = e.offsetY;
@@ -122,9 +139,9 @@ $("#time_canvas").mousemove(throttle(50, function(e) {
 	for (var i = 0; i < rekt_list.length; i++) {
 		var cue = rekt_list[i]; 
 		//matches the mouse pos with the cue
-		if (offx > cue.posx && offx < cue.posx + width && offy > cue.posy && offy < cue.posy+height) {
+		if (offx > cue.posx && offx < cue.posx + rect_width && offy > cue.posy && offy < cue.posy+rect_height) {
 			is_hovering = true;
-			draw_rect_hover(cue.id, cue.posx, cue.posy, width, height);
+			draw_rect_hover(cue.id, cue.posx, cue.posy, rect_width, rect_height);
 			document.body.style.cursor = "pointer";
 			break;
 		}
