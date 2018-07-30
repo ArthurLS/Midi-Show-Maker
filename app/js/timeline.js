@@ -4,30 +4,61 @@ var ctx = canvas.getContext('2d');
 var zoom_scale = 1;
 
 // Handles the containers placement according to the user window (phone, tablet, PC)
-window.addEventListener('resize', function () {
-	resize();
-})
+window.addEventListener('resize',resize());
+
+var last_canvas_width = 0;
+var last_canvas_height = 0;
+var last_event = "";
 function resize() {
-	console.log("resize");
+
+	console.log("resize?");
+	var hasMusicFile = false;
 	var col_width = document.getElementById("canvas_container").offsetWidth;
 	var row_height = document.getElementById("timeline_container").offsetHeight;
-	var range = document.getElementById("range");
-	canvas.width = col_width;
-	canvas.height = row_height/2 - 45;
+	destroy_p();
+	var is_event_change = (last_event != event_selected);
+	last_event = event_selected;
+	 
+
+	if ((last_canvas_width != col_width || last_canvas_height != row_height) || (is_event_change)) {
+		var musicFile = "";
+		for (var i = 0; i < event_obj.cue_list.length; i++) {
+			if(event_obj.cue_list[i].type == "musicFile") {
+				hasMusicFile = true;
+				musicFile = event_obj.cue_list[i]["options"].paramText;
+				break;
+			}
+		}
+		console.log("Has music file: "+hasMusicFile);
+		if (hasMusicFile) {
+			resize_peaks((row_height/2)-45, musicFile);
+		}
+	}
+
+	if (hasMusicFile) canvas.height = row_height/2;
+	else canvas.height = (row_height)-45;
 	
-	p.destroy();p.destroy();
-	$("#peaks-container").html('<audio><source src="C:\\Users\\Arthur\\Desktop\\Aint No Mountain Short Enough.wav" type="audio/wav"</audio>');
-	resize_peaks(row_height/2);
-	p.on('peaks.ready', function() {
-	    $('.overview-container').remove();
-	    
-	});
-	range.max = col_width;
+	canvas.width = col_width;
+	document.getElementById("range").max = col_width;
 	draw();
-	p.zoom.setZoom(3);
+	last_canvas_width = col_width;
+	last_canvas_height = row_height;
 }
 
-function resize_peaks(p_height) {
+function destroy_p() {
+	if (p != null) {
+		p.destroy();
+		p.destroy();
+		p = null;
+	}
+}
+
+function resize_peaks(p_height, musicFile) {
+	console.log("peaks");
+	
+	destroy_p();
+
+	$("#peaks-container").html('<audio><source src="'+musicFile+'" type="audio/wav"</audio>');
 	p = Peaks.init({
 	    container: document.querySelector('#peaks-container'),
 	    mediaElement: document.querySelector('audio'),
@@ -36,17 +67,33 @@ function resize_peaks(p_height) {
 	    height: p_height,
 
 	    // Array of zoom levels in samples per pixel (big >> small)
-	    zoomLevels: [256, 512, 1024, 2048],
+	    zoomLevels: [157, 314, 627, 1255],
 
 	    // Bind keyboard controls
-	    keyboard: true
+	    keyboard: true,
+
+	    // Colour of the play head
+	    playheadColor: 'rgba(255, 0, 0, 1)',
+
+		// Show current time next to the play head
+		// (zoom view only)
+		showPlayheadTime: true,
+
+		// Colour for the zoomed in waveform
+		zoomWaveformColor: 'rgba(0, 225, 128, 0.8)',
 	    
 	});
+	p.on('peaks.ready', function() {
+	    $('.overview-container').remove();
+	    
+	});
+	p.zoom.setZoom(3);
 }
 
 var rekt_list = [];
 var x_ratio = 0;
 var y_ratio = 0;
+
 function draw() {
 	console.log("THIS. IS. DRAAAWWW");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -155,7 +202,7 @@ canvas.onmousedown = function (e) {
 
 // throttle reduces the number of event triggered by the "mousemove" event
 // N.B.: it doesn't reduce, but doesn't call the function linked to it more than once every 50ms
-$("#time_canvas").mousemove(throttle(50, function(e) {
+$("#time_canvas").mousemove(throttle(85, function(e) {
 	var rect_height = (y_ratio / 2) * 1.3;
 	var rect_width = 8 * zoom_scale;
 	var is_hovering = false;
@@ -179,6 +226,13 @@ $("#time_canvas").mousemove(throttle(50, function(e) {
 	if (!is_hovering){
 		document.body.style.cursor = 'default';
 		draw_rect_hover(-1, 0, 0, 0, 0)
+	}
+
+	if (p != null){
+		var info = get_info_params();
+		var time_ratio = (info.max_delay / (canvas.width - canvas.width * 0.01)) / zoom_scale;
+		p.player.seek((offx*time_ratio)/1000);
+		//console.log("Seek = "+ (offx*time_ratio)/1000);
 	}
 
 	draw_line(offx, 0, offx, canvas.height, "red");

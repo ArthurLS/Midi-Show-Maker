@@ -22,6 +22,8 @@ var timeouts = [];
 var soundsPlaying = [];
 var loadedSounds = [];
 var timer_of_event = new Date();
+// p is the waveform var
+var p = null;
 
 /*
 ** Smaller and less aggressive messages, turn off to see the complete one
@@ -38,13 +40,11 @@ window.onerror = function(message, url, lineNumber) {
 ** Sets up the page layout
 */
 function onload_init(){
-    
     $("#range").val(0);
     init_midi_io();
-    refresh_UI();
-    $("#split").val(40);
-    split_change(40);
-
+    // split change calls refresh UI;
+    split_change(50);
+    $("#split").val(50);
 }
 
 /*
@@ -52,6 +52,7 @@ function onload_init(){
 ** -> add your own display() function if need be!
 */
 function refresh_UI() {
+    console.log("refresh_UI");
     // reloads the global object from the file
     project = JSON.parse(fs.readFileSync(data_file));
 
@@ -66,6 +67,7 @@ function refresh_UI() {
     setTimeout(function() {
         display_cue_table();
         display_event_list();
+        // resize calls draw()
         resize();
     }, 50);
     toogle_enabled_buttons();
@@ -170,27 +172,6 @@ function read_block(block_obj) {
     }         
 }
 
-var p = Peaks.init({
-    container: document.querySelector('#peaks-container'),
-    mediaElement: document.querySelector('audio'),
-    audioContext: myAudioContext,
-    // default height of the waveform canvases in pixels
-    height: 220,
-
-    // Array of zoom levels in samples per pixel (big >> small)
-    zoomLevels: [256, 512, 1024, 2048],
-
-    // Bind keyboard controls
-    keyboard: true
-    
-});
-p.on('peaks.ready', function() {
-    $('.overview-container').remove();
-    p.zoom.setZoom(3);
-
-    //console.log(WaveformZoomView.prototype.timeToPixels);
-});
-
 /*
 ** Pauses or resumes the current list of cues
 */
@@ -260,7 +241,6 @@ function split_change(num) {
         $("#table").css('max-height', (num-12)+'vh');
 
         refresh_UI();
-        resize();
     } 
     else if(num > 70){
         $("#split").val(70);
