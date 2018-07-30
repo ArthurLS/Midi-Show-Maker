@@ -435,7 +435,7 @@
           "channel": 0,
           "delay": 0,
           "options": {
-            "paramText": "C:\\Users\\Arthur\\Music\\Aint No Mountain High Enough.mp3",
+            "paramText": "C:\\Users\\Arthur\\Documents\\GitHub\\MIDIonysos\\Aint No Mountain Short Enough.wav",
             "param1": 0,
             "param2": 35000
           }
@@ -941,6 +941,16 @@
           }
         },
         {
+          "name": "Cyan Light",
+          "type": "noteon",
+          "channel": 0,
+          "delay": 19793,
+          "options": {
+            "param1": 5,
+            "param2": 0
+          }
+        },
+        {
           "name": "Blue Light",
           "type": "noteon",
           "channel": 0,
@@ -977,16 +987,6 @@
           "delay": 19793,
           "options": {
             "param1": 6,
-            "param2": 0
-          }
-        },
-        {
-          "name": "Cyan Light",
-          "type": "noteon",
-          "channel": 0,
-          "delay": 19793,
-          "options": {
-            "param1": 5,
             "param2": 0
           }
         },
@@ -1181,6 +1181,26 @@
           }
         },
         {
+          "name": "Blue Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 27030,
+          "options": {
+            "param1": 3,
+            "param2": 127
+          }
+        },
+        {
+          "name": "Green Light OFF",
+          "type": "noteoff",
+          "channel": 0,
+          "delay": 27030,
+          "options": {
+            "param1": 2,
+            "param2": 127
+          }
+        },
+        {
           "name": "Pink Light OFF",
           "type": "noteoff",
           "channel": 0,
@@ -1218,26 +1238,6 @@
           "options": {
             "param1": 4,
             "param2": 0
-          }
-        },
-        {
-          "name": "Blue Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 27030,
-          "options": {
-            "param1": 3,
-            "param2": 127
-          }
-        },
-        {
-          "name": "Green Light OFF",
-          "type": "noteoff",
-          "channel": 0,
-          "delay": 27030,
-          "options": {
-            "param1": 2,
-            "param2": 127
           }
         },
         {

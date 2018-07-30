@@ -52,7 +52,7 @@ function onload_init(){
 ** -> add your own display() function if need be!
 */
 function refresh_UI() {
-    console.log("refresh_UI");
+    
     // reloads the global object from the file
     project = JSON.parse(fs.readFileSync(data_file));
 
@@ -68,7 +68,9 @@ function refresh_UI() {
         display_cue_table();
         display_event_list();
         // resize calls draw()
-        resize();
+        console.log("Refresh UI");
+        resize(true);
+        
     }, 50);
     toogle_enabled_buttons();
 }
@@ -422,7 +424,7 @@ function confirmDeleteEvent() {
     if (confirm('Are you sure you want to delete the event: '+event_selected+'?', event_selected)) {
             delete_event(event_selected);
             switch_event("");
-            refresh_UI();
+            //refresh_UI();
         } else {
             // Do nothing!
         }

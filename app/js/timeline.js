@@ -4,7 +4,11 @@ var ctx = canvas.getContext('2d');
 var zoom_scale = 1;
 
 // Handles the containers placement according to the user window (phone, tablet, PC)
-window.addEventListener('resize',resize());
+window.addEventListener('resize', function(){
+	resize(false)
+});
+
+
 
 var last_canvas_width = 0;
 var last_canvas_height = 0;
@@ -20,12 +24,13 @@ function resize() {
 	last_event = event_selected;
 	 
 
-	if ((last_canvas_width != col_width || last_canvas_height != row_height) || (is_event_change)) {
+	if ((last_canvas_width != col_width || last_canvas_height != row_height) || force_refresh) {
 		var musicFile = "";
 		for (var i = 0; i < event_obj.cue_list.length; i++) {
 			if(event_obj.cue_list[i].type == "musicFile") {
 				hasMusicFile = true;
 				musicFile = event_obj.cue_list[i]["options"].paramText;
+				//console.log(i);
 				break;
 			}
 		}
@@ -41,8 +46,7 @@ function resize() {
 	canvas.width = col_width;
 	document.getElementById("range").max = col_width;
 	draw();
-	last_canvas_width = col_width;
-	last_canvas_height = row_height;
+
 }
 
 function destroy_p() {
