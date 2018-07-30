@@ -3,25 +3,35 @@ const remote = require('electron').remote;
 const path = require('path');
 const BrowserWindow = remote.BrowserWindow;
 const ipc = require('electron').ipcRenderer;
+var Peaks = require('peaks.js');
+const WaveformData = require('waveform-data');
+var myAudioContext = new AudioContext();
 
 var data_file = './temp.json';
 var project = {};
 if (fs.existsSync(data_file)) {
     project = JSON.parse(fs.readFileSync(data_file));
 }
-
 var event_selected = "Main Show"; //ex: "test_event"
 var event_obj = {};
 if (event_selected != "") {
     event_obj = project.list_events[event_selected];
 }
-
 var isPlaying = false;
 var timeouts = [];
 var soundsPlaying = [];
 var loadedSounds = [];
-
 var timer_of_event = new Date();
+
+/*
+** Smaller and less aggressive messages, turn off to see the complete one
+*/
+window.onerror = function(message, url, lineNumber) {  
+    console.log();  
+    console.log('%c'+message+'\n%c'+url+':%c'+lineNumber,'color: #c65b13;', 'color: red;', 'color: red;');
+    console.log();
+    return true; // prevents browser error messages  
+};
 
 /*
 ** Called on the onload event of index.html
@@ -32,16 +42,16 @@ function onload_init(){
     $("#range").val(0);
     init_midi_io();
     refresh_UI();
-    $("#split").val(63);
-    split_change(63)
+    $("#split").val(40);
+    split_change(40);
 
 }
+
 /*
 ** Function that reloads everything on the UI
 ** -> add your own display() function if need be!
 */
 function refresh_UI() {
-    resize();
     // reloads the global object from the file
     project = JSON.parse(fs.readFileSync(data_file));
 
@@ -56,7 +66,7 @@ function refresh_UI() {
     setTimeout(function() {
         display_cue_table();
         display_event_list();
-        draw();
+        resize();
     }, 50);
     toogle_enabled_buttons();
 }
@@ -160,6 +170,27 @@ function read_block(block_obj) {
     }         
 }
 
+var p = Peaks.init({
+    container: document.querySelector('#peaks-container'),
+    mediaElement: document.querySelector('audio'),
+    audioContext: myAudioContext,
+    // default height of the waveform canvases in pixels
+    height: 220,
+
+    // Array of zoom levels in samples per pixel (big >> small)
+    zoomLevels: [256, 512, 1024, 2048],
+
+    // Bind keyboard controls
+    keyboard: true
+    
+});
+p.on('peaks.ready', function() {
+    $('.overview-container').remove();
+    p.zoom.setZoom(3);
+
+    //console.log(WaveformZoomView.prototype.timeToPixels);
+});
+
 /*
 ** Pauses or resumes the current list of cues
 */
@@ -228,8 +259,6 @@ function split_change(num) {
 
         $("#table").css('max-height', (num-12)+'vh');
 
-        console.log("Top: "+$("#top_container").height()+" Bot: "+$("#timeline_container").height());
-        console.log("Top: "+num+'vh'+" Bot: "+(100-num)+'vh');
         refresh_UI();
         resize();
     } 
@@ -556,3 +585,45 @@ function toggle(a){
         e.style.display = "block";
 }
 
+
+//const webAudioBuilder = require('waveform-data/webaudio');
+
+
+/*var xhr = new XMLHttpRequest();
+xhr.open("GET", "C:\\Users\\Arthur\\Desktop\\Aint No Mountain Short Enough.wav");
+xhr.responseType = "arraybuffer";
+
+xhr.addEventListener("load", function onResponse(progressEvent){
+    var waveform = WaveformData.create(progressEvent.target);
+    console.log(waveform.min);
+
+
+
+
+    draw_wave(waveform);
+});
+
+xhr.send();*/
+/*function draw_wave(waveform) {
+    const interpolateHeight = (total_height) => {
+        const amplitude = 256;
+        return (size) => total_height - ((size + 128) * total_height) / amplitude;
+    };
+
+    const y = interpolateHeight(canvas.height);
+    ctx.strokeStyle = "red";
+    ctx.beginPath();
+
+    var mult = 5;
+
+    // from 0 to 100
+    waveform.min.forEach((val, x) => ctx.lineTo(x + 0.5, y(val) + 0.5));
+
+    // then looping back from 100 to 0
+    waveform.max.reverse().forEach((val, x) => {
+        ctx.lineTo((waveform.offset_length - x) + 0.5, y(val) + 0.5);
+    });
+
+    ctx.closePath();
+    ctx.stroke();
+}*/

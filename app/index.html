@@ -16,20 +16,21 @@
 </head>
 <body onload="onload_init();">
 
-    <div id="app_container" style="overflow: hidden;">
-
+    <div id="app_container" style="overflow: scroll;">
         <div id="top_container" style="overflow: hidden;" class="top-side" >
 
             <div class="col-md-7" include="sections/top_left.html"></div>
 
             <div class="col-md-5" include="sections/top_right.html"></div>
 
+
         </div>
-        
+
         <div id="timeline_container" class="bot-side">
-            <!--<hr>-->
+            
             <div class="container fill">
-                <div class="row">
+
+                <div class="row" style="height: 100%">
                     <div class="col-md-1" style="background-color: grey; margin: 0; padding: 0; height: 100%">
                         <button class="btn btn-success" id="zoom_in_btn" onclick="zoom_in()" style="font-size: 200%; width: 40px;">+</button>
                         <button class="btn btn-success" id="zoom_out_btn" onclick="zoom_out()" style="font-size: 200%; width: 40px;">-</button>
@@ -43,18 +44,26 @@
                             <option value="type">Type</option>
                         </select>
                     </div>
-                    
+
 
                     <div class="col-md-10" style="margin: 0; padding: 0" id="canvas_container">
+                        <div class="row">
+                            <div id="peaks-container">
+                                <audio>
+                                    <source src="C:\Users\Arthur\Desktop\Aint No Mountain Short Enough.wav" type="audio/wav">
+                                </audio>
+                            </div>
+                            
+                        </div>
                         <div class="row">
                             <canvas id="time_canvas" width=1290 height=330></canvas>
                         </div>
                         <div class="row">
-                            <div class="col-md-1" id="time_label_0" style="margin: 0; padding: 0"></div>
-                            <div class="col-md-2" id="time_label_1" style="margin: 0; padding: 0; text-align: right;">100</div>
-                            <div class="col-md-3" id="time_label_2" style="margin: 0; padding: 0; text-align: right;">200</div>
-                            <div class="col-md-3" id="time_label_3" style="margin: 0; padding: 0; text-align: right;">300</div>
-                            <div class="col-md-3" id="time_label_4" style="margin: 0; padding: 0; text-align: right;"></div>
+                            <div class="col-md-1 marg-pad-0" id="time_label_0" ></div>
+                            <div class="col-md-2 marg-pad-0" id="time_label_1" style="text-align: right;">100</div>
+                            <div class="col-md-3 marg-pad-0" id="time_label_2" style="text-align: right;">200</div>
+                            <div class="col-md-3 marg-pad-0" id="time_label_3" style="text-align: right;">300</div>
+                            <div class="col-md-3 marg-pad-0" id="time_label_4" style="text-align: right;"></div>
                         </div>
                         <div class="row" >
                             <input class="range" type="range" id="range" min='0' max ='1280' step='1' oninput="up_range();">
@@ -67,27 +76,24 @@
                         <input type="number" style="width: 100%;" id="split" onchange="split_change(this.value)" oninput="split_change(this.value)" >
                     </div>
                 </div>
+                
             </div>
         </div>
 
+        <script src="./js/libraries/jquery-1.9.1.min.js"> </script>
 
+        <script src="./js/utils.js"></script>
+        <script>includeFile();</script>
+        <script src="./js/libraries/soundjs.min.js"></script>
+        <script src="./js/audio_control.js"></script>
+        <script src="./js/event_builder.js"></script>
+        <script src="./js/midi_io.js"></script>
+        <script src="./js/tower_control.js"></script>
+        <script src="./js/popup_manager.js"></script>
+        <script src="./js/timeline.js"></script>
 
-    </div>
+        <script src="./js/keyBinding.js"></script>
+        <script src="./js/addKeyBinding.js"></script>
 
-    <script src="./js/libraries/jquery-1.9.1.min.js"> </script>
-
-    <script src="./js/utils.js"></script>
-    <script>includeFile();</script>
-    <script src="./js/libraries/soundjs.min.js"></script>
-    <script src="./js/audio_control.js"></script>
-    <script src="./js/event_builder.js"></script>
-    <script src="./js/midi_io.js"></script>
-    <script src="./js/tower_control.js"></script>
-    <script src="./js/popup_manager.js"></script>
-    <script src="./js/timeline.js"></script>
-
-    <script src="./js/keyBinding.js"></script>
-    <script src="./js/addKeyBinding.js"></script>
-
-</body>
-</html>
+    </body>
+    </html>

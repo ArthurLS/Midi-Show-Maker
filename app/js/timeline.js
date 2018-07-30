@@ -8,19 +8,47 @@ window.addEventListener('resize', function () {
 	resize();
 })
 function resize() {
+	console.log("resize");
 	var col_width = document.getElementById("canvas_container").offsetWidth;
 	var row_height = document.getElementById("timeline_container").offsetHeight;
 	var range = document.getElementById("range");
 	canvas.width = col_width;
-	canvas.height = row_height - 45;
+	canvas.height = row_height/2 - 45;
+	
+	p.destroy();p.destroy();
+	$("#peaks-container").html('<audio><source src="C:\\Users\\Arthur\\Desktop\\Aint No Mountain Short Enough.wav" type="audio/wav"</audio>');
+	resize_peaks(row_height/2);
+	p.on('peaks.ready', function() {
+	    $('.overview-container').remove();
+	    
+	});
 	range.max = col_width;
 	draw();
+	p.zoom.setZoom(3);
+}
+
+function resize_peaks(p_height) {
+	p = Peaks.init({
+	    container: document.querySelector('#peaks-container'),
+	    mediaElement: document.querySelector('audio'),
+	    audioContext: myAudioContext,
+	    // default height of the waveform canvases in pixels
+	    height: p_height,
+
+	    // Array of zoom levels in samples per pixel (big >> small)
+	    zoomLevels: [256, 512, 1024, 2048],
+
+	    // Bind keyboard controls
+	    keyboard: true
+	    
+	});
 }
 
 var rekt_list = [];
 var x_ratio = 0;
 var y_ratio = 0;
 function draw() {
+	console.log("THIS. IS. DRAAAWWW");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if (event_obj != null) {
 		rekt_list = [];
@@ -175,8 +203,11 @@ function zoom_in() {
 	zoom_scale = Math.min(zoom_scale, 8);
 	$("#range").attr("max", (canvas.width * zoom_scale)-canvas.width);
 
-	if (zoom_scale != 8) $("#range").val($("#range").val() * 2)
+	if (zoom_scale != 8) $("#range").val($("#range").val() * 2);
 	draw();
+
+	p.zoom.zoomIn();
+	console.log(p.zoom.getZoom());
 }
 
 // triggers the zoom out on the timeline
@@ -188,7 +219,8 @@ function zoom_out() {
 	if (zoom_scale == 1) $("#range").val(1);
 	else $("#range").val($("#range").val() / 2);
 	draw();
-	
+	p.zoom.zoomOut()
+	console.log(p.zoom.getZoom());
 }
 
 
