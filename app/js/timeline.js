@@ -13,9 +13,14 @@ window.addEventListener('resize', function(){
 var last_canvas_width = 0;
 var last_canvas_height = 0;
 var last_event = "";
-function resize() {
+function resize(force_refresh) {
+	var check_wave = $("#wave_checkbox").prop('checked');
+	var check_squares = $("#squares_checkbox").prop('checked');
 
 	console.log("resize?");
+
+
+
 	var hasMusicFile = false;
 	var col_width = document.getElementById("canvas_container").offsetWidth;
 	var row_height = document.getElementById("timeline_container").offsetHeight;
@@ -24,29 +29,37 @@ function resize() {
 	last_event = event_selected;
 	 
 
-	if ((last_canvas_width != col_width || last_canvas_height != row_height) || force_refresh) {
-		var musicFile = "";
-		for (var i = 0; i < event_obj.cue_list.length; i++) {
-			if(event_obj.cue_list[i].type == "musicFile") {
-				hasMusicFile = true;
-				musicFile = event_obj.cue_list[i]["options"].paramText;
-				//console.log(i);
-				break;
-			}
-		}
-		console.log("Has music file: "+hasMusicFile);
-		if (hasMusicFile) {
-			resize_peaks((row_height/2)-45, musicFile);
+	//if ((last_canvas_width != col_width || last_canvas_height != row_height) || force_refresh) {
+	var musicFile = "";
+	for (var i = 0; i < event_obj.cue_list.length; i++) {
+		if(event_obj.cue_list[i].type == "musicFile") {
+			hasMusicFile = true;
+			musicFile = event_obj.cue_list[i]["options"].paramText;
+			//console.log(i);
+			break;
 		}
 	}
-
-	if (hasMusicFile) canvas.height = row_height/2;
-	else canvas.height = (row_height)-45;
-	
+	console.log("Has music file: "+hasMusicFile);
+	console.log(col_width);
+	console.log(typeof(col_width));
+	if (hasMusicFile){
+		if(check_wave && check_squares) {
+			resize_peaks((row_height/2)-45, col_width, musicFile);
+			canvas.height = row_height/2;
+		}
+		else if (check_wave && !check_squares) {
+			resize_peaks((row_height)-60, col_width, musicFile);
+			canvas.height = 0;
+		}
+		else canvas.height = (row_height)-45;
+	}
+	else {
+		canvas.height = (row_height)-45;
+		$("#wave_checkbox").prop('checked', false);
+	}
 	canvas.width = col_width;
 	document.getElementById("range").max = col_width;
 	draw();
-
 }
 
 function destroy_p() {
@@ -57,9 +70,9 @@ function destroy_p() {
 	}
 }
 
-function resize_peaks(p_height, musicFile) {
+function resize_peaks(p_height, p_width, musicFile) {
 	console.log("peaks");
-	
+	p_width = p_width *0.902;	
 	destroy_p();
 
 	$("#peaks-container").html('<audio><source src="'+musicFile+'" type="audio/wav"</audio>');
@@ -71,7 +84,8 @@ function resize_peaks(p_height, musicFile) {
 	    height: p_height,
 
 	    // Array of zoom levels in samples per pixel (big >> small)
-	    zoomLevels: [157, 314, 627, 1255],
+	    //zoomLevels: zoom,
+	    zoomLevels: [Math.round(p_width/8), Math.round(p_width/4), Math.round(p_width/2), Math.round(p_width)],
 
 	    // Bind keyboard controls
 	    keyboard: true,
@@ -92,6 +106,13 @@ function resize_peaks(p_height, musicFile) {
 	    
 	});
 	p.zoom.setZoom(3);
+	console.log(p);
+	console.log(p.waveform);
+	for(var key in p.waveform){
+		console.log(key);
+		//console.log(p.waveform[key]);
+	}
+	//console.log(p.waveform.waveformZoomView.pixelLength);
 }
 
 var rekt_list = [];
