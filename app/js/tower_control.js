@@ -28,12 +28,12 @@ var p = null;
 /*
 ** Smaller and less aggressive messages, turn off to see the complete one
 */
-window.onerror = function(message, url, lineNumber) {  
+/*window.onerror = function(message, url, lineNumber) {  
     console.log();  
     console.log('%c'+message+'\n%c'+url+':%c'+lineNumber,'color: #c65b13;', 'color: red;', 'color: red;');
     console.log();
     return true; // prevents browser error messages  
-};
+};*/
 
 /*
 ** Called on the onload event of index.html
@@ -236,11 +236,15 @@ function stopPlay() {
 ** Resizing between top and bot containers
 */
 function split_change(num) {
+    console.log("split change: "+num);
     if (num >= 37 && num <= 70){
-        $("#top_container").height(num+'vh');
-        $("#timeline_container").height((100-num)+'vh');
+        $("#top_container").height(num-1+'vh');
+        $("#top_side_nav").height($("#top_container").height()+7);
 
-        $("#table").css('max-height', (num-12)+'vh');
+        $("#timeline_container").height((99-num)+'vh');
+        $("#bot_side_nav").height((100-num)+'vh');
+
+        $("#table").css('max-height', (num-11)+'vh');
 
         refresh_UI();
     } 

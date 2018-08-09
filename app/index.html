@@ -16,74 +16,89 @@
 </head>
 <body onload="onload_init();">
 
-    <div id="app_container" style="overflow: hidden;">
-        <div id="top_container" style="overflow: hidden;" class="top-side" >
+    <div id="app_container" class="row" style="overflow: hidden; background-color: #2f3136">
+        <div class="col-md-1" style="overflow: hidden; padding: 0">
+            <div id="top_side_nav" class="row">
+                <button type="button" class="btn btn-success" id="add_new_cue_btn" onclick="open_popup('new_cue', 'xx')">Add New Cue</button><br>
+                <button type="button" class="btn btn-success" id="add_named_cue_btn" onclick="open_popup('named_cue', 'xx')">Named Cue</button><br>
+                <button type="button" class="btn btn-success" id="add_block_btn" onclick="open_popup('new_block', 'xx')">Add Block</button>
+            </div>
+            <div id="bot_side_nav" class="row">
+                <!-- <img src="css/img/zoom-in-white.png" style="width: 30%"> -->
+                <button class="btn btn-success" id="zoom_in_btn" onclick="zoom_in()" style="font-size: 200%; width: 40px;">+</button>
+                <button class="btn btn-success" id="zoom_out_btn" onclick="zoom_out()" style="font-size: 200%; width: 40px;">-</button>
 
-            <div class="col-md-7" include="sections/top_left.html"></div>
-
-            <div class="col-md-5" include="sections/top_right.html"></div>
-
-
-        </div>
-
-        <div id="timeline_container" class="bot-side">
-            
-            <div class="container fill">
-
-                <div class="row" style="height: 100%">
-                    <div class="col-md-1" style="background-color: grey; margin: 0; padding: 0; height: 100%">
-                        <button class="btn btn-success" id="zoom_in_btn" onclick="zoom_in()" style="font-size: 200%; width: 40px;">+</button>
-                        <button class="btn btn-success" id="zoom_out_btn" onclick="zoom_out()" style="font-size: 200%; width: 40px;">-</button>
-                        <br>
-                        <br>
-                        <span style="margin-left: 5px; color: black;">Info:</span>
-                        <select id="info_select" onclick="draw()" style="color: black">
-                            <option value="id">Id</option>
-                            <option value="pitch">Pitch</option>
-                            <option value="name">Name</option>
-                            <option value="type">Type</option>
-                        </select>
-                        <br><br>
-                         <span style="margin-left: 5px; color: black;">Wave Form:</span> &nbsp; 
-                            <input type="checkbox" id="wave_checkbox" onclick="resize(true)" checked><br><br>
-                         <span style="margin-left: 5px; color: black;">Cues timelines:</span> &nbsp; 
-                            <input type="checkbox" id="squares_checkbox" onclick="resize(true)"checked>
-                    </div>
-
-
-                    <div class="col-md-10" style="margin: 0; padding: 0" id="canvas_container">
-                        <div class="row">
-                            <div id="peaks-container">
-                                <audio>
-                                    <source src="C:\Users\Arthur\Desktop\Aint No Mountain Short Enough.wav" type="audio/wav">
-                                </audio>
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            <canvas id="time_canvas" width=1290 height=330></canvas>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-1 marg-pad-0" id="time_label_0" ></div>
-                            <div class="col-md-2 marg-pad-0" id="time_label_1" style="text-align: right;">100</div>
-                            <div class="col-md-3 marg-pad-0" id="time_label_2" style="text-align: right;">200</div>
-                            <div class="col-md-3 marg-pad-0" id="time_label_3" style="text-align: right;">300</div>
-                            <div class="col-md-3 marg-pad-0" id="time_label_4" style="text-align: right;"></div>
-                        </div>
-                        <div class="row" >
-                            <input class="range" type="range" id="range" min='0' max ='1280' step='1' oninput="up_range();">
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-1" style="background-color: #222222; padding: 0; height: 100%;">
-                        <div style="margin-left: 3px"> Resize top/bot: </div> 
-                        <input type="number" style="width: 100%;" id="split" onchange="split_change(this.value)" oninput="split_change(this.value)" >
-                    </div>
-                </div>
+                <br>
+                <br>
+                <select id="info_select" onclick="draw()" style="color: black">
+                    <option value="id">Id</option>
+                    <option value="pitch">Pitch</option>
+                    <option value="name">Name</option>
+                    <option value="type">Type</option>
+                </select>
                 
+                <br>
+                <br>
+
+                <div id="wave_btn" class="on-off-btn on-btn"
+                    onclick="$('#wave_checkbox').click(); $(this).toggleClass('on-btn');$(this).toggleClass('off-btn');">Wave Form</div>
+                <input type="checkbox" id="wave_checkbox" onclick="resize(true)" checked>
+
+                <div id="squares_btn" class="on-off-btn on-btn" 
+                    onclick="$('#squares_checkbox').click(); $(this).toggleClass('on-btn');$(this).toggleClass('off-btn');">Timeline</div>
+                <input type="checkbox" id="squares_checkbox" onclick="resize(true)"checked>
+
+                <div style="margin-left: 3px"> Resize top/bot: </div> 
+                <input type="number" style="width: 100%;" id="split" onchange="split_change(this.value)" oninput="split_change(this.value)">
             </div>
         </div>
+
+        <div class="col-md-11" style="overflow: hidden; padding-left: 10px; padding-right: 10px;" >
+
+            <div id="top_container" style="overflow: hidden; background-color: #36393f;" class="top-side" >
+
+                <div class="col-md-7" style="padding: 0" include="sections/top_left.html"></div>
+
+                <div class="col-md-5" include="sections/top_right.html"></div>
+
+
+            </div>
+            
+            <div id="timeline_container" class="bot-side" style="background-color: #36393f; overflow: hidden;">
+                
+                <div class="container fill">
+
+                    <div class="row" style="height: 100%">
+                        <div class="col-md-12" style="margin: 0; padding: 0" id="canvas_container">
+                            <div class="row">
+                                <div id="peaks-container">
+                                    <audio>
+                                        <source src="" type="audio/wav">
+                                    </audio>
+                                </div>
+                                
+                            </div>
+                            <div class="row" >
+                                <input class="range" type="range" id="range" min='0' max ='1280' step='1' oninput="up_range();">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1 marg-pad-0" id="time_label_0" >0</div>
+                                <div class="col-md-2 marg-pad-0" id="time_label_1" style="text-align: right;">xx</div>
+                                <div class="col-md-3 marg-pad-0" id="time_label_2" style="text-align: right;">xx</div>
+                                <div class="col-md-3 marg-pad-0" id="time_label_3" style="text-align: right;">xx</div>
+                                <div class="col-md-3 marg-pad-0" id="time_label_4" style="text-align: right;">xx</div>
+                            </div>
+                            <div class="row">
+                                <canvas id="time_canvas" width=1290 height=330></canvas>
+                            </div>
+
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
 
         <script src="./js/libraries/jquery-1.9.1.min.js"> </script>
 

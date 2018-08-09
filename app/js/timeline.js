@@ -5,21 +5,18 @@ var zoom_scale = 1;
 
 // Handles the containers placement according to the user window (phone, tablet, PC)
 window.addEventListener('resize', function(){
-	resize(false)
+	resize(false);
 });
-
 
 
 var last_canvas_width = 0;
 var last_canvas_height = 0;
 var last_event = "";
+
 function resize(force_refresh) {
+	console.log("Full resize: "+force_refresh);
 	var check_wave = $("#wave_checkbox").prop('checked');
 	var check_squares = $("#squares_checkbox").prop('checked');
-
-	console.log("resize?");
-
-
 
 	var hasMusicFile = false;
 	var col_width = document.getElementById("canvas_container").offsetWidth;
@@ -40,21 +37,19 @@ function resize(force_refresh) {
 		}
 	}
 	console.log("Has music file: "+hasMusicFile);
-	console.log(col_width);
-	console.log(typeof(col_width));
 	if (hasMusicFile){
 		if(check_wave && check_squares) {
-			resize_peaks((row_height/2)-45, col_width, musicFile);
+			resize_peaks((row_height/2)-10, col_width, musicFile);
 			canvas.height = row_height/2;
 		}
 		else if (check_wave && !check_squares) {
-			resize_peaks((row_height)-60, col_width, musicFile);
+			resize_peaks(row_height, col_width, musicFile);
 			canvas.height = 0;
 		}
-		else canvas.height = (row_height)-45;
+		else canvas.height = (row_height)-20;
 	}
 	else {
-		canvas.height = (row_height)-45;
+		canvas.height = (row_height)-20;
 		$("#wave_checkbox").prop('checked', false);
 	}
 	canvas.width = col_width;
@@ -72,7 +67,7 @@ function destroy_p() {
 
 function resize_peaks(p_height, p_width, musicFile) {
 	console.log("peaks");
-	p_width = p_width *0.902;	
+	
 	destroy_p();
 
 	$("#peaks-container").html('<audio><source src="'+musicFile+'" type="audio/wav"</audio>');
@@ -106,12 +101,16 @@ function resize_peaks(p_height, p_width, musicFile) {
 	    
 	});
 	p.zoom.setZoom(3);
-	console.log(p);
+/*	console.log(p);
 	console.log(p.waveform);
 	for(var key in p.waveform){
 		console.log(key);
+		
 		//console.log(p.waveform[key]);
 	}
+	console.log("WHAT THE FUCK");
+	console.log("WHAT THE FUCK");*/
+	//console.log(Object.prototype.getRemoteWaveformData(p.waveform));
 	//console.log(p.waveform.waveformZoomView.pixelLength);
 }
 
@@ -120,7 +119,6 @@ var x_ratio = 0;
 var y_ratio = 0;
 
 function draw() {
-	console.log("THIS. IS. DRAAAWWW");
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if (event_obj != null) {
 		rekt_list = [];
