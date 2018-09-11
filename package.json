@@ -10,7 +10,7 @@
   "author": "Opren Team",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "1.7.8",
+    "electron": "^2.0.9",
     "electron-packager": "^12.1.0",
     "electron-rebuild": "^1.8.2"
   },
