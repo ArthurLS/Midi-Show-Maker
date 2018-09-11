@@ -24,15 +24,15 @@ function resize(force_refresh) {
 	destroy_p();
 	var is_event_change = (last_event != event_selected);
 	last_event = event_selected;
-	 
 
-	//if ((last_canvas_width != col_width || last_canvas_height != row_height) || force_refresh) {
+    $("#top_side_nav").height($("#top_container").height()+7);
+    $("#bot_side_nav").height(row_height+10);
+
 	var musicFile = "";
 	for (var i = 0; i < event_obj.cue_list.length; i++) {
 		if(event_obj.cue_list[i].type == "musicFile") {
 			hasMusicFile = true;
 			musicFile = event_obj.cue_list[i]["options"].paramText;
-			//console.log(i);
 			break;
 		}
 	}

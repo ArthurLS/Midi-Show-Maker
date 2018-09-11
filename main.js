@@ -17,37 +17,14 @@ let mainWindow
 global.ShowActiveCue = false;
 
 function createWindow () {
-/*
-    pm2.connect(function(err) { //start up pm2 god
-        if (err) {
-            console.error(err);
-            process.exit(2);
-        }
-
-        var bin_path = './node_modules';
-        pm2.start({
-            script    : bin_path,         // path to binary
-            exec_mode : 'fork',
-            cwd: './working_dir/'
-            }, function(err, apps) {
-            pm2.disconnect();   // Disconnect from PM2
-            if (err) throw err
-        });
-    });
-*/
-
-
-
-    console.log("Ready to Show0!");
+    
     // Create the browser window.
     mainWindow = new BrowserWindow({show: false, backgroundColor: "#36393f"})
     //fixPath();
     mainWindow.maximize();
 
     mainWindow.on('ready-to-show', () => {
-        console.log("Ready to Show1!");
         mainWindow.show();
-        console.log("Ready to Show2!");
     })
     // and load the index.html of the app.
     mainWindow.loadURL(url.format({
@@ -57,7 +34,7 @@ function createWindow () {
     }))
 
     // Open the DevTools. - Tidying up a bit...
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
 
 
     // Emitted when the window is closed.
