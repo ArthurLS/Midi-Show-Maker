@@ -19,9 +19,9 @@
     <div id="app_container" class="row" style="overflow: hidden; background-color: #2f3136">
         <div class="col-md-1" style="overflow: hidden; padding: 0">
             <div id="top_side_nav" class="row">
-                <button type="button" class="btn btn-success" id="add_new_cue_btn" onclick="open_popup('new_cue', 'xx')">Add New Cue</button><br>
-                <button type="button" class="btn btn-success" id="add_named_cue_btn" onclick="open_popup('named_cue', 'xx')">Named Cue</button><br>
-                <button type="button" class="btn btn-success" id="add_block_btn" onclick="open_popup('new_block', 'xx')">Add Block</button>
+                <button type="button" class="btn btn-success" style="width: 111px;" id="add_new_cue_btn" onclick="open_popup('new_cue', 'xx')">Add New Cue</button><br>
+                <button type="button" class="btn btn-success" style="width: 111px;" id="add_named_cue_btn" onclick="open_popup('named_cue', 'xx')">Named Cue</button><br>
+                <button type="button" class="btn btn-success" style="width: 111px;" id="add_block_btn" onclick="open_popup('new_block', 'xx')">Add Block</button>
             </div>
             <div id="bot_side_nav" class="row">
                 <!-- <img src="css/img/zoom-in-white.png" style="width: 30%"> -->
@@ -30,7 +30,7 @@
 
                 <br>
                 <br>
-                <select id="info_select" onclick="draw()" style="color: black">
+                <select id="info_select" onclick="draw()" style="color: black; margin-left: 5%; width: 90%; border-radius: 4px;">
                     <option value="id">Id</option>
                     <option value="pitch">Pitch</option>
                     <option value="name">Name</option>
@@ -48,8 +48,8 @@
                     onclick="$('#squares_checkbox').click(); $(this).toggleClass('on-btn');$(this).toggleClass('off-btn');">Timeline</div>
                 <input type="checkbox" id="squares_checkbox" onclick="resize(true)"checked>
 
-                <div style="margin-left: 3px"> Resize top/bot: </div> 
-                <input type="number" style="width: 100%;" id="split" onchange="split_change(this.value)" oninput="split_change(this.value)">
+                <!--<div style="margin-left: 3px"> Resize top/bot: </div> 
+                <input type="number" style="width: 100%;" id="split" onchange="split_change(this.value)" oninput="split_change(this.value)">-->
             </div>
         </div>
 
