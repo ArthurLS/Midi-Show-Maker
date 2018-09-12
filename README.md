@@ -22,8 +22,11 @@ npm install
 npm start
 ```
 # Linux
-You may encounter more issues with Linux because you will need to configure the Advanced Linux Sound Architecture (ALSA) for MIDI.
-With this, you will be able to have a MIDI output and input.
+You may encounter more issues with Linux because you will need to configure MIDI input/output (ALSA). And other tools like *apt-get install libasound2-dev*.
+
+Each distrib may have it's issues.
+
+Good luck!
 
 # Structure:
 
