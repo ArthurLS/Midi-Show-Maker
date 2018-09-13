@@ -21,28 +21,27 @@ npm install
 # Run the app
 npm start
 ```
-# Linux
-You may encounter more issues with Linux because you will need to configure MIDI input/output (ALSA). And other tools like *apt-get install libasound2-dev*.
 
-Each distrib may have it's issues.
+# Prerequisites
+These prerequisites are due to our MIDI library **https://github.com/justinlatimer/node-midi/**
 
-Good luck!
+### OSX
 
-# Structure:
+* Some version of Xcode (or Command Line Tools)
+* Python (for node-gyp)
 
-## Project:
-- Shell of your show, it holds all the information needed on your config + show
-- Project data (.json):
-```
-{
-  "name":"The best project ",
-  "list_events":{
-    "eventTEST":[]
-  },
-  "configuration": {
-    "input": "Midi Through 14:0",
-    "output": "RtMidi Input Client 130:0", 
-    "keybindings": {}
-  }
-}
-```
+### Windows
+
+* Microsoft Visual C++ (the Express edition works fine)
+* Python (for node-gyp)
+
+### Linux
+
+* A C++ compiler
+* You must have installed and configured ALSA. Without it this module will **NOT** build.
+* Install the libasound2-dev package.
+* Python (for node-gyp)
+
+# What it looks like for now!
+
+![alt text](https://i.imgur.com/XkR5B8J.png)

@@ -5,16 +5,14 @@ var zoom_scale = 1;
 
 // Handles the containers placement according to the user window (phone, tablet, PC)
 window.addEventListener('resize', function(){
-	resize(false);
+	resize();
 });
-
 
 var last_canvas_width = 0;
 var last_canvas_height = 0;
 var last_event = "";
 
-function resize(force_refresh) {
-	console.log("Full resize: "+force_refresh);
+function resize() {
 	var check_wave = $("#wave_checkbox").prop('checked');
 	var check_squares = $("#squares_checkbox").prop('checked');
 
@@ -83,7 +81,7 @@ function resize_peaks(p_height, p_width, musicFile) {
 
 	    // Array of zoom levels in samples per pixel (big >> small)
 	    //zoomLevels: zoom,
-	    zoomLevels: [Math.round(p_width/8), Math.round(p_width/4), Math.round(p_width/2), Math.round(p_width)],
+	    zoomLevels: [Math.round(p_width/8), Math.round(p_width/4), Math.round(p_width/2)],
 
 	    // Bind keyboard controls
 	    keyboard: true,

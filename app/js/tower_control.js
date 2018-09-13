@@ -7,6 +7,9 @@ var Peaks = require('peaks.js');
 const WaveformData = require('waveform-data');
 var myAudioContext = new AudioContext();
 
+var os = require("os");
+console.log(os.platform());
+
 var data_file = './temp.json';
 var project = {};
 if (fs.existsSync(data_file)) {
@@ -40,11 +43,15 @@ var p = null;
 ** Sets up the page layout
 */
 function onload_init(){
+    
     $("#range").val(0);
     init_midi_io();
     // split change calls refresh UI;
     split_change(50);
     $("#split").val(50);
+
+    if (os.platform() == "linux") refresh_UI();
+
 }
 
 /*
@@ -69,11 +76,12 @@ function refresh_UI() {
         display_event_list();
         // resize calls draw()
         console.log("Refresh UI");
-        resize(true);
+        resize();
         
     }, 50);
     toogle_enabled_buttons();
 }
+
 
 ipc.on('message', (event, message) => {
     if(message == 'refresh'){
@@ -285,12 +293,14 @@ function display_event_list() {
         $("#event_name_title").html(event_selected);
         for (event_name in project.list_events) {
             if (event_selected == event_name) {
-                liste += "<div class=\"btn btn-sq-lg event-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+event_name
-                +" <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup_little('edit_event', '"+event_name+"')\">Edit</button>"+
+                liste += "<div class=\"btn btn-sq-lg event-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+
+                event_name+
+                " <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup_little('edit_event', '"+event_name+"')\">Edit</button>"+
                 " </div>";
             }
             else{
-                liste += "<div class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+event_name +
+                liste += "<div class=\"btn btn-sq-lg event-not-selected\" onclick=\"switch_event(\'"+event_name+"\')\">"+
+                event_name+
                 " <br><button type=\"button\" class=\"btn btn-info no_event_disable\" onclick=\"open_popup_little('edit_event', '"+event_name+"')\">Edit</button>"+
                 "</div>";
             }
