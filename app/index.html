@@ -7,9 +7,10 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Midionysos</title>
+    <title>Midi Show Maker</title>
 
     <!-- Bootstrap core CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
     <link href="../node_modules/octicons/build/build.css" rel="stylesheet">
@@ -17,7 +18,7 @@
 <body onload="onload_init();">
 
     <div id="app_container" class="row" style="overflow: hidden; background-color: #2f3136">
-        <div class="col-md-1" style="overflow: hidden; padding: 0">
+        <div id="nav" style="overflow: hidden; padding: 0">
             <div id="top_side_nav" class="row">
                 <button type="button" class="btn btn-success" style="width: 111px;" id="add_new_cue_btn" onclick="open_popup('new_cue', 'xx')">Add New Cue</button><br>
                 <button type="button" class="btn btn-success" style="width: 111px;" id="add_named_cue_btn" onclick="open_popup('named_cue', 'xx')">Named Cue</button><br>
@@ -53,7 +54,7 @@
             </div>
         </div>
 
-        <div class="col-md-11" style="overflow: hidden; padding-left: 10px; padding-right: 10px;" >
+        <div id="main_container" style="overflow: hidden; padding-left: 10px; padding-right: 10px;" >
 
             <div id="top_container" style="overflow: hidden; background-color: #36393f;" class="top-side" >
 

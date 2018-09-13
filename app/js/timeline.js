@@ -19,6 +19,9 @@ function resize(force_refresh) {
 	var check_squares = $("#squares_checkbox").prop('checked');
 
 	var hasMusicFile = false;
+	var app_width = $("#app_container").width();
+	$("#main_container").width(app_width - $("#nav").width() - 30);
+
 	var col_width = document.getElementById("canvas_container").offsetWidth;
 	var row_height = document.getElementById("timeline_container").offsetHeight;
 	destroy_p();

@@ -2,5 +2,3 @@ node_modules
 ./package.json
 ./package-lock.*
 ./.idea/
-Opren Electron-win32-x64
-Midionysos-win32-x64

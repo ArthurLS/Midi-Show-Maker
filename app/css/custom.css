@@ -5,6 +5,7 @@ body, html, .row{
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
 }
 .flex-container {
   display: flex;
@@ -27,7 +28,15 @@ body, html, .row{
     -ms-user-select: none;
     user-select: none;
 }
-
+#nav{
+  width: 10vw;
+  min-width: 127px;
+  max-width: 150px;
+  display: inline-block;
+}
+#main_container{
+  display: inline-block;
+}
 .on-off-btn{
   margin-left: 5%;
   width: 90%;
@@ -188,6 +197,7 @@ li, tr {
   background-color: #404040;
   border-color: #404040;
   color: white;
+  margin: 0;
 }
 
 .btn{
@@ -196,13 +206,18 @@ li, tr {
   /* margin-bottom: 5px; */
 }
 .btn-sq-lg {
-  width: 150px !important;
-  height: 150px !important;
-  font-size: 150%;
-  padding-top: 40px;
+  width: 120px !important;
+  height: 120px !important;
+  font-size: 120%;
+  padding: 0;
+  padding-top: 5px;
+  align-content: center;
 }
 #event_name_title{
   margin-left: 8px;
+}
+.no_event_disable{
+  margin: 5px 0 0 0;
 }
 
 
@@ -231,13 +246,6 @@ html {
   font-size: 12px; 
   padding: 2px;
 }
-
-
-
-
-
-
-
 
 /* Account Panel */
 .account .btn-mute, .account .btn-deafen, .account .btn-settings {
